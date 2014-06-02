@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" np-app>
+<!doctype html>
+<html ng-app="sbi">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +12,8 @@
                        '@MainAdminBundle/Resources/public/js/bootstrap.min.js'
                        '@MainAdminBundle/Resources/public/js/angular.js'
                        '@MainAdminBundle/Resources/public/js/angular-route.js'
-        output="libs.js"
+                       '@MainAdminBundle/Resources/public/js/main.js'
+        output="lib"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -21,6 +22,7 @@
         {% stylesheets '@MainAdminBundle/Resources/public/css/bootstrap.min.css'
                        '@MainAdminBundle/Resources/public/css/bootstrap-theme.min.css'
                        '@MainAdminBundle/Resources/public/css/dashboard.css'
+        output="lib"
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
