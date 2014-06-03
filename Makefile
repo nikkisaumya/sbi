@@ -12,5 +12,5 @@ cache:
 update:
 	php composer.phar update
 install:
-        bower install
-        composer install
+	bower install
+	composer install
