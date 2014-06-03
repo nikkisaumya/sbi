@@ -8,10 +8,10 @@
     <meta name="author" content="">
     <title>SBI</title>
     {% block javascripts %}
-        {% javascripts '@MainAdminBundle/Resources/public/js/jquery-2.1.1.min.js'
-                       '@MainAdminBundle/Resources/public/js/bootstrap.min.js'
-                       '@MainAdminBundle/Resources/public/js/angular.js'
-                       '@MainAdminBundle/Resources/public/js/angular-route.js'
+        {% javascripts '@MainAdminBundle/Resources/public/vendor/jquery/jquery.min.js'
+                       '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/js/bootstrap.min.js'
+                       '@MainAdminBundle/Resources/public/vendor/angular/angular.min.js'
+                       '@MainAdminBundle/Resources/public/vendor/angular-route/angular-route.min.js'
                        '@MainAdminBundle/Resources/public/js/main.js'
         output="lib"
         %}
@@ -19,8 +19,8 @@
         {% endjavascripts %}
     {% endblock %}
     {% block stylesheets %}
-        {% stylesheets '@MainAdminBundle/Resources/public/css/bootstrap.min.css'
-                       '@MainAdminBundle/Resources/public/css/bootstrap-theme.min.css'
+        {% stylesheets '@MainAdminBundle/Resources/public/vendor/css/bootstrap.min.css'
+                       '@MainAdminBundle/Resources/public/vendor/css/bootstrap-theme.min.css'
                        '@MainAdminBundle/Resources/public/css/dashboard.css'
         output="lib"
         %}

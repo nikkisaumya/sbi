@@ -11,5 +11,6 @@ cache:
 	rm -rf app/logs/*
 update:
 	php composer.phar update
-
-
+install:
+        bower install
+        composer install

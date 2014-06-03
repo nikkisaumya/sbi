@@ -1,0 +1,11 @@
+{
+  "name": "SBI",
+  "version": "0.0.1",
+  "dependencies": {
+    "font-awesome": "~3.1.1",
+    "bootstrap" : "~3.1",
+    "jquery": "~2.0.3",
+    "angular":"~1.2.16",
+    "angular-route":"~1.2.16"
+  }
+}
