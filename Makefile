@@ -23,3 +23,5 @@ db:
 	php app/console doctrine:database:drop --force
 	php app/console doctrine:database:create
 	php app/console doctrine:schema:update --force
+	php app/console fos:user:create admin s.superczynski@gmail.com admin
+	php app/console fos:user:promote admin ROLE_ADMIN

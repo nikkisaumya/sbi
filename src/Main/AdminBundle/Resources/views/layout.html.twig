@@ -19,8 +19,8 @@
         {% endjavascripts %}
     {% endblock %}
     {% block stylesheets %}
-        {% stylesheets '@MainAdminBundle/Resources/public/vendor/css/bootstrap.min.css'
-                       '@MainAdminBundle/Resources/public/vendor/css/bootstrap-theme.min.css'
+        {% stylesheets '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap.min.css'
+                       '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
                        '@MainAdminBundle/Resources/public/css/dashboard.css'
         output="lib"
         %}
@@ -29,6 +29,7 @@
     {% endblock %}
 </head>
 <body>
+{% if app.user.username is defined  %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -45,10 +46,13 @@
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Profile</a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
+
             </ul>
         </div>
     </div>
 </div>
+{% endif %}
 <div class="container-fluid">
 {% block body %}
 {% endblock %}
