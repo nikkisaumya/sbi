@@ -10,7 +10,7 @@
 {% block body %}
     {% trans_default_domain 'FOSUserBundle' %}
         {% if error %}
-            <div>{{ error|trans }}</div>
+            <div class="alert alert-danger">{{ error|trans }}</div>
         {% endif %}
     <form class="form-signin" role="form" action="{{ path("fos_user_security_check") }}" method="post">
         <h2 class="form-signin-heading">Log in</h2>
