@@ -1,0 +1,16 @@
+\all: assets cache
+
+assets:
+	php app/console assetic:dump
+	php app/console assets:install
+	sudo chmod -R 777 app/cache/*
+        sudo chmod -R 777 app/logs/*
+	php app/console cache:clear
+
+cache:
+	rm -rf app/cache/*
+	rm -rf app/logs/*
+update:
+	php composer.phar update
+
+

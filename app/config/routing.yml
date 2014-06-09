@@ -30,3 +30,6 @@ fos_user_change_password:
 dashboard:
     path:      /
     defaults:  { _controller: MainAdminBundle:Default:show }
+
+users:
+    resource: "@MainUserBundle/Resources/config/routing/users.yml"

@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ MainAdminBundle, FOSUserBundle ]
+    bundles:        [ MainAdminBundle, MainUserBundle, FOSUserBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -74,3 +74,6 @@ fos_user:
 
 bazinga_faker:
     orm: doctrine
+    entities:
+            Main\UserBundle\Entity\Users:
+                number: 5

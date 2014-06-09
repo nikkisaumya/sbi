@@ -13,6 +13,7 @@
                        '@MainAdminBundle/Resources/public/vendor/angular/angular.min.js'
                        '@MainAdminBundle/Resources/public/vendor/angular-route/angular-route.min.js'
                        '@MainAdminBundle/Resources/public/js/main.js'
+                       '@MainAdminBundle/Resources/public/js/pace.min.js'
         output="lib"
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -22,6 +23,7 @@
         {% stylesheets '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap.min.css'
                        '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
                        '@MainAdminBundle/Resources/public/css/dashboard.css'
+                       '@MainAdminBundle/Resources/public/css/dataurl.css'
         output="lib"
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -54,8 +56,19 @@
 </div>
 {% endif %}
 <div class="container-fluid">
-{% block body %}
-{% endblock %}
+    <div class="row">
+        {% if app.user.username is defined  %}
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="{{ path('get_users') }}">Overview</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Export</a></li>
+            </ul>
+        </div>
+        {% endif %}
+        {% block body %}{% endblock %}
+    </div>
 </div>
 
 </body>

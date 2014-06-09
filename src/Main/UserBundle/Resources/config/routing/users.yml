@@ -1,0 +1,24 @@
+get_users:
+    path:      /users
+    defaults:  { _controller: MainUserBundle:Users:getUsers }
+    methods:  [GET]
+
+get_user:
+    path:      /users/{id}
+    defaults:  { _controller: MainUserBundle:Users:getUser }
+    methods:  [GET]
+
+edit_user:
+    path:      /users/{id}/edit
+    defaults:  { _controller: MainUserBundle:Users:editUser }
+    methods:  [GET]
+
+put_user:
+    path:      /users/{id}/
+    defaults:  { _controller: MainUserBundle:Users:putUser }
+    methods:  [PUT]
+
+remove_user:
+    path:      /users/{id}/remove
+    defaults:  { _controller: MainUserBundle:Users:removeUser }
+    methods:  [GET]

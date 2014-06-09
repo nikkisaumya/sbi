@@ -17,7 +17,7 @@ update:
 
 install:
 	bower install
-	composer install
+	php compose.phar install
 
 db:
 	php app/console doctrine:database:drop --force
