@@ -1,4 +1,4 @@
-angular.module('sbi', []).config(function($interpolateProvider){
+angular.module('sbi', ['ngTable']).config(function($interpolateProvider){
         $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
     }
 );

@@ -7,13 +7,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Main\UserBundle\Entity\Users;
-
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 class UsersController extends Controller
 {
 
     public  function getUsersAction(){
+        return $this->render('MainUserBundle:Users:list.html.twig', array());
+    }
+
+    public  function getUsersListAction(){
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findAll();
@@ -21,17 +26,26 @@ class UsersController extends Controller
         foreach($usersRepository as $user){
             $return[] = array(
                 'id' => $user->getId(),
-                'username' => $user->getUsername(),
+                'name' => $user->getUsername(),
                 'email' => $user->getEmail(),
-                'last_login' => $user->getLastLogin()->format('Y-m-d h:i:s'),
+                'last_login' => $user->getLastLogin()->format('Y-m-d H:i'),
             );
         }
-        return $this->render('MainUserBundle:Users:list.html.twig', array(
-            'list' => $return,
-        ));
+        return new JsonResponse($return);
     }
 
     public function getUserAction($id){
+        $usersRepository = $this->getDoctrine()->getManager()
+            ->getRepository("MainUserBundle:Users")
+            ->findOneById($id);
+        return new JsonResponse(
+            array(
+                'id' => $usersRepository->getId(),
+                'name' => $usersRepository->getUsername(),
+                'email' => $usersRepository->getEmail(),
+                'last_login' => $usersRepository->getLastLogin()->format('Y-m-d H:i'),
+            )
+        );
 
     }
 

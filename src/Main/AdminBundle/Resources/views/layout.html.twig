@@ -31,6 +31,7 @@
     {% endblock %}
 </head>
 <body>
+<div data-url="{{ app.request.getBaseURL() }}"></div>
 {% if app.user.username is defined  %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -45,7 +46,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Dashboard</a></li>
+                <li><a href="{{ path('get_users') }}">Overview</a></li>
                 <li><a href="#">Settings</a></li>
                 <li><a href="#">Profile</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
@@ -57,16 +58,6 @@
 {% endif %}
 <div class="container-fluid">
     <div class="row">
-        {% if app.user.username is defined  %}
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li class="active"><a href="{{ path('get_users') }}">Overview</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Export</a></li>
-            </ul>
-        </div>
-        {% endif %}
         {% block body %}{% endblock %}
     </div>
 </div>

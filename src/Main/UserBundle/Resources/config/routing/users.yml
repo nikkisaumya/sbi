@@ -3,6 +3,11 @@ get_users:
     defaults:  { _controller: MainUserBundle:Users:getUsers }
     methods:  [GET]
 
+get_users_list:
+    path:      /users/list
+    defaults:  { _controller: MainUserBundle:Users:getUsersList }
+    methods:  [GET]
+
 get_user:
     path:      /users/{id}
     defaults:  { _controller: MainUserBundle:Users:getUser }

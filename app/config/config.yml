@@ -76,4 +76,11 @@ bazinga_faker:
     orm: doctrine
     entities:
             Main\UserBundle\Entity\Users:
-                number: 5
+                number: 35
+
+#services:
+#  access_listener:
+#    class: Main\UserBundle\Listener\AccessListener
+#    arguments: [ @security.context, @router ]
+#    tags:
+#      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

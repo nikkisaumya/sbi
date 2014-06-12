@@ -25,3 +25,4 @@ db:
 	php app/console doctrine:schema:update --force
 	php app/console fos:user:create admin s.superczynski@gmail.com admin
 	php app/console fos:user:promote admin ROLE_ADMIN
+	php app/console faker:populate

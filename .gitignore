@@ -19,3 +19,4 @@ composer.phar
 .idea/*
 *~
 composer.phar
+src/Main/AdminBundle/Resources/public/vendor/**/*
