@@ -1,29 +1,19 @@
 get_users:
-    path:      /users
-    defaults:  { _controller: MainUserBundle:Users:getUsers }
-    methods:  [GET]
-
-get_users_list:
-    path:      /users/list
-    defaults:  { _controller: MainUserBundle:Users:getUsersList }
+    path:      /userProfile
+    defaults:  { _controller: MainUserBundle:Users:getUserProfile }
     methods:  [GET]
 
 get_user:
-    path:      /users/{id}
-    defaults:  { _controller: MainUserBundle:Users:getUser }
+    path:      /userProfile/{id}
+    defaults:  { _controller: MainUserBundle:Users:getUserProfile }
     methods:  [GET]
 
 edit_user:
-    path:      /users/{id}/edit
-    defaults:  { _controller: MainUserBundle:Users:editUser }
+    path:      /userProfile/{id}/edit
+    defaults:  { _controller: MainUserBundle:Users:editUserProfile }
     methods:  [GET]
 
 put_user:
-    path:      /users/{id}/
-    defaults:  { _controller: MainUserBundle:Users:putUser }
+    path:      /userProfile/{id}/
+    defaults:  { _controller: MainUserBundle:Users:putUserProfile }
     methods:  [PUT]
-
-remove_user:
-    path:      /users/{id}/remove
-    defaults:  { _controller: MainUserBundle:Users:removeUser }
-    methods:  [GET]

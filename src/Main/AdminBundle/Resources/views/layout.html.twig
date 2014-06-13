@@ -7,27 +7,27 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>SBI</title>
-    {% block javascripts %}
-        {% javascripts '@MainAdminBundle/Resources/public/vendor/jquery/jquery.min.js'
-                       '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/js/bootstrap.min.js'
-                       '@MainAdminBundle/Resources/public/vendor/angular/angular.min.js'
-                       '@MainAdminBundle/Resources/public/vendor/angular-route/angular-route.min.js'
-                       '@MainAdminBundle/Resources/public/js/main.js'
-                       '@MainAdminBundle/Resources/public/js/pace.min.js'
-        output="lib"
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% endblock %}
     {% block stylesheets %}
-        {% stylesheets '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap.min.css'
-                       '@MainAdminBundle/Resources/public/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
-                       '@MainAdminBundle/Resources/public/css/dashboard.css'
-                       '@MainAdminBundle/Resources/public/css/dataurl.css'
-        output="lib"
+        {% stylesheets  'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
+                        'assets/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
+                        '@MainAdminBundle/Resources/public/css/dashboard.css'
+                        '@MainAdminBundle/Resources/public/css/dataurl.css'
+        filter='yui_css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+    {% endblock %}
+    {% block javascripts %}
+        {% javascripts 'assets/vendor/jquery/jquery.min.js'
+                       'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
+                       'assets/vendor/angular/angular.min.js'
+                       'assets/vendor/angular-route/angular-route.min.js'
+                       '@MainAdminBundle/Resources/public/js/main.js'
+                       '@MainAdminBundle/Resources/public/js/pace.min.js'
+        filter='yui_js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
     {% endblock %}
 </head>
 <body>
@@ -46,8 +46,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('get_users') }}">Overview</a></li>
-                <li><a href="#">Settings</a></li>
+                <li><a href="{{ path('get_users') }}">Users</a></li>
+                {#<li><a href="#">Settings</a></li>#}
                 <li><a href="#">Profile</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
 
@@ -57,9 +57,7 @@
 </div>
 {% endif %}
 <div class="container-fluid">
-    <div class="row">
-        {% block body %}{% endblock %}
-    </div>
+    {% block body %}{% endblock %}
 </div>
 
 </body>

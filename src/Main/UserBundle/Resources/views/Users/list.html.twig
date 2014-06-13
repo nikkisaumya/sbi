@@ -1,34 +1,42 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
-    {% block javascripts %}
-        {{ parent() }}
-        {% javascripts '@MainAdminBundle/Resources/public/vendor/ng-table/ng-table.min.js'
-        '@MainUserBundle/Resources/views/Users/public/list.js'
-        output="lib"
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    {% endblock %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@MainAdminBundle/Resources/public/vendor/ng-table/ng-table.min.css'
-    output="lib"
     %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}" filter='yui_css' />
     {% endstylesheets %}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts '@MainAdminBundle/Resources/public/vendor/ng-table/ng-table.min.js'
+    '@MainUserBundle/Resources/views/Users/public/list.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 {% block body %}
-    <div ng-controller="ListCtrl">
-        <p><strong>Page:</strong>{{ '{{tableParams.page()}}' }}</p>
-        <p><strong>Count per page:</strong>{{ ' {{tableParams.count()}} '}}</p>
-        <p><strong>Count per page:</strong>{{ ' {{tableParams.total()}} '}}</p>
-
-        <table ng-table="tableParams" class="table table-condensed">
-            <tr ng-repeat="user in $data">
-                <td data-title="'Id'" sortable="'id'">{{ '{{user.id}} '}}</td>
-                <td data-title="'Name'" sortable="'name'">{{ '{{user.name}} '}}</td>
-                <td data-title="'Email'" sortable="'email'">{{ '{{user.email}} '}}</td>
-                <td data-title="'Last Login'" sortable="'last_login'">{{ '{{user.last_login}} '}}</td>
-            </tr>
-        </table>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+            <h1>Users</h1>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+            <div ng-controller="ListCtrl">
+                <table ng-table="tableParams" class="table table-condensed">
+                    <tr ng-repeat="user in $data">
+                        <td data-title="'Id'" sortable="'id'">{{ '{{user.id}} '}}</td>
+                        <td data-title="'Name'" sortable="'name'">{{ '{{user.name}} '}}</td>
+                        <td data-title="'Email'" sortable="'email'">{{ '{{user.email}} '}}</td>
+                        <td data-title="'Last Login'" sortable="'last_login'">{{ '{{user.last_login}} '}}</td>
+                        <td data-title="'Actions'">
+                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span>Show</div>
+                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-user"></span>Profile</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
