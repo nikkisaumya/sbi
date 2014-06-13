@@ -33,3 +33,6 @@ dashboard:
 
 users:
     resource: "@MainAdminBundle/Resources/config/routing/users.yml"
+
+userProfile:
+    resource: "@MainAdminBundle/Resources/config/routing/userProfile.yml"

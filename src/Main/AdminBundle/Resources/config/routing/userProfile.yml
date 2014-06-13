@@ -1,0 +1,19 @@
+get_userProfile:
+    path:      /userProfile
+    defaults:  { _controller: MainAdminBundle:UserProfile:index }
+    methods:  [GET]
+
+get_userProfile_id:
+    path:      /userProfile/{id}
+    defaults:  { _controller: MainAdminBundle:UserProfile:getUserProfile }
+    methods:  [GET]
+
+edit_userProfile:
+    path:      /userProfile/{id}/edit
+    defaults:  { _controller: MainAdminBundle:UserProfile:editUserProfile }
+    methods:  [GET]
+
+put_userProfile:
+    path:      /userProfile/{id}/
+    defaults:  { _controller: MainAdminBundle:UserProfile:putUserProfile }
+    methods:  [PUT]

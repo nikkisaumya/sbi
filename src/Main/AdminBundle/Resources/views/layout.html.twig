@@ -48,7 +48,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('get_users') }}">Users</a></li>
                 {#<li><a href="#">Settings</a></li>#}
-                <li><a href="#">Profile</a></li>
+                <li><a href="{{ path('get_userProfile') }}">Profile</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
 
             </ul>
