@@ -32,4 +32,4 @@ dashboard:
     defaults:  { _controller: MainAdminBundle:Default:show }
 
 users:
-    resource: "@MainUserBundle/Resources/config/routing/users.yml"
+    resource: "@MainAdminBundle/Resources/config/routing/users.yml"
