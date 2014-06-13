@@ -19,13 +19,13 @@ class AppKernel extends Kernel
 	        new FOS\UserBundle\FOSUserBundle(),
             new Main\AdminBundle\MainAdminBundle(),
             new Main\UserBundle\MainUserBundle(),
+            new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
         }
 
         return $bundles;
