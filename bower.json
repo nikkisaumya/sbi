@@ -9,6 +9,7 @@
     "angular-route":"~1.2.16",
     "angular-ui-bootstrap":"0.11.0",
     "ng-table":"0.3.3",
-    "angular-xeditable":"0.1.8"
+    "angular-xeditable":"0.1.8",
+    "remarkable-bootstrap-growl":"latest"
   }
 }

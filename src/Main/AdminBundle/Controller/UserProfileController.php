@@ -2,20 +2,15 @@
 
 namespace Main\AdminBundle\Controller;
 
-use Doctrine\ORM\NoResultException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Security\Core\SecurityContext;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Component\HttpFoundation\JsonResponse,
+    Symfony\Component\Security\Core\SecurityContext;
 
 class UserProfileController extends Controller
 {
     public function indexAction($id){
         return $this->render('MainAdminBundle:UserProfile:index.html.twig', array());
     }
-
 
     public function getAction($id){
         $usersRepository = $this->getDoctrine()->getManager()

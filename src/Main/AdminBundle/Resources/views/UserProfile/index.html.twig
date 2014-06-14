@@ -69,8 +69,8 @@
                                     <b>Expired:</b>
                                 </td>
                                 <td>
-                                    <span editable-select="user.expired" e-name="expired" e-ng-options="s.value as s.text for s in bool">
-                                        {{ '{{ (bool | filter:{value: user.expired})[0].text  }}' }}
+                                    <span editable-checkbox="user.expired" e-name="expired">
+                                        {{ '{{ user.expired && "TRUE" || "FALSE" }}' }}
                                     </span>
                                 </td>
                             </tr>
@@ -79,8 +79,8 @@
                                     <b>Locked:</b>
                                 </td>
                                 <td>
-                                    <span editable-select="user.locked" e-name="locked" e-ng-options="s.value as s.text for s in bool">
-                                        {{ '{{ (bool | filter:{value: user.locked})[0].text  }}' }}
+                                    <span editable-checkbox="user.locked" e-name="locked">
+                                        {{ '{{ user.locked && "TRUE" || "FALSE" }}' }}
                                     </span>
                                 </td>
                             </tr>

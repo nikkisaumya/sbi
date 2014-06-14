@@ -19,11 +19,12 @@
     {% endblock %}
     {% block javascripts %}
         {% javascripts 'assets/vendor/jquery/jquery.min.js'
+                       '@MainAdminBundle/Resources/public/js/pace.min.js'
                        'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
                        'assets/vendor/angular/angular.min.js'
                        'assets/vendor/angular-route/angular-route.min.js'
                        '@MainAdminBundle/Resources/public/js/main.js'
-                       '@MainAdminBundle/Resources/public/js/pace.min.js'
+                       'assets/vendor/remarkable-bootstrap-growl/bootstrap-growl.js'
         filter='yui_js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>

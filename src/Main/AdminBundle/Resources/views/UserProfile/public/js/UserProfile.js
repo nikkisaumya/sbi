@@ -19,10 +19,6 @@ app.controller('UserProfileCtrl', function($scope, $filter, $http) {
         error(function(callback, status) {
             console.log(status + ' Can not get user profile information');
         });
-    $scope.bool = [
-        {value: 'TRUE', text: 'TRUE'},
-        {value: 'FALSE', text: 'FALSE'}
-    ];
     $scope.saveUser = function() {
         $http({
             method: 'POST',
@@ -30,7 +26,7 @@ app.controller('UserProfileCtrl', function($scope, $filter, $http) {
             data: $.param({userProfile: JSON.stringify($scope.user)}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(callback){
-            console.log(callback);
+            $.growl('Profile updated successfully', { type: 'success', delay: 2000 });
         }).error(function(err) {
             if(err.field && err.msg) {
                 // err like {field: "name", msg: "Server-side error for this username!"}
@@ -39,6 +35,7 @@ app.controller('UserProfileCtrl', function($scope, $filter, $http) {
                 // unknown error
                 $scope.editableForm.$setError('name', 'Unknown error!');
             }
+            $.growl('Database error', { type: 'danger' });
         });
     };
 });
