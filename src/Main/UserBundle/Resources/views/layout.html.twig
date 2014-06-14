@@ -1,11 +1,7 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
     {% block stylesheets %}
         {{ parent() }}
-        {% stylesheets '@MainUserBundle/Resources/public/css/signin.css'
-        output="lib"
-        %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/signin.css') }}" />
     {% endblock %}
 {% block body %}
     {% trans_default_domain 'FOSUserBundle' %}

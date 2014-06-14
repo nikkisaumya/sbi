@@ -20,9 +20,11 @@ class AccessListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (!$this->security->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $url = $this->router->generate('dashboard');
-            $event->setResponse(new RedirectResponse($url));
+        if ($event->isMasterRequest()) {
+            if( $this->security->isGranted('IS_AUTHENTICATED_REMEMBERED') ){
+                $url = $this->router->generate('fos_user_security_login');
+                $event->setResponse(new RedirectResponse($url));
+            }
         }
     }
 }
