@@ -11,25 +11,34 @@ app.controller('UserProfileCtrl', function($scope, $filter, $http) {
                 id: callback.id,
                 name: callback.name,
                 email: callback.email,
-                last_login: callback.last_login
+                last_login: callback.last_login,
+                expired: callback.expired,
+                locked: callback.locked
             };
         }).
         error(function(callback, status) {
             console.log(status + ' Can not get user profile information');
         });
+    $scope.bool = [
+        {value: 'TRUE', text: 'TRUE'},
+        {value: 'FALSE', text: 'FALSE'}
+    ];
     $scope.saveUser = function() {
-        $http.post(url + '/userProfile/' + id + '/edit', $scope.user).
-            success(function(callback){
-                console.log(callback);
-            }).
-            error(function(err) {
-                if(err.field && err.msg) {
-                    // err like {field: "name", msg: "Server-side error for this username!"}
-                    $scope.editableForm.$setError(err.field, err.msg);
-                } else {
-                    // unknown error
-                    $scope.editableForm.$setError('name', 'Unknown error!');
-                }
-            });
+        $http({
+            method: 'POST',
+            url: url + '/userProfile/' + id + '/edit',
+            data: $.param({userProfile: JSON.stringify($scope.user)}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(callback){
+            console.log(callback);
+        }).error(function(err) {
+            if(err.field && err.msg) {
+                // err like {field: "name", msg: "Server-side error for this username!"}
+                $scope.editableForm.$setError(err.field, err.msg);
+            } else {
+                // unknown error
+                $scope.editableForm.$setError('name', 'Unknown error!');
+            }
+        });
     };
 });

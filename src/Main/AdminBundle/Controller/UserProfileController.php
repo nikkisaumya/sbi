@@ -2,6 +2,7 @@
 
 namespace Main\AdminBundle\Controller;
 
+use Doctrine\ORM\NoResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -16,7 +17,7 @@ class UserProfileController extends Controller
     }
 
 
-    public function getUserProfileAction($id){
+    public function getAction($id){
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findOneById($id);
@@ -26,12 +27,28 @@ class UserProfileController extends Controller
                 'name' => $usersRepository->getUsername(),
                 'email' => $usersRepository->getEmail(),
                 'last_login' => $usersRepository->getLastLogin()->format('Y-m-d H:i'),
+                'expired' => $usersRepository->isExpired(),
+                'locked' => $usersRepository->isLocked(),
             )
         );
     }
 
-    public function editUserProfileAction($id){
-        return new JsonResponse('ok');
+    public function editAction($id){
+        $json = $this->get('request')->request->get('userProfile');
+        $userProfile = json_decode($json);
+        try{
+            $em = $this->getDoctrine()->getManager();
+            $users = $em->getRepository("MainUserBundle:Users")->findOneById($id);
+            $users->setEmail($userProfile->email);
+            $users->setExpired($userProfile->expired);
+            $users->setLocked($userProfile->locked);
+            $em->persist($users);
+            $em->flush();
+            return new JsonResponse('updated', 200);
+        }catch (\Exception $e){
+            throw $e;
+        }
+
     }
 
 }

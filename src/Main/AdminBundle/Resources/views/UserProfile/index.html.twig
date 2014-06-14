@@ -11,7 +11,7 @@
     {% javascripts 'assets/vendor/angular-xeditable/dist/js/xeditable.js'
                    '@MainAdminBundle/Resources/views/UserProfile/public/js/UserProfile.js'
     %}
-    <script type="text/javascript" src="{{ asset_url }}" filter='yui_js'></script>
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 {% block body %}
@@ -53,7 +53,7 @@
                                     <b>Username:</b>
                                 </td>
                                 <td>
-                                    <span editable-text="user.name" e-name="name" e-required>{{ '{{ user.name || "empty"}}' }}</span>
+                                    <span>{{ '{{ user.name || "empty"}}' }}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -61,7 +61,27 @@
                                     <b>Email:</b>
                                 </td>
                                 <td>
-                                    <span editable-text="user.email" e-name="email" e-required>{{ '{{ user.email || "empty"}}' }}</span>
+                                    <span editable-text="user.email" e-required>{{ '{{ user.email || "empty"}}' }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Expired:</b>
+                                </td>
+                                <td>
+                                    <span editable-select="user.expired" e-name="expired" e-ng-options="s.value as s.text for s in bool">
+                                        {{ '{{ (bool | filter:{value: user.expired})[0].text  }}' }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Locked:</b>
+                                </td>
+                                <td>
+                                    <span editable-select="user.locked" e-name="locked" e-ng-options="s.value as s.text for s in bool">
+                                        {{ '{{ (bool | filter:{value: user.locked})[0].text  }}' }}
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
