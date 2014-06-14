@@ -1,9 +1,7 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@MainAdminBundle/Resources/views/Dashboard/public/js/dashboard.js'
-    output="lib"
-    %}
+    {% javascripts '@MainAdminBundle/Resources/views/Dashboard/public/js/dashboard.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

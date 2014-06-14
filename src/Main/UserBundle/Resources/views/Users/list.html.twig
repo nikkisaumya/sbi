@@ -1,14 +1,14 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@MainAdminBundle/Resources/public/vendor/ng-table/ng-table.min.css'
+    {% stylesheets 'assets/vendor/ng-table/ng-table.min.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" filter='yui_css' />
     {% endstylesheets %}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@MainAdminBundle/Resources/public/vendor/ng-table/ng-table.min.js'
+    {% javascripts 'assets/vendor/ng-table/ng-table.min.js'
     '@MainUserBundle/Resources/views/Users/public/list.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -25,13 +25,17 @@
             <div ng-controller="ListCtrl">
                 <table ng-table="tableParams" class="table table-condensed">
                     <tr ng-repeat="user in $data">
-                        <td data-title="'Id'" sortable="'id'">{{ '{{user.id}} '}}</td>
-                        <td data-title="'Name'" sortable="'name'">{{ '{{user.name}} '}}</td>
-                        <td data-title="'Email'" sortable="'email'">{{ '{{user.email}} '}}</td>
-                        <td data-title="'Last Login'" sortable="'last_login'">{{ '{{user.last_login}} '}}</td>
+                        <td data-title="'Id'" sortable="'id'">{{ '{{user.id}}' }}</td>
+                        <td data-title="'Name'" sortable="'name'">{{ '{{user.name}}' }}</td>
+                        <td data-title="'Email'" sortable="'email'">{{ '{{user.email}}' }}</td>
+                        <td data-title="'Last Login'" sortable="'last_login'">{{ '{{user.last_login}}' }}</td>
                         <td data-title="'Actions'">
-                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span>Show</div>
-                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-user"></span>Profile</div>
+                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Show</div>
+                            <a href="userProfile/{{ '{{user.id}}' }}/show">
+                                <button class="btn btn-primary btn-xs">
+                                    <span class="glyphicon glyphicon-user"></span> Profile
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 </table>

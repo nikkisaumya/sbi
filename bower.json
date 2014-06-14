@@ -5,9 +5,10 @@
     "font-awesome": "~3.1.1",
     "bootstrap" : "~3.1",
     "jquery": "~2.0.3",
-    "angular":"~1.2.16",
+    "angular":"latest",
     "angular-route":"~1.2.16",
     "angular-ui-bootstrap":"0.11.0",
-    "ng-table":"0.3.3"
+    "ng-table":"0.3.3",
+    "angular-xeditable":"0.1.8"
   }
 }

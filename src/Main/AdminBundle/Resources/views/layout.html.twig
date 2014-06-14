@@ -31,7 +31,7 @@
     {% endblock %}
 </head>
 <body>
-<div data-url="{{ app.request.getBaseURL() }}"></div>
+<div id="baseUrl" data-url="{{ app.request.getBaseURL() }}"></div>
 {% if app.user.username is defined  %}
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -48,9 +48,8 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('get_users') }}">Users</a></li>
                 {#<li><a href="#">Settings</a></li>#}
-                <li><a href="{{ path('get_userProfile') }}">Profile</a></li>
+                <li><a href="{{ path('get_userProfile', {'id': app.security.getToken().getUser().getId() }) }}">Profile</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
-
             </ul>
         </div>
     </div>

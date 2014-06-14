@@ -13,16 +13,7 @@ class DefaultController extends Controller
     }
 
     public function showAction(){
-        $status = 'ok';
-        $securityContext = $this->container->get('security.context');
-        if( $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED') ){
-            return $this->render('MainAdminBundle:Dashboard:show.html.twig', array(
-                'status' => $status,
-            ));
-        }
 
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
-
-
+        return $this->render('MainAdminBundle:Dashboard:show.html.twig', array());
     }
 }

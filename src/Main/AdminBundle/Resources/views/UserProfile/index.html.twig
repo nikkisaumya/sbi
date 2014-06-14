@@ -1,23 +1,83 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets 'assets/vendor/angular-xeditable/dist/css/xeditable.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" filter='yui_css' />
+    {% endstylesheets %}
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts '@MainAdminBundle/Resources/views/Dashboard/public/js/dashboard.js'
-    output="lib"
+    {% javascripts 'assets/vendor/angular-xeditable/dist/js/xeditable.js'
+                   '@MainAdminBundle/Resources/views/UserProfile/public/js/UserProfile.js'
     %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script type="text/javascript" src="{{ asset_url }}" filter='yui_js'></script>
     {% endjavascripts %}
 {% endblock %}
 {% block body %}
 <div class="row">
+    <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
         <h1 class="page-header">Profile</h1>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-        {{ status }}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <div ng-controller="UserProfileCtrl">
+                <form editable-form name="editableForm" onaftersave="saveUser()">
+                    <div class="buttons">
+                        <!-- button to show form -->
+                        <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                            Edit
+                        </button>
+                        <!-- buttons to submit / cancel form -->
+                        <span ng-show="editableForm.$visible">
+                            <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+                                Cancel
+                            </button>
+                        </span>
+                    </div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th class="col-sm-2"></th>
+                                <th class="col-sm-4"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Username:</b>
+                                </td>
+                                <td>
+                                    <span editable-text="user.name" e-name="name" e-required>{{ '{{ user.name || "empty"}}' }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Email:</b>
+                                </td>
+                                <td>
+                                    <span editable-text="user.email" e-name="email" e-required>{{ '{{ user.email || "empty"}}' }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Last login:</b>
+                                </td>
+                                <td>
+                                    <span>{{ '{{ user.last_login || "empty"}}' }}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
 
 
 {% endblock %}
