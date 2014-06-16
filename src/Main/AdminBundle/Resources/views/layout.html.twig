@@ -12,6 +12,7 @@
                         'assets/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
                         '@MainAdminBundle/Resources/public/css/dashboard.css'
                         '@MainAdminBundle/Resources/public/css/dataurl.css'
+                        'assets/vendor/angular-motion/dist/angular-motion.css'
         filter='yui_css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -23,8 +24,11 @@
                        'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
                        'assets/vendor/angular/angular.min.js'
                        'assets/vendor/angular-route/angular-route.min.js'
+                       'assets/vendor/angular-animate/angular-animate.min.js'
                        '@MainAdminBundle/Resources/public/js/main.js'
                        'assets/vendor/remarkable-bootstrap-growl/bootstrap-growl.js'
+                       'assets/vendor/angular-strap/dist/angular-strap.js'
+                       'assets/vendor/angular-strap/dist/angular-strap.tpl.js'
         filter='yui_js'
         %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -43,13 +47,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Bussiness Inteligence</a>
+            <a class="navbar-brand" href="{{ path('dashboard') }}">Bussiness Inteligence</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path('get_users') }}">Users</a></li>
                 {#<li><a href="#">Settings</a></li>#}
-                <li><a href="{{ path('get_userProfile', {'id': app.security.getToken().getUser().getId() }) }}">Profile</a></li>
+                <li><a href="{{ path('show_userProfile', {'id': app.security.getToken().getUser().getId() }) }}">Profile</a></li>
                 <li><a href="{{ path('fos_user_security_logout') }}"><b>{{ app.user.username }}</b> Wyloguj</a></li>
             </ul>
         </div>
