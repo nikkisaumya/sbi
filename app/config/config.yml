@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ MainAdminBundle, MainUserBundle, FOSUserBundle ]
+    bundles:        [ MainAdminBundle, MainUserBundle, FOSUserBundle, JDareClankBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -86,3 +86,8 @@ bazinga_faker:
 #    arguments: [ @security.context, @router ]
 #    tags:
 #      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+clank:
+    web_socket_server:
+        port: 8080        #The port the socket server will listen on
+        host: 127.0.0.1   #(optional) The host ip to bind to

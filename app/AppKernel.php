@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Main\AdminBundle\MainAdminBundle(),
             new Main\UserBundle\MainUserBundle(),
             new Bazinga\Bundle\FakerBundle\BazingaFakerBundle(),
+            new JDare\ClankBundle\JDareClankBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
