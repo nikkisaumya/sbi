@@ -51,3 +51,7 @@
 .pace.pace-inactive {
     display: none;
 }
+
+.modal {
+    overflow: hidden;
+}

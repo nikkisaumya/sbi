@@ -1,6 +1,10 @@
-var app = angular.module('sbi', ['ngTable']);
+var app = angular.module('sbi', ['ngTable', 'mgcrea.ngStrap.modal', 'ngAnimate']);
 
 app.controller('ListCtrl', function($scope, $filter, ngTableParams, $http) {
+    $scope.modal = {
+        "title": "Title",
+        "content": "Body"
+    };
     $http({method: 'GET', url: 'users/list'}).
         success(function(callback, status, headers, config) {
             var data = callback;

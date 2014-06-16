@@ -30,7 +30,11 @@
                         <td data-title="'Email'" sortable="'email'">{{ '{{user.email}}' }}</td>
                         <td data-title="'Last Login'" sortable="'last_login'">{{ '{{user.last_login}}' }}</td>
                         <td data-title="'Actions'">
-                            <div class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-search"></span> Show</div>
+                            <button type="button"
+                                    class="btn btn-xs btn-danger"
+                                    data-animation="am-fade-and-scale"
+                                    bs-modal="modal">Show
+                            </button>
                             <a href="userProfile/{{ '{{user.id}}' }}/show">
                                 <button class="btn btn-primary btn-xs">
                                     <span class="glyphicon glyphicon-user"></span> Profile

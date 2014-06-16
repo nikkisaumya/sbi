@@ -7,9 +7,11 @@
     "jquery": "~2.0.3",
     "angular":"latest",
     "angular-route":"~1.2.16",
-    "angular-ui-bootstrap":"0.11.0",
-    "ng-table":"0.3.3",
-    "angular-xeditable":"0.1.8",
-    "remarkable-bootstrap-growl":"latest"
+    "angular-animate":"latest",
+    "angular-strap":"latest",
+    "ng-table":"latest",
+    "angular-xeditable":"latest",
+    "remarkable-bootstrap-growl":"latest",
+    "angular-motion":"latest"
   }
 }
