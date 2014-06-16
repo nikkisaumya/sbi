@@ -1,9 +1,8 @@
-all: db cache assets
+all: db assets
 
 assets:
-	php app/console cache:clear
 	php app/console cache:clear --env=prod --no-debug	
-	php app/console assetic:dump
+	php app/console assetic:dump --env=prod --no-debug
 	php app/console assets:install
 	HTTPDUSER=`ps aux | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
 	sudo setfacl -R -m u:"$(HTTPDUSER)":rwX -m u:`whoami`:rwX app/cache app/logs

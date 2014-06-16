@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ MainAdminBundle, MainUserBundle, FOSUserBundle, JDareClankBundle ]
+    bundles:        [ MainAdminBundle, MainUserBundle, FOSUserBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -87,7 +87,8 @@ bazinga_faker:
 #    tags:
 #      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
-clank:
-    web_socket_server:
-        port: 8080        #The port the socket server will listen on
-        host: 127.0.0.1   #(optional) The host ip to bind to
+services:
+    widget:
+        class: Main\AdminBundle\Services\WidgetService
+        arguments:
+            - @doctrine.orm.default_entity_manager
