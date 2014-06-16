@@ -20,7 +20,8 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
 	"friendsofsymfony/user-bundle": "~2.0@dev",
-	"willdurand/faker-bundle": "@stable"
+	"willdurand/faker-bundle": "@stable",
+	"jdare/clank-bundle": "0.1.*"
     },
     "scripts": {
         "post-install-cmd": [

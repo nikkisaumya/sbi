@@ -60,6 +60,8 @@
     {% block body %}{% endblock %}
 </div>
 
+{{ clank_client() }}
+<script src="{{ asset('js/websocket.js') }}" type="text/javascript"></script>
 </body>
 </html>
 
