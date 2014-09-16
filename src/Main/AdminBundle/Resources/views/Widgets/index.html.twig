@@ -1,17 +1,42 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+
+    '@MainAdminBundle/Resources/public/js/Controlers/widgetsControler.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 {% block body %}
 
 <div class="row">
     <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-        <h1 class="page-header">Widgets</h1>
+        <h1 class="page-header">Widgets</h1> <a href="{{ path('new_widget') }}" class="btn btn-success">Utwórz nowy widget</a>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-10 col-md-offset-2">
         <div ng-controller="WidgetsCtrl">
-
+            <table ng-table="tableParams" class="table table-condensed">
+                <tr ng-repeat="widget in $data">
+                    <td data-title="'Id'" sortable="'id'">{{ '{{widget.id}}' }}</td>
+                    <td data-title="'Actions'">
+                        <button type="button"
+                                class="btn btn-xs btn-danger"
+                                data-animation="am-fade-and-scale"
+                                bs-modal="modal">Show
+                        </button>
+                        <a href="userProfile/{{ '{{widget.id}}' }}/show">
+                            <button class="btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-stats"></span> Profile
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

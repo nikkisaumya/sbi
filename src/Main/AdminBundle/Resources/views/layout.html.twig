@@ -8,11 +8,15 @@
     <meta name="author" content="">
     <title>SBI</title>
     {% block stylesheets %}
-        {% stylesheets  'assets/vendor/bootstrap/dist/css/bootstrap.min.css'
-                        'assets/vendor/bootstrap/dist/css/bootstrap-theme.min.css'
-                        '@MainAdminBundle/Resources/public/css/dashboard.css'
-                        '@MainAdminBundle/Resources/public/css/dataurl.css'
-                        'assets/vendor/angular-motion/dist/angular-motion.css'
+        {% stylesheets
+        'assets/vendor/bootstrap/dist/css/bootstrap.css'
+        'assets/vendor/bootstrap/dist/css/bootstrap-theme.css'
+        '@MainAdminBundle/Resources/public/css/dashboard.css'
+        '@MainAdminBundle/Resources/public/css/dataurl.css'
+        'assets/vendor/angular-motion/dist/angular-motion.css'
+        'assets/vendor/angular-xeditable/dist/css/xeditable.css'
+        'assets/vendor/ng-table/ng-table.css'
+        'assets/vendor/nvd3/nv.d3.css'
         filter='yui_css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -49,27 +53,32 @@
     {% block body %}{% endblock %}
 </div>
 {% block javascripts %}
-    {% javascripts 'assets/vendor/jquery/dist/jquery.min.js'
-    'assets/vendor/pace/pace.min.js'
-    'assets/vendor/bootstrap/dist/js/bootstrap.min.js'
-    'assets/vendor/angular/angular.min.js'
-    'assets/vendor/angular-route/angular-route.min.js'
-    'assets/vendor/angular-animate/angular-animate.min.js'
-    '@MainAdminBundle/Resources/public/js/main.js'
+    {% javascripts
+    'assets/vendor/jquery/dist/jquery.js'
+    'assets/vendor/pace/pace.js'
+    'assets/vendor/bootstrap/dist/js/bootstrap.js'
+    'assets/vendor/angular/angular.js'
+    'assets/vendor/angular-route/angular-route.js'
+    'assets/vendor/angular-animate/angular-animate.js'
     'assets/vendor/remarkable-bootstrap-growl/bootstrap-growl.js'
     'assets/vendor/angular-strap/dist/angular-strap.js'
     'assets/vendor/angular-strap/dist/angular-strap.tpl.js'
-    filter='yui_js'
+    'assets/vendor/angular-xeditable/dist/js/xeditable.js'
+    'assets/vendor/ng-table/ng-table.js'
+    'assets/vendor/d3/d3.js'
+    'assets/vendor/nvd3/nv.d3.js'
+    'assets/vendor/angular-nvd3/dist/angular-nvd3.js'
+
+
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
         angular.module('configuration', [])
-                .constant('BASE_END_POINT', '{{ app.request.baseUrl }}')
-                .constant('COMMON_API_END_POINT', '{{ app.request.getSchemeAndHttpHost() }}');
+                .constant('BASE_END_POINT', '{{ app.request.baseUrl  }}')
+                .constant('COMMON_API_END_POINT', '{{ app.request.getSchemeAndHttpHost()  }}');
     </script>
 {% endblock %}
-
 
 </body>
 </html>

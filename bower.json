@@ -2,16 +2,22 @@
   "name": "SBI",
   "version": "0.0.1",
   "dependencies": {
-    "font-awesome": "~3.1.1",
-    "bootstrap" : "~3.2",
-    "angular":"latest",
-    "angular-route":"latest",
-    "angular-animate":"latest",
-    "angular-strap":"latest",
-    "ng-table":"latest",
-    "angular-xeditable":"latest",
-    "remarkable-bootstrap-growl":"latest",
-    "angular-motion":"latest",
-    "pace": "latest"
+    "font-awesome": "latest",
+    "bootstrap": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-animate": "latest",
+    "angular-strap": "latest",
+    "ng-table": "latest",
+    "angular-xeditable": "latest",
+    "remarkable-bootstrap-growl": "latest",
+    "angular-motion": "latest",
+    "pace": "latest",
+    "d3": "~3.4.11",
+    "nvd3": "~1.1.15-beta",
+    "angular-nvd3":"latest"
+  },
+  "resolutions": {
+    "d3": "~3.4.1"
   }
 }

@@ -1,0 +1,28 @@
+{% extends "MainAdminBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+
+    '@MainAdminBundle/Resources/public/js/Controlers/widgetsControler.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+            <h1 class="page-header">New widget</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-2">
+            <div ng-controller="NewWidgetCtrl">
+                <nvd3 options='options' data='data'></nvd3>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

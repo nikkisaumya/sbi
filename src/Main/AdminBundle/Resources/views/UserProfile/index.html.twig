@@ -1,20 +1,13 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets 'assets/vendor/angular-xeditable/dist/css/xeditable.css'
-    %}
-    <link rel="stylesheet" href="{{ asset_url }}" filter='yui_css' />
-    {% endstylesheets %}
-{% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts 'assets/vendor/angular-xeditable/dist/js/xeditable.js'
-                   '@MainAdminBundle/Resources/views/UserProfile/public/js/UserProfile.js'
-                   '@MainAdminBundle/Resources/views/Dashboard/public/js/DashboardWidget.js'
+    {% javascripts
+
+    '@MainAdminBundle/Resources/public/js/Controlers/userProfileControler.js'
     %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+     <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 {% endblock %}
 {% block body %}
 <div class="row">
@@ -23,7 +16,7 @@
         <h1 class="page-header">Profile</h1>
     </div>
 </div>
-    <div class="row">
+    <div class="row ng-cloak">
         <div class="col-md-6 col-md-offset-2">
             <div ng-controller="UserProfileCtrl">
                 <form editable-form name="editableForm" onaftersave="saveUser()">

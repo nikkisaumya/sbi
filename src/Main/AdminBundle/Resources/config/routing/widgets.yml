@@ -4,8 +4,13 @@ get_widgets:
     methods:  [GET]
 
 get_widget_list:
-    path:      /widget/list
+    path:      /widgets/list
     defaults:  { _controller: MainAdminBundle:Widgets:getWidgetList }
+    methods:  [GET]
+
+new_widget:
+    path:      /widget/new
+    defaults:  { _controller: MainAdminBundle:Widgets:newWidget }
     methods:  [GET]
 
 get_widget:
@@ -17,11 +22,6 @@ edit_widget:
     path:      /widget/{id}/edit
     defaults:  { _controller: MainAdminBundle:Widgets:editWidget }
     methods:  [GET]
-
-put_widget:
-    path:      /widget/{id}/
-    defaults:  { _controller: MainAdminBundle:Widgets:putWidget }
-    methods:  [PUT]
 
 remove_widget:
     path:      /widget/{id}/remove

@@ -1,0 +1,38 @@
+assetic:
+    assets:
+        jquery_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/jquery/dist/jquery.js'
+        angular_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular/angular.js'
+        pace_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/pace/pace.js'
+        angular_route_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-route/angular-route.js'
+        angular_animate_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-animate/angular-animate.js'
+        bootstrap_growl_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/remarkable-bootstrap-growl/bootstrap-growl.js'
+        angular_strap_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-strap/dist/angular-strap.js'
+        angular_strap_tpl_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-strap/dist/angular-strap.tpl.js'
+        angular_xeditable_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-xeditable/dist/js/xeditable.js'
+        d3_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/d3/d3.js'
+        nvd3_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/nvd3/nv.d3.js'
+        angular_nvd3_js:
+            inputs:
+                - '%kernel.root_dir%/../web/assets/vendor/angular-nvd3/dist/angular-nvd3.js'
