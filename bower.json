@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "dependencies": {
     "font-awesome": "~3.1.1",
-    "bootstrap" : "~3.1",
-    "jquery": "~2.0.3",
+    "bootstrap" : "~3.2",
     "angular":"latest",
-    "angular-route":"~1.2.16",
+    "angular-route":"latest",
     "angular-animate":"latest",
     "angular-strap":"latest",
     "ng-table":"latest",
     "angular-xeditable":"latest",
     "remarkable-bootstrap-growl":"latest",
-    "angular-motion":"latest"
+    "angular-motion":"latest",
+    "pace": "latest"
   }
 }

@@ -36,3 +36,6 @@ users:
 
 userProfile:
     resource: "@MainAdminBundle/Resources/config/routing/userProfile.yml"
+
+widgets:
+    resource: "@MainAdminBundle/Resources/config/routing/widgets.yml"

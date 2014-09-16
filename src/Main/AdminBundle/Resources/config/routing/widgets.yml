@@ -1,0 +1,29 @@
+get_widgets:
+    path:      /widgets
+    defaults:  { _controller: MainAdminBundle:Widgets:getWidgets }
+    methods:  [GET]
+
+get_widget_list:
+    path:      /widget/list
+    defaults:  { _controller: MainAdminBundle:Widgets:getWidgetList }
+    methods:  [GET]
+
+get_widget:
+    path:      /widget/{id}
+    defaults:  { _controller: MainAdminBundle:Widgets:getWidget }
+    methods:  [GET]
+
+edit_widget:
+    path:      /widget/{id}/edit
+    defaults:  { _controller: MainAdminBundle:Widgets:editWidget }
+    methods:  [GET]
+
+put_widget:
+    path:      /widget/{id}/
+    defaults:  { _controller: MainAdminBundle:Widgets:putWidget }
+    methods:  [PUT]
+
+remove_widget:
+    path:      /widget/{id}/remove
+    defaults:  { _controller: MainAdminBundle:Widgets:removeWidget }
+    methods:  [GET]

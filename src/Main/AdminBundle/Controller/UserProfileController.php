@@ -16,6 +16,7 @@ class UserProfileController extends Controller
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findOneById($id);
+        // TODO refactor it, serialize data
         return new JsonResponse(
             array(
                 'id' => $usersRepository->getId(),
@@ -31,6 +32,7 @@ class UserProfileController extends Controller
     public function editAction($id){
         $json = $this->get('request')->request->get('userProfile');
         $userProfile = json_decode($json);
+        // TODO move to service
         try{
             $em = $this->getDoctrine()->getManager();
             $users = $em->getRepository("MainUserBundle:Users")->findOneById($id);

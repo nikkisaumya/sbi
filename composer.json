@@ -7,8 +7,8 @@
         "psr-0": { "": "src/" }
     },
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "~2.4",
+        "php": ">=5.4",
+        "symfony/symfony": "~2.5",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         "twig/extensions": "~1.0",
@@ -20,9 +20,7 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "willdurand/faker-bundle": "@stable",
-        "cboden/ratchet": "0.3.*",
-        "react/zmq": "0.2.*|0.3.*"
+        "willdurand/faker-bundle": "@stable"
     },
     "scripts": {
         "post-install-cmd": [
