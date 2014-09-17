@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: assetic/css.yml }
     - { resource: assetic/js.yml }
+    - { resource: assetic/faker.yml }
 
 framework:
     #esi:             ~
@@ -76,11 +77,6 @@ fos_user:
     firewall_name: main
     user_class: Main\UserBundle\Entity\Users
 
-bazinga_faker:
-    orm: doctrine
-    entities:
-            Main\UserBundle\Entity\Users:
-                number: 35
 
 #services:
 #  access_listener:
@@ -88,9 +84,3 @@ bazinga_faker:
 #    arguments: [ @security.context, @router ]
 #    tags:
 #      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-
-services:
-    widget:
-        class: Main\AdminBundle\Services\WidgetService
-        arguments:
-            - @doctrine.orm.default_entity_manager

@@ -1,0 +1,7 @@
+bazinga_faker:
+    orm: doctrine
+    entities:
+            Main\UserBundle\Entity\Users:
+                number: 35
+            Main\AdminBundle\Entity\Widgets:
+                number: 35

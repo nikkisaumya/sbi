@@ -6,9 +6,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 
 class WidgetsController extends Controller{
+
+    public function __construct(){
+        $this->serializer = new Serializer([new GetSetMethodNormalizer()], [new JsonEncoder()]);
+    }
 
     public function getWidgetsAction(){
         return $this->render('MainAdminBundle:Widgets:index.html.twig');
@@ -18,13 +25,8 @@ class WidgetsController extends Controller{
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainAdminBundle:Widgets")
             ->findAll();
-        $return = array();
-        foreach($usersRepository as $user){
-            $return[] = array(
-                'id' => $user->getId(),
-            );
-        }
-        return new JsonResponse($return);
+        $jsonContent = $this->serializer->serialize($usersRepository, 'json');
+        return new Response($jsonContent);
     }
 
     public function newWidgetAction(){

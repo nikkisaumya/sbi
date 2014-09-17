@@ -15,7 +15,9 @@
     "pace": "latest",
     "d3": "~3.4.11",
     "nvd3": "~1.1.15-beta",
-    "angular-nvd3":"latest"
+    "angular-nvd3": "latest",
+    "angular-ui-ace": "bower",
+    "ace": "~1.1.6"
   },
   "resolutions": {
     "d3": "~3.4.1"

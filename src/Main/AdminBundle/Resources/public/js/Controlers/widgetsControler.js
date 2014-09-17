@@ -1,4 +1,4 @@
-var app = angular.module('sbi', ['ngTable', 'nvd3']);
+var app = angular.module('sbi', ['ngTable', 'nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ui.ace']);
 app.controller('WidgetsCtrl', function($scope, $filter, $http, ngTableParams) {
     var url = angular.element('#baseUrl')[0].dataset.url;
 
@@ -9,7 +9,7 @@ app.controller('WidgetsCtrl', function($scope, $filter, $http, ngTableParams) {
             $scope.tableParams = new ngTableParams({
                 page: 1,            // show first page
                 count: 10,           // count per page
-                sorting: {name: 'asc'}
+                sorting: {id: 'asc'}
             }, {
                 total: data.length, // length of data
                 getData: function($defer, params) {
@@ -30,7 +30,7 @@ app.controller('WidgetsCtrl', function($scope, $filter, $http, ngTableParams) {
 app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
     $scope.options = {
         chart: {
-            type: 'discreteBarChart',
+            type: 'historicalBarChart',
             height: 350,
             width: 800,
             margin : {
@@ -59,15 +59,24 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
         key: "Cumulative Return",
         values: [
             { "label" : "A" , "value" : -29.765957771107 },
-            { "label" : "B" , "value" : 0 },
             { "label" : "C" , "value" : 32.807804682612 },
             { "label" : "D" , "value" : 196.45946739256 },
-            { "label" : "E" , "value" : 0.19434030906893 },
-            { "label" : "F" , "value" : -98.079782601442 },
-            { "label" : "G" , "value" : -13.925743130903 },
-            { "label" : "H" , "value" : -5.1387322875705 }
+            { "label" : "13H" , "value" : -5.1387322875705 }
         ]
     }];
 
-
+    $scope.source = '';
+    $scope.sources = [
+        {value: 'Source 1'},
+        {value: 'Source 2'},
+        {value: 'Source 3'},
+        {value: 'Source 4'}
+    ];
+    $scope.type = '';
+    $scope.types = [
+        {value: 'Linear'},
+        {value: 'Gantt'},
+        {value: 'Bar'},
+        {value: 'Plot'}
+    ];
 });
