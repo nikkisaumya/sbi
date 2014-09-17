@@ -5,28 +5,27 @@ namespace Main\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     Symfony\Component\HttpFoundation\JsonResponse,
     Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class UserProfileController extends Controller
-{
+class UserProfileController extends Controller {
+
+    public function __construct(){
+        $this->serializer = new Serializer([new GetSetMethodNormalizer()], [new JsonEncoder()]);
+    }
+
     public function indexAction($id){
-        return $this->render('MainAdminBundle:UserProfile:index.html.twig', array());
+        return $this->render('MainAdminBundle:UserProfile:index.html.twig');
     }
 
     public function getAction($id){
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findOneById($id);
-        // TODO refactor it, serialize data
-        return new JsonResponse(
-            array(
-                'id' => $usersRepository->getId(),
-                'name' => $usersRepository->getUsername(),
-                'email' => $usersRepository->getEmail(),
-                'last_login' => $usersRepository->getLastLogin()->format('Y-m-d H:i'),
-                'expired' => $usersRepository->isExpired(),
-                'locked' => $usersRepository->isLocked(),
-            )
-        );
+        $jsonContent = $this->serializer->serialize($usersRepository, 'json');
+        return new Response($jsonContent);
     }
 
     public function editAction($id){

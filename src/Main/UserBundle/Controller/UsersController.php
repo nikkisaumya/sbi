@@ -7,12 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
     Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Main\UserBundle\Entity\Users;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
+class UsersController extends Controller{
 
-class UsersController extends Controller
-{
+    public function __construct(){
+        $this->serializer = new Serializer([new GetSetMethodNormalizer()], [new JsonEncoder()]);
+    }
 
     public  function getUsersAction(){
         return $this->render('MainUserBundle:Users:list.html.twig', array());
@@ -22,30 +26,16 @@ class UsersController extends Controller
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findAll();
-        $return = array();
-        foreach($usersRepository as $user){
-            $return[] = array(
-                'id' => $user->getId(),
-                'name' => $user->getUsername(),
-                'email' => $user->getEmail(),
-                'last_login' => $user->getLastLogin()->format('Y-m-d H:i'),
-            );
-        }
-        return new JsonResponse($return);
+        $jsonContent = $this->serializer->serialize($usersRepository, 'json');
+        return new Response($jsonContent);
     }
 
     public function getUserAction($id){
         $usersRepository = $this->getDoctrine()->getManager()
             ->getRepository("MainUserBundle:Users")
             ->findOneById($id);
-        return new JsonResponse(
-            array(
-                'id' => $usersRepository->getId(),
-                'name' => $usersRepository->getUsername(),
-                'email' => $usersRepository->getEmail(),
-                'last_login' => $usersRepository->getLastLogin()->format('Y-m-d H:i'),
-            )
-        );
+        $jsonContent = $this->serializer->serialize($usersRepository, 'json');
+        return new Response($jsonContent);
 
     }
 
