@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-sm-7 col-md-7">
-            <div ng-controller="NewWidgetCtrl">
+            <div ng-controller="NewWidgetCtrl" class="ng-cloak">
                 <form>
                     <div class="form-group">
                         <label for="title">Email address</label>
@@ -35,24 +35,44 @@
                         <button type="button"
                                 class="btn btn-default"
                                 ng-model="source"
-                                ng-options="source.value for source in sources"
-                                data-animation="am-flip-x"
+                                ng-options="source.key as source.value for source in sources"
                                 placeholder="Report source"
                                 bs-select>
                         </button>
-
                         <button type="button"
                                 class="btn btn-default"
                                 ng-model="type"
                                 ng-options="type.value for type in types"
-                                data-animation="am-flip-x"
                                 placeholder="Report type"
                                 bs-select>
                         </button>
                     </div>
-                    <div class="border-dark-gray">
-                        <div ui-ace></div>
+                    {# API #}
+                    <div ng-show="source=='API'">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                               <button class="btn btn-default" ng-click="getApi()" type="button">Get</button>
+                            </span>
+                            <input type="text" class="form-control" ng-model="apiAddress" id="api" placeholder="Api source">
+                        </div>
+                        <div class="space-10"></div>
+                        <label for="api-source">Source</label>
+                        <textarea id="api-source" class="api-textarea" ng-model="apiSource" disabled></textarea>
                     </div>
+
+                    {# DB #}
+                    <button type="button"
+                            ng-show="source=='DB'"
+                            class="btn btn-default"
+                            ng-model="db"
+                            ng-options="db.key as db.value for db in dbs"
+                            placeholder="Source"
+                            bs-select>
+                    </button>
+                    <div ng-show="db && source=='SQL'">
+                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    </div>
+
                     <div class="space-10"></div>
                     <div class="form-group pull-right">
                         <button class="btn btn-default">Render graph</button>

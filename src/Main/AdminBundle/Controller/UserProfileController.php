@@ -41,7 +41,7 @@ class UserProfileController extends Controller {
             $em->persist($users);
             $em->flush();
             return new JsonResponse('updated', 200);
-        }catch (\Exception $e){
+        }catch (\PDOException $e){
             throw $e;
         }
 

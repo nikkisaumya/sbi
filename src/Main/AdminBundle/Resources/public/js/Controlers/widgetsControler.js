@@ -67,10 +67,14 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
 
     $scope.source = '';
     $scope.sources = [
-        {value: 'Source 1'},
-        {value: 'Source 2'},
-        {value: 'Source 3'},
-        {value: 'Source 4'}
+        {key: 'API', value: 'Api'},
+        {key: 'DB',  value: 'Database'}
+    ];
+    $scope.db = '';
+    $scope.dbs = [
+        {key: '1', value: '127.0.0.1'},
+        {key: '2',  value: 'example.com'},
+        {key: '3', value: 'localhost'}
     ];
     $scope.type = '';
     $scope.types = [
@@ -79,4 +83,15 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
         {value: 'Bar'},
         {value: 'Plot'}
     ];
+
+    $scope.apiSource = '';
+    $scope.getApi = function(){
+        $http({method: 'GET', url: $scope.apiAddress }).
+            success(function(callback) {
+                $scope.apiSource = JSON.stringify(callback,null,2);
+            }).
+            error(function(callback, status) {
+                alert(status + 'Something went wrong');
+            });
+    }
 });
