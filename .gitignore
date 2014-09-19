@@ -10,6 +10,7 @@ web/bundles/*
 web/assets/*
 web/assetic/*
 web/css/*
+web/fonts/*
 web/js/*
 web/lib*
 # Configuration files

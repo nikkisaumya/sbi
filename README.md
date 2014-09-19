@@ -9,4 +9,3 @@ Project instalation:
 3. composer install
 4. bower install
 5. make all
-6. # to start realtime fake notification type in the console php app/console bi:populate

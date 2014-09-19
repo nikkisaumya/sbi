@@ -1,0 +1,34 @@
+get_databases:
+    path:      /databases
+    defaults:  { _controller: MainAdminBundle:Databases:getDatabases }
+    methods:  [GET]
+
+get_databases_list:
+    path:      /databases/list
+    defaults:  { _controller: MainAdminBundle:Databases:getDatabasesList }
+    methods:  [GET]
+
+new_database:
+    path:      /databases/new
+    defaults:  { _controller: MainAdminBundle:Databases:newDatabase }
+    methods:  [GET]
+
+get_database:
+    path:      /databases/{id}
+    defaults:  { _controller: MainAdminBundle:Databases:getDatabase }
+    methods:  [GET]
+
+edit_database:
+    path:      /databases/{id}/edit
+    defaults:  { _controller: MainAdminBundle:Databases:editDatabase }
+    methods:  [GET]
+
+put_database:
+    path:      /databases/{id}/
+    defaults:  { _controller: MainAdminBundle:Databases:putDatabase }
+    methods:  [PUT]
+
+remove_database:
+    path:      /databases/{id}/remove
+    defaults:  { _controller: MainAdminBundle:Databases:removeDatabase }
+    methods:  [GET]

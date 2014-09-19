@@ -1,0 +1,49 @@
+{% extends "MainAdminBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@MainAdminBundle/Resources/public/js/Controlers/databasesControler.js'
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block body %}
+
+<div class="row">
+    <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
+    <div class="col-sm-12 col-md-12">
+        <h1 class="page-header">Widgets</h1> <a href="{{ path('new_database') }}" class="btn btn-success">Utwórz nowe źródło bazy</a>
+    </div>
+</div>
+<div class="space-10"></div>
+<div class="row">
+    <div class="col-sm-8 col-md-8">
+        <div ng-controller="DatabasesCtrl">
+            <table ng-table="tableParams" class="table table-condensed">
+                <tr ng-repeat="database in $data">
+                    <td data-title="'Id'" sortable="'id'">{{ '{{database.id}}' }}</td>
+                    <td data-title="'Name'" sortable="'name'">{{ '{{database.name}}' }}</td>
+                    <td data-title="'Address'" sortable="'address'">{{ '{{database.address}}' }}</td>
+                    <td data-title="'Login'" sortable="'login'">{{ '{{database.login}}' }}</td>
+                    <td data-title="'Port'" sortable="'port'">{{ '{{database.port}}' }}</td>
+                    <td data-title="'Actions'">
+                        <button type="button"
+                                class="btn btn-xs btn-danger"
+                                data-animation="am-fade-and-scale"
+                                bs-modal="modal">Show
+                        </button>
+                        <a href="userProfile/{{ '{{database.id}}' }}/show">
+                            <button class="btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-stats"></span> Database
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -11,25 +11,25 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 
-class WidgetsController extends Controller{
+class DatabasesController extends Controller{
 
     public function __construct(){
         $this->serializer = new Serializer([new GetSetMethodNormalizer()], [new JsonEncoder()]);
     }
 
-    public function getWidgetsAction(){
-        return $this->render('MainAdminBundle:Widgets:index.html.twig');
+    public function getDatabasesAction(){
+        return $this->render('MainAdminBundle:Databases:index.html.twig');
     }
 
-    public function getWidgetListAction(){
-        $widgetsRepository = $this->getDoctrine()->getManager()
-            ->getRepository("MainAdminBundle:Widgets")
+    public function getDatabasesListAction(){
+        $databasesRepository = $this->getDoctrine()->getManager()
+            ->getRepository("MainAdminBundle:Databases")
             ->findAll();
-        $jsonContent = $this->serializer->serialize($widgetsRepository, 'json');
+        $jsonContent = $this->serializer->serialize($databasesRepository, 'json');
         return new Response($jsonContent);
     }
 
-    public function newWidgetAction(){
-        return $this->render('MainAdminBundle:Widgets:new.html.twig');
+    public function newDatabaseAction(){
+        return $this->render('MainAdminBundle:Databases:new.html.twig');
     }
 }
