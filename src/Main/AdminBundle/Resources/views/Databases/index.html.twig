@@ -3,7 +3,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
-    '@MainAdminBundle/Resources/public/js/Controlers/databasesControler.js'
+    '@MainAdminBundle/Resources/public/js/Controlers/listDatabaseControler.js'
 
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -14,13 +14,13 @@
 <div class="row">
     <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
     <div class="col-sm-12 col-md-12">
-        <h1 class="page-header">Widgets</h1> <a href="{{ path('new_database') }}" class="btn btn-success">Utwórz nowe źródło bazy</a>
+        <h1 class="page-header">Database sources</h1> <a href="{{ path('new_database') }}" class="btn btn-success">Utwórz nowe źródło bazy</a>
     </div>
 </div>
 <div class="space-10"></div>
 <div class="row">
     <div class="col-sm-8 col-md-8">
-        <div ng-controller="DatabasesCtrl">
+        <div ng-controller="ListDatabaseCtrl">
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="database in $data">
                     <td data-title="'Id'" sortable="'id'">{{ '{{database.id}}' }}</td>
@@ -30,7 +30,7 @@
                     <td data-title="'Port'" sortable="'port'">{{ '{{database.port}}' }}</td>
                     <td data-title="'Actions'">
 
-                        <a href="databases/{{ '{{database.id}}' }}">
+                        <a href="{{ app.request.getBaseURL() }}/databases/{{ '{{database.id}}' }}/edit">
                             <button class="btn btn-danger btn-xs">
                                 <span class="glyphicon glyphicon-stats"></span> Edit
                             </button>

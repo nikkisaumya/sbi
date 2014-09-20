@@ -1,39 +1,49 @@
-get_databases:
+# BASIC REST====================
+
+get_databases: #Symfony view
     path:      /databases
     defaults:  { _controller: MainAdminBundle:Databases:getDatabases }
     methods:  [GET]
 
-get_databases_list:
+get_databases_list: #API #Angular REST
     path:      /databases/list
-    defaults:  { _controller: MainAdminBundle:Databases:getDatabasesList }
+    defaults:  { _controller: MainAdminBundle:Databases:getDatabasesList, _format: 'json' }
     methods:  [GET]
 
-new_database:
+new_database: #Symfony view
     path:      /databases/new
     defaults:  { _controller: MainAdminBundle:Databases:new }
     methods:  [GET]
 
-save_database:
+save_database: #Angular REST
     path:      /databases/save
     defaults:  { _controller: MainAdminBundle:Databases:save }
     methods:  [POST]
 
-get_database:
-    path:      /databases/{id}
-    defaults:  { _controller: MainAdminBundle:Databases:getDatabase }
-    methods:  [GET]
+patch_database: #Angular REST
+    path:      /databases/patch/{id}
+    defaults:  { _controller: MainAdminBundle:Databases:patch }
+    methods:  [POST]
 
-edit_database:
+get_database: #API #Angular REST
+    path:      /databases/{id}
+    defaults:  { _controller: MainAdminBundle:Databases:get, _format: 'json' }
+    methods:  [GET]
+    requirements:
+        id: \d+
+
+edit_database: #Symfony view
     path:      /databases/{id}/edit
     defaults:  { _controller: MainAdminBundle:Databases:edit }
     methods:  [GET]
+    requirements:
+        id: \d+
 
-put_database:
-    path:      /databases/put/
-    defaults:  { _controller: MainAdminBundle:Databases:putDatabase }
-    methods:  [PUT]
-
-remove_database:
+remove_database: #Angular REST
     path:      /databases/{id}/remove
-    defaults:  { _controller: MainAdminBundle:Databases:removeDatabase }
-    methods:  [GET]
+    defaults:  { _controller: MainAdminBundle:Databases:remove }
+    methods:  [DELETE]
+    requirements:
+        id: \d+
+
+# END OF BASIC REST====================

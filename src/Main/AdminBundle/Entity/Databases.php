@@ -12,6 +12,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Databases
 {
+    public function __construct(){
+        $this->deleted = 'false';
+    }
+
     /**
      * @var integer
      *
@@ -55,6 +59,13 @@ class Databases
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean")
+     */
+    private $deleted;
 
 
     /**
@@ -180,5 +191,28 @@ class Databases
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Databases
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

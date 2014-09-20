@@ -2,6 +2,7 @@
 
 namespace Main\AdminBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Main\AdminBundle\Entity\Databases;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +24,8 @@ class DatabasesController extends Controller{
     }
 
     public function getDatabasesListAction(){
-        $databasesRepository = $this->getDoctrine()->getManager()
-            ->getRepository("MainAdminBundle:Databases")
-            ->findAll();
-        $jsonContent = $this->serializer->serialize($databasesRepository, 'json');
+        $db = $this->get('admin.database_service');
+        $jsonContent = $this->serializer->serialize($db->getDatabasesList(), 'json');
         return new Response($jsonContent);
     }
 
@@ -35,45 +34,46 @@ class DatabasesController extends Controller{
     }
 
     public function editAction($id){
-        $json = $this->get('request')->request->get('database');
-        $data = json_decode($json);
-        try{
-            $em = $this->getDoctrine()->getManager();
-            $database = $em->getRepository("MainAdminBundle:Databases")->findOneById($id);
-            $database->setName($database->getName());
-            $database->setAddress($database->getAddress());
-            $database->setLogin($database->getLogin());
-            $database->setPassword($database->getPassword());
-            $database->setPort($database->getPort());
-            $em->persist($database);
-            $em->flush();
-            return new JsonResponse('updated', 200);
-        }catch (\PDOException $e){
-            throw $e;
-        }
-
+        return $this->render('MainAdminBundle:Databases:edit.html.twig');
     }
 
     public function saveAction(){
         $json = $this->get('request')->request->get('database');
         $data = json_decode($json);
         try{
-            $em = $this->getDoctrine()->getManager();
-            $database = new Databases();
-            $database->setName($data->name);
-            $database->setAddress($data->address);
-            $database->setLogin($data->login);
-            $database->setPassword($data->password);
-            $database->setPort($data->port);
-            $em->persist($database);
-            $em->flush();
+            $db = $this->get('admin.database_service');
+            $db->saveDatabase($data);
             return new JsonResponse('saved', 200);
         }catch (\PDOException $e){
             throw $e;
         }
     }
 
-    public function getDatabase($id){
+    public function getAction($id){
+        $db = $this->get('admin.database_service');
+        $jsonContent = $this->serializer->serialize($db->getDatabaseById($id), 'json');
+        return new Response($jsonContent);
+    }
 
+    public function patchAction($id){
+        $json = $this->get('request')->request->get('database');
+        $data = json_decode($json);
+        try{
+            $db = $this->get('admin.database_service');
+            $db->saveDatabase($data, $id);
+            return new JsonResponse('saved', 200);
+        }catch (\PDOException $e){
+            throw $e;
+        }
+    }
+
+    public function removeAction($id){
+        try{
+            $db = $this->get('admin.database_service');
+            $db->removeDatabase($id);
+        }catch (\PDOException $e){
+            throw $e;
+        }
+        return new JsonResponse(['deleted' => $id]);
     }
 }
