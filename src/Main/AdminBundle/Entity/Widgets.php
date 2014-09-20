@@ -62,7 +62,7 @@ class Widgets
     /**
      * @var text
      *
-     * @ORM\Column(name="code", type="text")
+     * @ORM\Column(name="code", type="text", nullable=true)
      *
      */
     private $code;

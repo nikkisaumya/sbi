@@ -39,8 +39,10 @@ class WidgetService {
             $widget = new Widgets();
         }
         $widget->setTitle($data->title);
-        $widget->setRealTime('false');
-        $widget->setCode($data->code);
+        $widget->setRealTime($data->realTime);
+        if(isset($data->code)){
+            $widget->setCode($data->code);
+        }
         $widget->setSource($data->source);
         $widget->setType($data->type);
         $widget->setTemplate('false');

@@ -11,80 +11,114 @@
 {% endblock %}
 {% block body %}
     <div class="row">
-        <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
         <div class="col-sm-12 col-md-12">
             <h1 class="page-header">New widget</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-7 col-md-7">
-            <div ng-controller="NewWidgetCtrl" class="ng-cloak">
-                <form class="form-horizontal" name="form">
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" ng-model="widget.title" id="title" placeholder="Title" required="">
-                    </div>
-                    <div class="form-group">
-                        <div class="btn-group" ng-model="button.checkbox" bs-checkbox-group>
-                            {#<label class="btn btn-default"><input ng-model="widget.realTime" type="checkbox"> Real Time</label>#}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="button"
-                                class="btn btn-default"
-                                ng-model="widget.source"
-                                ng-options="source.key as source.value for source in sources"
-                                placeholder="Report source"
-                                bs-select>
-                        </button>
-                        <button type="button"
-                                class="btn btn-default"
-                                ng-model="widget.type"
-                                ng-options="type.key as type.value for type in types"
-                                placeholder="Report type"
-                                bs-select>
-                        </button>
-                    </div>
+    <div class="row" ng-controller="NewWidgetCtrl" class="ng-cloak">
+        <form class="form-horizontal smart-form" name="form">
+            <div class="col-sm-7 col-md-7">
+                <fieldset>
+                    <section>
+                        <h4>Title</h4>
+                        <label class="input">
+                            <input ng-model="widget.title" id="title" placeholder="Title" required type="text" maxlength="100">
+                        </label>
+                    </section>
+                    <section>
+                        <h4>Report source</h4>
+                        <label class="select">
+                            <select ng-model="widget.source" required="">
+                                <option value="1">API</option>
+                                <option value="2">Database</option>
+                            </select> <i></i> </label>
+                    </section>
+
                     {# API #}
                     <div ng-show="widget.source==1">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                               <button class="btn btn-default" ng-click="getApi()" type="button">Get</button>
-                            </span>
-                            <input type="text" class="form-control" ng-model="apiAddress" id="api" placeholder="Api source">
-                        </div>
-                        <div class="space-10"></div>
-                        <label for="api-source">Source</label>
-                        <textarea id="api-source" class="api-textarea" ng-model="widget.code" disabled></textarea>
+                        <section>
+                            <h4>API source</h4>
+                            <label class="input">
+                                <input ng-model="apiAddress" id="api" placeholder="API source" type="text" maxlength="100">
+                                <span ng-click="getApi()" class="button pull-left">Get</span>
+                            </label>
+                        </section>
+                        <div class="space-40"></div>
+                        <hr>
+                        <section>
+                            <h4>Code</h4>
+                            <label class="textarea">
+                                <textarea ng-model="widget.code" disabled rows="15" class="custom-scroll"></textarea>
+                            </label>
+                            <div class="note">
+                                View cannot be modified.
+                            </div>
+                        </section>
                     </div>
 
                     {# DB #}
-                    <button type="button"
-                            ng-show="widget.source==2"
-                            class="btn btn-default"
-                            ng-model="db"
-                            ng-options="db.key as db.value for db in dbs"
-                            placeholder="Source"
-                            bs-select>
-                    </button>
-                    <div ng-show="db && widget.source=='SQL'">
-                        <i class="fa fa-spinner fa-spin fa-2x"></i>
+                    <div ng-show="widget.source==2">
+                        <section>
+                            <h4>Database address</h4>
+                            <label class="select">
+                                <select ng-model="widget.db">
+                                    <option value="1">127,0,0,1</option>
+                                    <option value="2">8.8.8.8.8</option>
+                                </select> <i></i>
+                            </label>
+                        </section>
                     </div>
+
+                    {#<div ng-show="db && widget.source=='SQL'">#}
+                        {#<i class="fa fa-spinner fa-spin fa-2x"></i>#}
+                    {#</div>#}
 
                     <div class="space-10"></div>
-                    <div class="form-group pull-right">
+                    <footer>
+                        <button class="btn btn-success" ng-click="saveWidget()" ng-disabled="form.$invalid">Save</button>
                         <button class="btn btn-default">Render graph</button>
                         <button class="btn btn-default">Save template</button>
-                        <button class="btn btn-success" ng-click="saveWidget()" ng-disabled="form.$invalid">Save</button>
-                    </div>
-                </form>
+                    </footer>
+                </fieldset>
                 {#<nvd3 options='options' data='data'></nvd3>#}
-
             </div>
-        </div>
-        <div class="col-sm-5 col-md-5">
-            {# OTHER INPUTS #}
-        </div>
+            <div class="col-sm-5 col-md-5">
+                <fieldset>
+                    <section>
+                        <h4>Additional options</h4>
+                        <div class="inline-group">
+                            <label class="checkbox">
+                                <input
+                                        type="checkbox"
+                                        name="checkbox-inline"
+                                        checked="checked"
+                                        ng-model="widget.realTime">
+                                <i></i>Realtime
+                            </label>
+                        </div>
+                    </section>
+                </fieldset>
+                <fieldset>
+                    <section>
+                    <h4>Report type</h4>
+                        <div class="inline-group">
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.type" value="1" name="radio-inline" checked="checked">
+                                <i></i>Plot</label>
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.type" value="2" name="radio-inline">
+                                <i></i>Gauss</label>
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.type" value="3" name="radio-inline">
+                                <i></i>Linear</label>
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.type" value="4" name="radio-inline">
+                                <i></i>Bar</label>
+                        </div>
+                    </section>
+                </fieldset>
+            </div>
+        </form>
     </div>
 
 {% endblock %}

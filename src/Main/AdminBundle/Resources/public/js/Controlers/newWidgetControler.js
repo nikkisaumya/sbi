@@ -37,24 +37,12 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
             { "label" : "13H" , "value" : -5.1387322875705 }
         ]
     }];
-//    $scope.widget.realTime = 'false';
-    $scope.source = '';
-    $scope.sources = [
-        {key: 1, value: 'Api'},
-        {key: 2,  value: 'Database'}
-    ];
+
     $scope.db = '';
     $scope.dbs = [
         {key: 1, value: '127.0.0.1'},
         {key: 2,  value: 'example.com'},
         {key: 3, value: 'localhost'}
-    ];
-    $scope.type = '';
-    $scope.types = [
-        {key: 1, value: 'Linear'},
-        {key: 2, value: 'Gantt'},
-        {key: 3, value: 'Bar'},
-        {key: 4, value: 'Plot'}
     ];
 
     $scope.apiSource = '';

@@ -20,3 +20,7 @@ assetic:
             inputs:
                 -  '%kernel.root_dir%/../web/assets/vendor/font-awesome/fonts/fontawesome-webfont.woff'
             output: 'fonts/fontawesome-webfont.woff'
+        layout:
+            inputs:
+                -  '@MainAdminBundle/Resources/public/css/layout.min.css'
+                -  '@MainAdminBundle/Resources/public/css/main.css'
