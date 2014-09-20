@@ -13,13 +13,8 @@ app.controller('NewDatabaseCtrl', function($scope, $filter, $http) {
             $.growl('Profile updated successfully', { type: 'success', delay: 2000 });
         }).error(function(err) {
             if(err.field && err.msg) {
-                // err like {field: "name", msg: "Server-side error for this username!"}
-                $scope.editableForm.$setError(err.field, err.msg);
-            } else {
-                // unknown error
-                $scope.editableForm.$setError('name', 'Unknown error!');
+                console.log(err.msg);
             }
-            $.growl('Database error', { type: 'danger' });
         });
     };
 

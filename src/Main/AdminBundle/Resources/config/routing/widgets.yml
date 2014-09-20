@@ -1,29 +1,49 @@
-get_widgets:
+# BASIC REST====================
+
+get_widgets: #Symfony view ------
     path:      /widgets
     defaults:  { _controller: MainAdminBundle:Widgets:getWidgets }
     methods:  [GET]
 
-get_widget_list:
+get_widgets_list: #API #Angular REST ---------
     path:      /widgets/list
-    defaults:  { _controller: MainAdminBundle:Widgets:getWidgetList }
+    defaults:  { _controller: MainAdminBundle:Widgets:getWidgetsList, _format: 'json' }
     methods:  [GET]
 
-new_widget:
-    path:      /widget/new
-    defaults:  { _controller: MainAdminBundle:Widgets:newWidget }
+new_widget: #Symfony view -----
+    path:      /widgets/new
+    defaults:  { _controller: MainAdminBundle:Widgets:new }
     methods:  [GET]
 
-get_widget:
-    path:      /widget/{id}
-    defaults:  { _controller: MainAdminBundle:Widgets:getWidget }
-    methods:  [GET]
+save_widget: #Angular REST
+    path:      /widgets/save
+    defaults:  { _controller: MainAdminBundle:Widgets:save }
+    methods:  [POST]
 
-edit_widget:
-    path:      /widget/{id}/edit
-    defaults:  { _controller: MainAdminBundle:Widgets:editWidget }
-    methods:  [GET]
+patch_widget: #Angular REST -----
+    path:      /widgets/patch/{id}
+    defaults:  { _controller: MainAdminBundle:Widgets:patch }
+    methods:  [POST]
 
-remove_widget:
-    path:      /widget/{id}/remove
-    defaults:  { _controller: MainAdminBundle:Widgets:removeWidget }
+get_widget: #API #Angular REST ------------
+    path:      /widgets/{id}
+    defaults:  { _controller: MainAdminBundle:Widgets:get, _format: 'json' }
     methods:  [GET]
+    requirements:
+        id: \d+
+
+edit_widget: #Symfony view --------
+    path:      /widgets/{id}/edit
+    defaults:  { _controller: MainAdminBundle:Widgets:edit }
+    methods:  [GET]
+    requirements:
+        id: \d+
+
+remove_widget: #Angular REST ----------
+    path:      /widgets/{id}/remove
+    defaults:  { _controller: MainAdminBundle:Widgets:remove }
+    methods:  [DELETE]
+    requirements:
+        id: \d+
+
+# END OF BASIC REST====================

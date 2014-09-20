@@ -4,7 +4,7 @@
     {{ parent() }}
     {% javascripts
 
-    '@MainAdminBundle/Resources/public/js/Controlers/widgetsControler.js'
+    '@MainAdminBundle/Resources/public/js/Controlers/listWidgetControler.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -17,24 +17,23 @@
         <h1 class="page-header">Widgets</h1> <a href="{{ path('new_widget') }}" class="btn btn-success">Utwórz nowy widget</a>
     </div>
 </div>
+    <div class="space-10"></div>
 <div class="row">
     <div class="col-sm-12 col-md-12">
-        <div ng-controller="WidgetsCtrl">
+        <div ng-controller="ListWidgetCtrl">
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="widget in $data">
                     <td data-title="'Id'" sortable="'id'">{{ '{{widget.id}}' }}</td>
-                    <td data-title="'Title'" sortable="'title'">{{ '{{widget.title}}' }}</td>
+                    <td data-title="'Title'" sortable="'title'">
+                        <span ng-show="{{ '{{widget.template}}' }}" class="badge">TEMPLATE</span> {{ '{{widget.title}}' }}
+                    </td>
+                    <td data-title="'Real time'" sortable="'realTime'">{{ '{{widget.realTime}}' }}</td>
+                    <td data-title="'Source'" sortable="'source'">{{ '{{widget.source}}' }}</td>
                     <td data-title="'Type'" sortable="'type'">{{ '{{widget.type}}' }}</td>
-                    <td data-title="'Template'" sortable="'template'">{{ '{{widget.template}}' }}</td>
                     <td data-title="'Actions'">
-                        <button type="button"
-                                class="btn btn-xs btn-danger"
-                                data-animation="am-fade-and-scale"
-                                bs-modal="modal">Show
-                        </button>
-                        <a href="userProfile/{{ '{{widget.id}}' }}/show">
-                            <button class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-stats"></span> Profile
+                        <a href="{{ app.request.getBaseURL() }}/widgets/{{ '{{widget.id}}' }}/edit">
+                            <button class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-stats"></span> Edit
                             </button>
                         </a>
                     </td>

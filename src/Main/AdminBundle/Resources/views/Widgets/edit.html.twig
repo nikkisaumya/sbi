@@ -4,7 +4,7 @@
     {{ parent() }}
     {% javascripts
 
-    '@MainAdminBundle/Resources/public/js/Controlers/newWidgetControler.js'
+    '@MainAdminBundle/Resources/public/js/Controlers/editWidgetControler.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-sm-7 col-md-7">
-            <div ng-controller="NewWidgetCtrl" class="ng-cloak">
+            <div ng-controller="EditWidgetCtrl" class="ng-cloak">
                 <form class="form-horizontal" name="form">
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <div class="btn-group" ng-model="button.checkbox" bs-checkbox-group>
-                            {#<label class="btn btn-default"><input ng-model="widget.realTime" type="checkbox"> Real Time</label>#}
+                            <label class="btn btn-default"><input ng-model="widget.realTime" type="checkbox" value="left"> Real Time</label>
                         </div>
                     </div>
                     <div class="form-group">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="space-10"></div>
                         <label for="api-source">Source</label>
-                        <textarea id="api-source" class="api-textarea" ng-model="widget.code" disabled></textarea>
+                        <textarea id="api-source" class="api-textarea" ng-model="apiSource" disabled></textarea>
                     </div>
 
                     {# DB #}
@@ -75,6 +75,7 @@
                     <div class="form-group pull-right">
                         <button class="btn btn-default">Render graph</button>
                         <button class="btn btn-default">Save template</button>
+                        <button class="btn btn-danger" ng-click="deleteWidget(widget.id)">Delete</button>
                         <button class="btn btn-success" ng-click="saveWidget()" ng-disabled="form.$invalid">Save</button>
                     </div>
                 </form>

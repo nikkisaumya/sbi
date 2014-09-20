@@ -2,3 +2,6 @@ services:
   admin.database_service:
       class: Main\AdminBundle\Service\DatabaseService
       arguments: ["@security.context", "@doctrine.orm.entity_manager"]
+  admin.widget_service:
+      class: Main\AdminBundle\Service\WidgetService
+      arguments: ["@security.context", "@doctrine.orm.entity_manager"]
