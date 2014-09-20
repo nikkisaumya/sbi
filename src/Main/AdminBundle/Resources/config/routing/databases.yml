@@ -10,8 +10,13 @@ get_databases_list:
 
 new_database:
     path:      /databases/new
-    defaults:  { _controller: MainAdminBundle:Databases:newDatabase }
+    defaults:  { _controller: MainAdminBundle:Databases:new }
     methods:  [GET]
+
+save_database:
+    path:      /databases/save
+    defaults:  { _controller: MainAdminBundle:Databases:save }
+    methods:  [POST]
 
 get_database:
     path:      /databases/{id}
@@ -20,11 +25,11 @@ get_database:
 
 edit_database:
     path:      /databases/{id}/edit
-    defaults:  { _controller: MainAdminBundle:Databases:editDatabase }
+    defaults:  { _controller: MainAdminBundle:Databases:edit }
     methods:  [GET]
 
 put_database:
-    path:      /databases/{id}/
+    path:      /databases/put/
     defaults:  { _controller: MainAdminBundle:Databases:putDatabase }
     methods:  [PUT]
 

@@ -29,14 +29,10 @@
                     <td data-title="'Login'" sortable="'login'">{{ '{{database.login}}' }}</td>
                     <td data-title="'Port'" sortable="'port'">{{ '{{database.port}}' }}</td>
                     <td data-title="'Actions'">
-                        <button type="button"
-                                class="btn btn-xs btn-danger"
-                                data-animation="am-fade-and-scale"
-                                bs-modal="modal">Show
-                        </button>
-                        <a href="userProfile/{{ '{{database.id}}' }}/show">
-                            <button class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-stats"></span> Database
+
+                        <a href="databases/{{ '{{database.id}}' }}">
+                            <button class="btn btn-danger btn-xs">
+                                <span class="glyphicon glyphicon-stats"></span> Edit
                             </button>
                         </a>
                     </td>
