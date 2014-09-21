@@ -22,13 +22,13 @@
                     <section>
                         <h4>Title</h4>
                         <label class="input">
-                            <input ng-model="widget.title" id="title" placeholder="Title" required type="text" maxlength="100">
+                            <input ng-model="widget.title" id="title" placeholder="Title" class="input-lg" required type="text" maxlength="100">
                         </label>
                     </section>
                     <section>
                         <h4>Report source</h4>
                         <label class="select">
-                            <select ng-model="widget.source" required="">
+                            <select ng-model="widget.source" required class="input-lg" >
                                 <option value="1">API</option>
                                 <option value="2">Database</option>
                             </select> <i></i> </label>
@@ -39,13 +39,13 @@
                         <section>
                             <h4>API source</h4>
                             <label class="input">
-                                <input ng-model="apiAddress" id="api" placeholder="API source" type="text" maxlength="100">
+                                <input ng-model="apiAddress" id="api" placeholder="API source" class="input-lg" type="text" maxlength="100">
                                 <span ng-click="getApi()" class="button pull-left">Get</span>
                             </label>
                         </section>
                         <div class="space-40"></div>
                         <hr>
-                        <section>
+                        <section ng-show="widget.code.length">
                             <h4>Code</h4>
                             <label class="textarea">
                                 <textarea ng-model="widget.code.text" disabled rows="15" class="custom-scroll"></textarea>
@@ -57,8 +57,9 @@
                         </section>
                         <section ng-show="widget.code.length">
                             <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
+                            <div class="alert alert-danger" ng-show="widget.code.length>1000">Alert! Big file. Operation can take some time</div>
                         </section>
-                        <section ng-show="widget.code.length">
+                        <section ng-show="widget.code.length && widget.chartType==0">
                             <div ng-bind-html="widget.code.table"></div>
                         </section>
                     </div>

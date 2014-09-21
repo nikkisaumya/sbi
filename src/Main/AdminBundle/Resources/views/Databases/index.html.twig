@@ -14,7 +14,8 @@
 <div class="row">
     <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
     <div class="col-sm-12 col-md-12">
-        <h1 class="page-header">Database sources</h1> <a href="{{ path('new_database') }}" class="btn btn-success">Utwórz nowe źródło bazy</a>
+        <h1 class="page-header">Database sources</h1>
+        <a href="{{ path('new_database') }}" class="btn btn-success">Utwórz nowe źródło bazy</a>
     </div>
 </div>
 <div class="space-10"></div>
@@ -23,10 +24,10 @@
         <div ng-controller="ListDatabaseCtrl">
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="database in $data">
-                    <td data-title="'Id'" sortable="'id'">{{ '{{database.id}}' }}</td>
-                    <td data-title="'Address'" sortable="'address'">{{ '{{database.address}}' }}</td>
-                    <td data-title="'Login'" sortable="'login'">{{ '{{database.login}}' }}</td>
-                    <td data-title="'Port'" sortable="'port'">{{ '{{database.port}}' }}</td>
+                    <td data-title="'Id'" sortable="'id'"><span ng-bind="database.id"></span> </td>
+                    <td data-title="'Address'" sortable="'address'"><span ng-bind="database.address"></span> </td>
+                    <td data-title="'Login'" sortable="'login'"><span ng-bind="database.login"></span> </td>
+                    <td data-title="'Port'" sortable="'port'"><span ng-bind="database.port"></span> </td>
                     <td data-title="'Actions'">
                         <a href="{{ app.request.getBaseURL() }}/databases/{{ '{{database.id}}' }}/edit">
                             <button class="btn btn-danger btn-xs pull-right">

@@ -23,14 +23,14 @@
         <div ng-controller="ListWidgetCtrl">
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="widget in $data">
-                    <td data-title="'Id'" sortable="'id'">{{ '{{widget.id}}' }}</td>
+                    <td data-title="'Id'" sortable="'id'"><span ng-bind="widget.id"></span>
                     <td data-title="'Title'" sortable="'title'">
-                        <span ng-show="{{ '{{widget.template}}' }}" class="badge">TEMPLATE</span> {{ '{{widget.title}}' }}
+                        <span ng-show="widget.template" class="badge">TEMPLATE</span> <span ng-bind="widget.title"></span>
                     </td>
-                    <td data-title="'Real time'" sortable="'realTime'">{{ '{{widget.realTime}}' }}</td>
-                    <td data-title="'Source'" sortable="'source'">{{ '{{widget.source}}' }}</td>
-                    <td data-title="'Chart type'" sortable="'chartType'">{{ '{{widget.chartType}}' }}</td>
-                    <td data-title="'Query type'" sortable="'queryType'">{{ '{{widget.queryType}}' }}</td>
+                    <td data-title="'Real time'" sortable="'realTime'"><span ng-bind="widget.realTime"></span></td>
+                    <td data-title="'Source'" sortable="'source'"><span ng-bind="widget.source"></span></td>
+                    <td data-title="'Chart type'" sortable="'chartType'"><span ng-bind="widget.chartType"></span></td>
+                    <td data-title="'Query type'" sortable="'queryType'"><span ng-bind="widget.queryType"></span></td>
                     <td data-title="'Actions'">
                         <a href="{{ app.request.getBaseURL() }}/widgets/{{ '{{widget.id}}' }}/edit">
                             <button class="btn btn-danger btn-xs">
