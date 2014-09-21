@@ -36,3 +36,6 @@ assetic:
         angular_nvd3_js:
             inputs:
                 - '%kernel.root_dir%/../web/assets/vendor/angular-nvd3/dist/angular-nvd3.js'
+        lodash:
+            inputs:
+               - '%kernel.root_dir%/../web/assets/vendor/lodash/dist/lodash.js'

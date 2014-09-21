@@ -15,7 +15,7 @@
             <h1 class="page-header">New widget</h1>
         </div>
     </div>
-    <div class="row" ng-controller="NewWidgetCtrl" class="ng-cloak">
+    <div class="row ng-cloak" ng-controller="NewWidgetCtrl">
         <form class="form-horizontal smart-form" name="form">
             <div class="col-sm-7 col-md-7">
                 <fieldset>
@@ -48,11 +48,18 @@
                         <section>
                             <h4>Code</h4>
                             <label class="textarea">
-                                <textarea ng-model="widget.code" disabled rows="15" class="custom-scroll"></textarea>
+                                <textarea ng-model="widget.code.text" disabled rows="15" class="custom-scroll"></textarea>
+                                <textarea ng-model="widget.code.cleanText" ng-hide="widget" disabled></textarea>
                             </label>
                             <div class="note">
                                 View cannot be modified.
                             </div>
+                        </section>
+                        <section ng-show="widget.code.length">
+                            <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
+                        </section>
+                        <section ng-show="widget.code.length">
+                            <div ng-bind-html="widget.code.table"></div>
                         </section>
                     </div>
 
@@ -69,9 +76,9 @@
                             <h4>Query type</h4>
                             <label class="select">
                                 <select ng-model="widget.queryType">
-                                    <option value="1">Procedura</option>
-                                    <option value="2">Tabela</option>
-                                    <option value="3">Zapytanie</option>
+                                    <option value="1">Procedure</option>
+                                    <option value="2">Table</option>
+                                    <option value="3">Query</option>
                                 </select> <i></i>
                             </label>
                         </section>
@@ -101,7 +108,7 @@
                                         name="checkbox-inline"
                                         checked="checked"
                                         ng-model="widget.realTime">
-                                <i></i>Realtime
+                                <i></i>RealTime
                             </label>
                         </div>
                     </section>
@@ -111,16 +118,22 @@
                     <h4>Report type</h4>
                         <div class="inline-group">
                             <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="1" name="radio-inline" checked="checked">
-                                <i></i>Plot</label>
+                                <input type="radio" ng-model="widget.chartType" value="0" name="radio-inline" checked="checked">
+                                <i></i>Simple table</label>
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.chartType" value="1" name="radio-inline">
+                                <i></i>Advanced table</label>
                             <label class="radio">
                                 <input type="radio" ng-model="widget.chartType" value="2" name="radio-inline">
-                                <i></i>Gauss</label>
+                                <i></i>Plot</label>
                             <label class="radio">
                                 <input type="radio" ng-model="widget.chartType" value="3" name="radio-inline">
-                                <i></i>Linear</label>
+                                <i></i>Gauss</label>
                             <label class="radio">
                                 <input type="radio" ng-model="widget.chartType" value="4" name="radio-inline">
+                                <i></i>Linear</label>
+                            <label class="radio">
+                                <input type="radio" ng-model="widget.chartType" value="5" name="radio-inline">
                                 <i></i>Bar</label>
                         </div>
                     </section>

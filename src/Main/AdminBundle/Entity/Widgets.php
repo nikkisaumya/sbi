@@ -62,15 +62,15 @@ class Widgets
     /**
      * @var integer
      *
-     * @ORM\Column(name="query_type", type="integer")
+     * @ORM\Column(name="query_type", type="integer", nullable=true)
      *
      */
     private $queryType;
 
     /**
-     * @var text
+     * @var json_array
      *
-     * @ORM\Column(name="code", type="text", nullable=true)
+     * @ORM\Column(name="code", type="json_array", nullable=true)
      *
      */
     private $code;

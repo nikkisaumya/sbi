@@ -41,11 +41,13 @@ class WidgetService {
         $widget->setTitle($data->title);
         $widget->setRealTime($data->realTime);
         if(isset($data->code)){
-            $widget->setCode($data->code);
+            $widget->setCode($data->code->cleanText);
         }
         $widget->setSource($data->source);
         $widget->setChartType($data->chartType);
-        $widget->setQueryType($data->queryType);
+        if(isset($data->queryType)){
+            $widget->setQueryType($data->queryType);
+        }
         $widget->setTemplate('false');
         $this->entityManager->persist($widget);
         $this->entityManager->flush();

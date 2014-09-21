@@ -23,7 +23,7 @@ app.factory('DatabaseSourceFactory', function($http) {
 
 });
 
-app.controller('NewWidgetCtrl', function($scope, $filter, $http, ApiFactory, DatabaseSourceFactory) {
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
     DatabaseSourceFactory.getSources(url, function(c){
         $scope.dbs = c;
@@ -66,9 +66,46 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, ApiFactory, Dat
         ]
     }];
 
+    function parseSimpleTable(c){
+        // nested loop, better to use recursion, now only 1 level deep
+        var t = '<table class="table table-bordered">';
+        t += '<thead>';
+        var first = _.first(c);
+        var keys = _.keys(first);
+        t+='<th></th>';
+        _.forEach(keys, function(k) {
+            t += '<th>' + k + '</th>'
+        });
+        t += '</thead>';
+        t += '<tbody>';
+        var i = 1;
+        _.forEach(c, function(v) {
+            t += '<tr>';
+            t += '<td>' + i + '</td>';
+                _.forEach(v, function(td) {
+                    t += '<td>';
+                    if(_.isObject(td)){
+                        t += _(td).toString(); //add recursion here
+                    }else{
+                        t += td;
+                    }
+                    t += '</td>';
+                });
+            t += '</tr>';
+            i++;
+        });
+        t += '</tbody>';
+        t += '</table>';
+        return t;
+    }
     $scope.getApi = function(){
         ApiFactory.getApi($scope.apiAddress, function(c){
-            $scope.widget.code = JSON.stringify(c,null,2);
+            $scope.widget.code = {
+                'text': JSON.stringify(c,null,2),
+                'cleanText': c,
+                'length': c.length,
+                'table': $sce.trustAsHtml(parseSimpleTable(c))
+            };
         });
     };
 
