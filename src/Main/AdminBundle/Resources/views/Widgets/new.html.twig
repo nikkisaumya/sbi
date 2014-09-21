@@ -3,7 +3,7 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
-
+    '@MainAdminBundle/Resources/public/js/Services/WidgetService.js'
     '@MainAdminBundle/Resources/public/js/Controlers/newWidgetControler.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -61,9 +61,17 @@
                         <section>
                             <h4>Database address</h4>
                             <label class="select">
-                                <select ng-model="widget.db">
-                                    <option value="1">127,0,0,1</option>
-                                    <option value="2">8.8.8.8.8</option>
+                                <select ng-model="widget.database" ng-options="db.id as db.address for db in dbs">
+                                </select> <i></i>
+                            </label>
+                        </section>
+                        <section>
+                            <h4>Query type</h4>
+                            <label class="select">
+                                <select ng-model="widget.queryType">
+                                    <option value="1">Procedura</option>
+                                    <option value="2">Tabela</option>
+                                    <option value="3">Zapytanie</option>
                                 </select> <i></i>
                             </label>
                         </section>
@@ -103,16 +111,16 @@
                     <h4>Report type</h4>
                         <div class="inline-group">
                             <label class="radio">
-                                <input type="radio" ng-model="widget.type" value="1" name="radio-inline" checked="checked">
+                                <input type="radio" ng-model="widget.chartType" value="1" name="radio-inline" checked="checked">
                                 <i></i>Plot</label>
                             <label class="radio">
-                                <input type="radio" ng-model="widget.type" value="2" name="radio-inline">
+                                <input type="radio" ng-model="widget.chartType" value="2" name="radio-inline">
                                 <i></i>Gauss</label>
                             <label class="radio">
-                                <input type="radio" ng-model="widget.type" value="3" name="radio-inline">
+                                <input type="radio" ng-model="widget.chartType" value="3" name="radio-inline">
                                 <i></i>Linear</label>
                             <label class="radio">
-                                <input type="radio" ng-model="widget.type" value="4" name="radio-inline">
+                                <input type="radio" ng-model="widget.chartType" value="4" name="radio-inline">
                                 <i></i>Bar</label>
                         </div>
                     </section>

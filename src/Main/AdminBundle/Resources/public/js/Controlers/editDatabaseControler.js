@@ -6,15 +6,13 @@ app.controller('EditDatabaseCtrl', function($scope, $filter, $http) {
         success(function(callback) {
             $scope.database = {
                 id: callback.id,
-                name: callback.name,
                 port: callback.port,
                 login: callback.login,
-                address: callback.address,
-                password: callback.password
+                address: callback.address
             };
         }).
         error(function(callback, status) {
-            console.log(status + ' Can not get user profile information');
+            console.log(callback, ' Can not get user profile information');
         });
 
     $scope.saveDatabase = function() {

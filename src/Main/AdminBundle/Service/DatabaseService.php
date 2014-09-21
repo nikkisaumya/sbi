@@ -21,8 +21,12 @@ class DatabaseService {
 
     public function getDatabasesList(){
         $databasesRepository = $this->entityManager
-            ->getRepository(self::DATABASE_REPOSITORY_NAME)
-            ->findByDeleted('false');
+            ->createQueryBuilder()
+            ->select('d.id, d.port, d.address, d.login')
+            ->from(self::DATABASE_REPOSITORY_NAME, 'd')
+            ->where('d.deleted = false')
+            ->getQuery()
+            ->getResult();
         return $databasesRepository;
     }
 
@@ -32,7 +36,6 @@ class DatabaseService {
         }else{
             $database = new Databases();
         }
-        $database->setName($data->name);
         $database->setAddress($data->address);
         $database->setLogin($data->login);
         $database->setPassword($data->password);

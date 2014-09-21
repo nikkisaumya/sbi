@@ -44,7 +44,8 @@ class WidgetService {
             $widget->setCode($data->code);
         }
         $widget->setSource($data->source);
-        $widget->setType($data->type);
+        $widget->setChartType($data->chartType);
+        $widget->setQueryType($data->queryType);
         $widget->setTemplate('false');
         $this->entityManager->persist($widget);
         $this->entityManager->flush();

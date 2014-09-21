@@ -5,3 +5,8 @@ bazinga_faker:
                 number: 35
             Main\AdminBundle\Entity\Widgets:
                 number: 35
+            Main\AdminBundle\Entity\Databases:
+                number: 30
+                custom_formatters:
+                    address: { method: localIpv4 }
+                    port: { method: randomNumber, parameters: [4] }

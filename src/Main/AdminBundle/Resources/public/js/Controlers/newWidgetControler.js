@@ -1,6 +1,34 @@
 var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ui.ace']);
-app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
+app.factory('ApiFactory', function($http) {
+    return {
+        getApi: function(url, callback){
+            $http.get(url)
+                .success(function (template) {
+                    callback(template);
+                });
+        }
+    }
+
+});
+
+app.factory('DatabaseSourceFactory', function($http) {
+    return {
+        getSources: function(url, callback){
+            $http.get(url + '/databases/list')
+                .success(function (template) {
+                    callback(template);
+                });
+        }
+    }
+
+});
+
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
+    DatabaseSourceFactory.getSources(url, function(c){
+        $scope.dbs = c;
+    });
+
     $scope.options = {
         chart: {
             type: 'historicalBarChart',
@@ -38,25 +66,11 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http) {
         ]
     }];
 
-    $scope.db = '';
-    $scope.dbs = [
-        {key: 1, value: '127.0.0.1'},
-        {key: 2,  value: 'example.com'},
-        {key: 3, value: 'localhost'}
-    ];
-
-    $scope.apiSource = '';
     $scope.getApi = function(){
-        console.log('pobieram api');
-        $http({method: 'GET', url: $scope.apiAddress }).
-            success(function(callback) {
-                console.log('pobrane');
-                $scope.widget.code = JSON.stringify(callback,null,2);
-            }).
-            error(function(callback, status) {
-                alert(status + 'Something went wrong');
-            });
-    }
+        ApiFactory.getApi($scope.apiAddress, function(c){
+            $scope.widget.code = JSON.stringify(c,null,2);
+        });
+    };
 
     $scope.saveWidget = function() {
         console.log($scope.widget);

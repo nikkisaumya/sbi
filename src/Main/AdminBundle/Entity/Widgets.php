@@ -54,10 +54,18 @@ class Widgets
     /**
      * @var integer
      *
-     * @ORM\Column(name="type", type="integer")
+     * @ORM\Column(name="chart_type", type="integer")
      *
      */
-    private $type;
+    private $chartType;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="query_type", type="integer")
+     *
+     */
+    private $queryType;
 
     /**
      * @var text
@@ -161,28 +169,7 @@ class Widgets
         return $this->source;
     }
 
-    /**
-     * Set type
-     *
-     * @param integer $type
-     * @return Widgets
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return integer 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set code
@@ -251,5 +238,51 @@ class Widgets
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * Set chartType
+     *
+     * @param integer $chartType
+     * @return Widgets
+     */
+    public function setChartType($chartType)
+    {
+        $this->chartType = $chartType;
+
+        return $this;
+    }
+
+    /**
+     * Get chartType
+     *
+     * @return integer 
+     */
+    public function getChartType()
+    {
+        return $this->chartType;
+    }
+
+    /**
+     * Set queryType
+     *
+     * @param integer $queryType
+     * @return Widgets
+     */
+    public function setQueryType($queryType)
+    {
+        $this->queryType = $queryType;
+
+        return $this;
+    }
+
+    /**
+     * Get queryType
+     *
+     * @return integer 
+     */
+    public function getQueryType()
+    {
+        return $this->queryType;
     }
 }

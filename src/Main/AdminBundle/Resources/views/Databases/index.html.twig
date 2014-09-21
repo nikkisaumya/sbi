@@ -24,13 +24,12 @@
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="database in $data">
                     <td data-title="'Id'" sortable="'id'">{{ '{{database.id}}' }}</td>
-                    <td data-title="'Name'" sortable="'name'">{{ '{{database.name}}' }}</td>
                     <td data-title="'Address'" sortable="'address'">{{ '{{database.address}}' }}</td>
                     <td data-title="'Login'" sortable="'login'">{{ '{{database.login}}' }}</td>
                     <td data-title="'Port'" sortable="'port'">{{ '{{database.port}}' }}</td>
                     <td data-title="'Actions'">
                         <a href="{{ app.request.getBaseURL() }}/databases/{{ '{{database.id}}' }}/edit">
-                            <button class="btn btn-danger btn-xs">
+                            <button class="btn btn-danger btn-xs pull-right">
                                 <span class="glyphicon glyphicon-stats"></span> Edit
                             </button>
                         </a>
