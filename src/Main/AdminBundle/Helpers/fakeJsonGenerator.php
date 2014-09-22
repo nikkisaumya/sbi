@@ -12,12 +12,12 @@ class fakeJsonGenerator  {
         $this->serializer = new Serializer([new GetSetMethodNormalizer()], [new JsonEncoder()]);
     }
 
-    public function jsonGenerator(){
+    public function jsonGeneratorWithNesting(){
         $json = [];
         $faker = \Faker\Factory::create();
         for($i = 0; $i < 50; ++$i){
             $json[$i] = [
-                'id' => $faker->uuid,
+                'id' => $faker->numberBetween(1,1000),
                 'name' => $faker->name,
                 'lastname' => $faker->lastName,
                 'address' => $faker->address
@@ -29,6 +29,21 @@ class fakeJsonGenerator  {
                     'age' => $faker->randomNumber(2)
                 ];
             }
+        }
+        return $this->serializer->serialize($json, 'json');
+    }
+
+    public function jsonGenerator(){
+        $json = [];
+        $faker = \Faker\Factory::create();
+        for($i = 0; $i < 50; ++$i){
+            $json[$i] = [
+                'id' => $faker->numberBetween(1,1000),
+                'name' => $faker->name,
+                'lastname' => $faker->lastName,
+                'address' => $faker->address
+
+            ];
         }
         return $this->serializer->serialize($json, 'json');
     }

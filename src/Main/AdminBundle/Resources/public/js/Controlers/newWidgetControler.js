@@ -1,11 +1,8 @@
-var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ui.ace']);
+var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'datatables']);
 app.factory('ApiFactory', function($http) {
     return {
         getApi: function(url, callback){
-            $http.get(url)
-                .success(function (template) {
-                    callback(template);
-                });
+            $http.get(url).success(callback);
         }
     }
 
@@ -23,7 +20,7 @@ app.factory('DatabaseSourceFactory', function($http) {
 
 });
 
-app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory, DTOptionsBuilder, DTColumnBuilder) {
     var url = angular.element('#baseUrl')[0].dataset.url;
     DatabaseSourceFactory.getSources(url, function(c){
         $scope.dbs = c;
@@ -66,20 +63,17 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         ]
     }];
 
-    function parseSimpleTable(c){
+    function parseStaticTable(json){
         // nested loop, better to use recursion, now only 1 level deep
-        var t = '<table class="table table-bordered">';
-        t += '<thead>';
-        var first = _.first(c);
-        var keys = _.keys(first);
+        var t = '<table datatable="" class="table table-bordered"><thead>';
         t+='<th></th>';
-        _.forEach(keys, function(k) {
+        _.forEach(json.keys, function(k) {
             t += '<th>' + k + '</th>'
         });
         t += '</thead>';
         t += '<tbody>';
         var i = 1;
-        _.forEach(c, function(v) {
+        _.forEach(json.code, function(v) {
             t += '<tr>';
             t += '<td>' + i + '</td>';
                 _.forEach(v, function(td) {
@@ -98,19 +92,33 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         t += '</table>';
         return t;
     }
+    var jsonObj = {
+        code: '',
+        set init (code) {
+            this.code = code;
+        },
+        get length() {
+            return this.code.length;
+        },
+        get keys() {
+            var first = _.first(this.code);
+            return _.keys(first);
+        }
+    };
+
     $scope.getApi = function(){
         ApiFactory.getApi($scope.apiAddress, function(c){
+            jsonObj.init = c;
             $scope.widget.code = {
-                'text': JSON.stringify(c,null,2),
-                'cleanText': c,
-                'length': c.length,
-                'table': $sce.trustAsHtml(parseSimpleTable(c))
+                'text': JSON.stringify(jsonObj.code, null, 2),
+                'cleanText': jsonObj.code,
+                'length': jsonObj.length,
+                'table': $sce.trustAsHtml(parseStaticTable(jsonObj))
             };
         });
     };
 
     $scope.saveWidget = function() {
-        console.log($scope.widget);
         $http({
             method: 'POST',
             url: url + '/widgets/save',

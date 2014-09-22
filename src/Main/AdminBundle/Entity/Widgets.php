@@ -39,14 +39,14 @@ class Widgets
     /**
      * @var boolean
      *
-     * @ORM\Column(name="real_time", type="boolean")
+     * @ORM\Column(name="real_time", type="boolean", nullable=true)
      */
     private $realTime;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="source", type="integer")
+     * @ORM\Column(name="source", type="integer", nullable=true)
      *
      */
     private $source;
@@ -54,7 +54,7 @@ class Widgets
     /**
      * @var integer
      *
-     * @ORM\Column(name="chart_type", type="integer")
+     * @ORM\Column(name="chart_type", type="integer", nullable=true)
      *
      */
     private $chartType;
@@ -89,6 +89,21 @@ class Widgets
      * @ORM\Column(name="deleted", type="boolean")
      */
     private $deleted;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="private", type="boolean")
+     */
+    private $private;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Main\UserBundle\Entity\Users")
+     * @ORM\JoinColumn(name="createdBy", referencedColumnName="id")
+     *
+     */
+    private $createdBy;
 
     /**
      * Get id
@@ -284,5 +299,51 @@ class Widgets
     public function getQueryType()
     {
         return $this->queryType;
+    }
+
+    /**
+     * Set private
+     *
+     * @param boolean $private
+     * @return Widgets
+     */
+    public function setPrivate($private)
+    {
+        $this->private = $private;
+
+        return $this;
+    }
+
+    /**
+     * Get private
+     *
+     * @return boolean 
+     */
+    public function getPrivate()
+    {
+        return $this->private;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     * @return Widgets
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer 
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }

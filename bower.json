@@ -16,9 +16,10 @@
     "d3": "~3.4.11",
     "nvd3": "~1.1.15-beta",
     "angular-nvd3": "latest",
-    "angular-ui-ace": "bower",
-    "ace": "~1.1.6",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "jquery": "~2.1.1",
+    "datatables": "~1.10.2",
+    "angular-datatables": "~0.2.0"
   },
   "resolutions": {
     "d3": "~3.4.1"

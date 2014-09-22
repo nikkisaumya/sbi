@@ -18,6 +18,7 @@
         'assets/vendor/ng-table/ng-table.css'
         'assets/vendor/nvd3/nv.d3.css'
         '@layout'
+        '@angular_datatables_css'
         filter='yui_css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
@@ -65,10 +66,8 @@
 </div>
 {% block javascripts %}
     {% javascripts
-    'assets/vendor/jquery/dist/jquery.js'
-    'assets/vendor/pace/pace.js'
-    'assets/vendor/bootstrap/dist/js/bootstrap.js'
-    'assets/vendor/angular/angular.js'
+    '@jquery_js' '@angular_js' '@pace_js'
+
     'assets/vendor/angular-route/angular-route.js'
     'assets/vendor/angular-animate/angular-animate.js'
     'assets/vendor/remarkable-bootstrap-growl/bootstrap-growl.js'
@@ -82,6 +81,8 @@
     'assets/vendor/ace-builds/src-min-noconflict/ace.js'
     'assets/vendor/angular-ui-ace/ui-ace.js'
     '@lodash'
+    '@datatables_js'
+    '@angular_datatables_js'
 
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

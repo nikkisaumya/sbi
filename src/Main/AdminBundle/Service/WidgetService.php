@@ -49,6 +49,8 @@ class WidgetService {
             $widget->setQueryType($data->queryType);
         }
         $widget->setTemplate('false');
+        $widget->setPrivate($data->private);
+        $widget->setCreatedBy($this->getUser());
         $this->entityManager->persist($widget);
         $this->entityManager->flush();
         return true;
@@ -60,6 +62,14 @@ class WidgetService {
         $this->entityManager->persist($widget);
         $this->entityManager->flush();
         return true;
+    }
+//    TODO move it to UserService
+    public function getUser(){
+        $user = $this->securityContext->getToken()->getUser()->getId();
+        $userRepository = $this->entityManager
+            ->getRepository('MainUserBundle:Users')
+            ->findOneById($user);
+        return $userRepository;
     }
 
 }
