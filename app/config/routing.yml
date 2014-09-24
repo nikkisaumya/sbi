@@ -47,3 +47,7 @@ fake_generator:
     path:      /fakeJson
     defaults:  { _controller: MainAdminBundle:Helper:getFakeJson }
     methods: [GET]
+fake_generator2:
+    path:      /fakeJson2
+    defaults:  { _controller: MainAdminBundle:Helper:getFakeJson2 }
+    methods: [GET]

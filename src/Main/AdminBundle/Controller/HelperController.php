@@ -11,4 +11,9 @@ class HelperController extends Controller {
        $generator = new fakeJsonGenerator();
        return new Response($generator->jsonGenerator());
    }
+
+    public function getFakeJson2Action(){
+        $generator = new fakeJsonGenerator();
+        return new Response($generator->jsonGenerator2());
+    }
 }

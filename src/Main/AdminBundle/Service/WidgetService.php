@@ -39,7 +39,7 @@ class WidgetService {
             $widget = new Widgets();
         }
         $widget->setTitle($data->title);
-        $widget->setRealTime($data->realTime);
+        $widget->setRealTime(array_key_exists('realTime', $data) ? $data->realTime : false);
         if(isset($data->code)){
             $widget->setCode($data->code->cleanText);
         }
@@ -49,7 +49,7 @@ class WidgetService {
             $widget->setQueryType($data->queryType);
         }
         $widget->setTemplate('false');
-        $widget->setPrivate($data->private);
+        $widget->setPrivate(array_key_exists('private', $data) ? $data->private : false);
         $widget->setCreatedBy($this->getUser());
         $this->entityManager->persist($widget);
         $this->entityManager->flush();

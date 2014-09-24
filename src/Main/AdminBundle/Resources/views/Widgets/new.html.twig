@@ -50,34 +50,20 @@
                             <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
                             <div class="alert alert-danger" ng-show="widget.code.length>1000">Alert! Big file. Operation can take some time</div>
                         </section>
-                        {#<table datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-striped table-bordered"></table>#}
                         <section ng-show="widget.code.length && widget.chartType==0">
                             <div ng-bind-html="widget.code.table"></div>
 
                         </section>
                         <section ng-show="widget.code.length && widget.chartType==1">
-                            <table datatable="ng" class="table table-bordered table-condensed">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>FirstName</th>
-                                    <th>LastName</th>
-                                    <th>address</th>
+                            <table ng-table="tableParams" class="table">
+                                <tr ng-repeat="contents in $data">
+                                    <td ng-repeat="(key,val) in contents">
+                                        <span ng-bind="val"></span>
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="row in widget.code.cleanText">
-                                    <td><span ng-bind="row.id"></span> </td>
-                                    <td><span ng-bind="row.name"></span> </td>
-                                    <td><span ng-bind="row.lastname"></span> </td>
-                                    <td><span ng-bind="row.address"></span> </td>
-                                </tr>
-                                </tbody>
                             </table>
                         </section>
-
-
-
+                    </div>
 
                     {# DB #}
                     <div ng-show="widget.source==2">
@@ -165,7 +151,7 @@
                         <h4>Code</h4>
                         <label class="textarea">
                             <textarea ng-model="widget.code.text" disabled rows="15" class="custom-scroll"></textarea>
-                            <textarea ng-model="widget.code.cleanText" ng-hide="widget" disabled></textarea>
+                            {#<textarea ng-model="widget.code.cleanText" ng-hide="widget" disabled></textarea>#}
                         </label>
                         <div class="note">
                             View cannot be modified.

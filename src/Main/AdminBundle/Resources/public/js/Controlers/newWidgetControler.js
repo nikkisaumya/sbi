@@ -1,4 +1,4 @@
-var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'datatables']);
+var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngTable']);
 app.factory('ApiFactory', function($http) {
     return {
         getApi: function(url, callback){
@@ -20,7 +20,7 @@ app.factory('DatabaseSourceFactory', function($http) {
 
 });
 
-app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory, DTOptionsBuilder, DTColumnBuilder) {
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory, ngTableParams) {
     var url = angular.element('#baseUrl')[0].dataset.url;
     DatabaseSourceFactory.getSources(url, function(c){
         $scope.dbs = c;
@@ -65,10 +65,10 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
 
     function parseStaticTable(json){
         // nested loop, better to use recursion, now only 1 level deep
-        var t = '<table datatable="" class="table table-bordered"><thead>';
+        var t = '<table class="table table-bordered"><thead>';
         t+='<th></th>';
         _.forEach(json.keys, function(k) {
-            t += '<th>' + k + '</th>'
+            t += '<th>' + k.key + '</th>'
         });
         t += '</thead>';
         t += '<tbody>';
@@ -93,7 +93,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         return t;
     }
     var jsonObj = {
-        code: '',
+        code: [],
         set init (code) {
             this.code = code;
         },
@@ -102,10 +102,17 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         },
         get keys() {
             var first = _.first(this.code);
-            return _.keys(first);
+            var arrayKey = [];
+            _.keys(first).forEach(function(k, i){
+                arrayKey[i] = {
+                    id: i,
+                    key: k
+                };
+            });
+            return arrayKey;
         }
     };
-
+    $scope.apiAddress = "http://127.0.0.1:8000/app_dev.php/fakeJson";
     $scope.getApi = function(){
         ApiFactory.getApi($scope.apiAddress, function(c){
             jsonObj.init = c;
@@ -113,9 +120,31 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
                 'text': JSON.stringify(jsonObj.code, null, 2),
                 'cleanText': jsonObj.code,
                 'length': jsonObj.length,
-                'table': $sce.trustAsHtml(parseStaticTable(jsonObj))
+                'table': $sce.trustAsHtml(parseStaticTable(jsonObj)),
+                'keys': jsonObj.keys
             };
+//            move below to new function
+            var data = jsonObj.code;
+
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 10,          // count per page
+                sorting: {
+                    name: 'id'     // initial sorting
+                }
+            }, {
+                total: jsonObj.code.length, // length of data
+                getData: function($defer, params) {
+                    // use build-in angular filter
+                    var orderedData = params.sorting() ?
+                        $filter('orderBy')(jsonObj.code, params.orderBy()) :
+                        jsonObj.code;
+
+                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
         });
+
     };
 
     $scope.saveWidget = function() {
