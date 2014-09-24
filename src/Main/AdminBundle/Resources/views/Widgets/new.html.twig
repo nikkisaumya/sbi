@@ -35,7 +35,7 @@
                     </section>
 
                     {# API #}
-                    <div ng-show="widget.source==1">
+                    <div ng-if="widget.source==1">
                         <section>
                             <h4>API source</h4>
                             <label class="input">
@@ -50,21 +50,18 @@
                             <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
                             <div class="alert alert-danger" ng-show="widget.code.length>1000">Alert! Big file. Operation can take some time</div>
                         </section>
-                        <section ng-show="widget.code.length && widget.chartType==0">
-                            <div ng-bind-html="widget.code.table"></div>
-
+                        <section ng-if="widget.chartType==0">
+                            <div ng-bind-html="widget.code.table" style="overflow: auto; height: 500px"></div>
                         </section>
-                        <section ng-show="widget.code.length && widget.chartType==1">
-                            <table ng-table="tableParams" class="table">
-                                <tr ng-repeat="contents in $data">
-                                    <td ng-repeat="(key,val) in contents">
-                                        <span ng-bind="val"></span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </section>
+                        <div ng-if="widget.chartType==1">
+                            <div class="table-responsive">
+                                <div class="gridStyle" ng-grid="gridOptions"></div>
+                            </div>
+                        </div>
+                        <div ng-if="widget.chartType==2">
+                            <nvd3 options="options" data="data"></nvd3>
+                        </div>
                     </div>
-
                     {# DB #}
                     <div ng-show="widget.source==2">
                         <section>
@@ -97,7 +94,6 @@
                         <button class="btn btn-default">Save template</button>
                     </footer>
                 </fieldset>
-                {#<nvd3 options='options' data='data'></nvd3>#}
             </div>
             <div class="col-sm-5 col-md-5">
                 <fieldset>
@@ -125,23 +121,23 @@
                     <section>
                     <h4>Report type</h4>
                         <div class="inline-group">
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="0" name="radio-inline" checked>
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="0" name="radio-inline" checked>
                                 <i></i>Static table</label>
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="1" name="radio-inline">
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" ng-click="getCode()" value="1" name="radio-inline">
                                 <i></i>Advanced table</label>
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="2" name="radio-inline">
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="2" name="radio-inline">
                                 <i></i>Plot</label>
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="3" name="radio-inline">
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="3" name="radio-inline">
                                 <i></i>Gauss</label>
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="4" name="radio-inline">
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="4" name="radio-inline">
                                 <i></i>Linear</label>
-                            <label class="radio">
-                                <input type="radio" ng-model="widget.chartType" value="5" name="radio-inline">
+                            <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="5" name="radio-inline">
                                 <i></i>Bar</label>
                         </div>
                     </section>

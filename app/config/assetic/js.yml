@@ -39,9 +39,6 @@ assetic:
         lodash:
             inputs:
                - '%kernel.root_dir%/../web/assets/vendor/lodash/dist/lodash.js'
-        datatables_js:
+        nggrid_js:
             inputs:
-               - '%kernel.root_dir%/../web/assets/vendor/datatables/media/js/jquery.dataTables.js'
-        angular_datatables_js:
-            inputs:
-               - '%kernel.root_dir%/../web/assets/vendor/angular-datatables/dist/angular-datatables.js'
+               - '%kernel.root_dir%/../web/assets/vendor/ng-grid/ng-grid-2.0.13.min.js'

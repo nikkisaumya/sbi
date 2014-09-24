@@ -19,7 +19,8 @@
     "lodash": "~2.4.1",
     "jquery": "~2.1.1",
     "datatables": "~1.10.2",
-    "angular-datatables": "~0.2.0"
+    "angular-datatables": "~0.2.0",
+    "ng-grid": "~2.0.13"
   },
   "resolutions": {
     "d3": "~3.4.1"

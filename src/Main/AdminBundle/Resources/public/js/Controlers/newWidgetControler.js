@@ -1,4 +1,4 @@
-var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngTable']);
+var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngGrid']);
 app.factory('ApiFactory', function($http) {
     return {
         getApi: function(url, callback){
@@ -20,7 +20,7 @@ app.factory('DatabaseSourceFactory', function($http) {
 
 });
 
-app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory, ngTableParams) {
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
     DatabaseSourceFactory.getSources(url, function(c){
         $scope.dbs = c;
@@ -28,40 +28,32 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
 
     $scope.options = {
         chart: {
-            type: 'historicalBarChart',
-            height: 350,
-            width: 800,
-            margin : {
-                top: 20,
-                right: 20,
-                bottom: 60,
-                left: 55
-            },
-            x: function(d){ return d.label; },
-            y: function(d){ return d.value; },
-            showValues: true,
-            valueFormat: function(d){
-                return d3.format(',.4f')(d);
-            },
+            type: 'pieChart',
+            height: 500,
+            x: function(d){return d.key;},
+            y: function(d){return d.y;},
+            showLabels: true,
             transitionDuration: 500,
-            xAxis: {
-                axisLabel: 'X Axis'
-            },
-            yAxis: {
-                axisLabel: 'Y Axis',
-                axisLabelDistance: 30
+            labelThreshold: 0.01,
+            legend: {
+                margin: {
+                    top: 5,
+                    right: 35,
+                    bottom: 5,
+                    left: 0
+                }
             }
         }
     };
-    $scope.data = [{
-        key: "Cumulative Return",
-        values: [
-            { "label" : "A" , "value" : -29.765957771107 },
-            { "label" : "C" , "value" : 32.807804682612 },
-            { "label" : "D" , "value" : 196.45946739256 },
-            { "label" : "13H" , "value" : -5.1387322875705 }
-        ]
-    }];
+    $scope.data = [
+              	 { key: "One", y: 5 },
+                 { key: "Two", y: 2 },
+                 { key: "Three", y: 9 },
+                 { key: "Four", y: 7 },
+                 { key: "Five", y: 4 },
+                 { key: "Six", y: 3 },
+                 { key: "Seven", y: 9 }
+            ];
 
     function parseStaticTable(json){
         // nested loop, better to use recursion, now only 1 level deep
@@ -100,6 +92,9 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         get length() {
             return this.code.length;
         },
+        get json() {
+            return this.code;
+        },
         get keys() {
             var first = _.first(this.code);
             var arrayKey = [];
@@ -115,6 +110,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
     $scope.apiAddress = "http://127.0.0.1:8000/app_dev.php/fakeJson";
     $scope.getApi = function(){
         ApiFactory.getApi($scope.apiAddress, function(c){
+            $scope.enabledCharts = true;
             jsonObj.init = c;
             $scope.widget.code = {
                 'text': JSON.stringify(jsonObj.code, null, 2),
@@ -123,28 +119,16 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
                 'table': $sce.trustAsHtml(parseStaticTable(jsonObj)),
                 'keys': jsonObj.keys
             };
-//            move below to new function
-            var data = jsonObj.code;
-
-            $scope.tableParams = new ngTableParams({
-                page: 1,            // show first page
-                count: 10,          // count per page
-                sorting: {
-                    name: 'id'     // initial sorting
-                }
-            }, {
-                total: jsonObj.code.length, // length of data
-                getData: function($defer, params) {
-                    // use build-in angular filter
-                    var orderedData = params.sorting() ?
-                        $filter('orderBy')(jsonObj.code, params.orderBy()) :
-                        jsonObj.code;
-
-                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            });
         });
 
+    };
+
+    $scope.getCode = function(){
+        $scope.myData = jsonObj.json;
+
+    };
+    $scope.gridOptions = {
+        data: 'myData'
     };
 
     $scope.saveWidget = function() {

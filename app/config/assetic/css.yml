@@ -24,6 +24,6 @@ assetic:
             inputs:
                 -  '@MainAdminBundle/Resources/public/css/layout.min.css'
                 -  '@MainAdminBundle/Resources/public/css/main.css'
-        angular_datatables_css:
+        nggrid_css:
             inputs:
-               - '%kernel.root_dir%/../web/assets/vendor/angular-datatables/dist/datatables.bootstrap.css'
+               - '%kernel.root_dir%/../web/assets/vendor/ng-grid/ng-grid.css'
