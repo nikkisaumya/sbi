@@ -1,24 +1,35 @@
 var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngGrid']);
-app.factory('ApiFactory', function($http) {
-    return {
-        getApi: function(url, callback){
-            $http.get(url).success(callback);
-        }
+
+app.factory('ApiFactory', apiSource);
+apiSource.$inject = ['$http'];
+
+function apiSource($http){
+    var api =  {
+        getApi: getApi
+    };
+
+    return api;
+
+    function getApi(url, callback){
+        $http.get(url).success(callback);
     }
+}
 
-});
+app.factory('DatabaseSourceFactory', databaseSource);
+databaseSource.$inject = ['$http'];
 
-app.factory('DatabaseSourceFactory', function($http) {
-    return {
-        getSources: function(url, callback){
-            $http.get(url + '/databases/list')
-                .success(function (template) {
-                    callback(template);
-                });
-        }
+function databaseSource($http) {
+    var source =  {
+        getSources: getSource
+    };
+
+    return source;
+
+    function getSource(url, callback){
+        $http.get(url + '/databases/list')
+            .success(callback);
     }
-
-});
+}
 
 app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
