@@ -47,3 +47,8 @@ remove_database: #Angular REST
         id: \d+
 
 # END OF BASIC REST====================
+
+get_database_tables: #Symfony view
+    path:      /databases/tables/list
+    defaults:  { _controller: MainAdminBundle:Databases:tablesList }
+    methods:  [GET]

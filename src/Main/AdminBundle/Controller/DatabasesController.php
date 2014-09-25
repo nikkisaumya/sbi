@@ -75,4 +75,9 @@ class DatabasesController extends Controller{
         }
         return new JsonResponse(['deleted' => $id]);
     }
+
+    public function tablesListAction(){
+        $databaseTablesList = $this->get(self::DATABASE_SERVICE);
+        return new JsonResponse($databaseTablesList->getDatabaseTablesList());
+    }
 }

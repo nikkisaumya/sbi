@@ -81,6 +81,13 @@
                                 </select> <i></i>
                             </label>
                         </section>
+                        <section ng-if="widget.queryType==2">
+                            <h4>Available tables</h4>
+                            <label class="select">
+                                <select ng-model="widget.database.tables" ng-options="table.id as table.name for table in tables">
+                                </select> <i></i>
+                            </label>
+                        </section>
                     </div>
 
                     {#<div ng-show="db && widget.source=='SQL'">#}

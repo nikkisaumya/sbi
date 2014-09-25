@@ -3,6 +3,7 @@
 namespace Main\AdminBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Main\AdminBundle\Entity\Databases;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -53,10 +54,27 @@ class DatabaseService {
     }
 
     public function removeDatabase($id){
+        /** @var $database Databases */
         $database = $this->getDatabaseById($id);
         $database->setDeleted('TRUE');
         $this->entityManager->persist($database);
         $this->entityManager->flush();
         return true;
+    }
+
+    public function getDatabaseTablesList(){
+//        TODO add DTO to map only specified column from table (for example: table without passwords)
+        $results = $this->entityManager
+            ->getConnection()
+            ->getSchemaManager()
+            ->listTables();
+        $return = [];
+        foreach($results as $k => $result){
+            $return[] = [
+                'id' => $k,
+                'name' => $result->getName()
+            ];
+        }
+        return $return;
     }
 }

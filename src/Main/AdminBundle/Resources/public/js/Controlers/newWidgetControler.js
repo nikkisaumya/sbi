@@ -11,7 +11,11 @@ function apiSource($http){
     return api;
 
     function getApi(url, callback){
-        $http.get(url).success(callback);
+        $http.get(url)
+            .success(callback)
+            .error(callback, function(error){
+                console.log('Error: ', error);
+            });
     }
 }
 
@@ -20,21 +24,36 @@ databaseSource.$inject = ['$http'];
 
 function databaseSource($http) {
     var source =  {
-        getSources: getSource
+        getDatabaseList: getDatabaseList,
+        getDatabaseTables: getDatabaseTables
     };
 
     return source;
 
-    function getSource(url, callback){
+    function getDatabaseList(url, callback){
         $http.get(url + '/databases/list')
-            .success(callback);
+            .success(callback)
+            .error(callback, function(error){
+                console.log('Error: ', error);
+            });
+    }
+
+    function getDatabaseTables(url, callback){
+        $http.get(url + '/databases/tables/list')
+            .success(callback)
+            .error(callback, function(error){
+                console.log('Error: ', error);
+            });
     }
 }
 
 app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
-    DatabaseSourceFactory.getSources(url, function(c){
+    DatabaseSourceFactory.getDatabaseList(url, function(c){
         $scope.dbs = c;
+    });
+    DatabaseSourceFactory.getDatabaseTables(url, function(c){
+        $scope.tables = c;
     });
 
     $scope.options = {
@@ -71,7 +90,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         var t = '<table class="table table-bordered"><thead>';
         t+='<th></th>';
         _.forEach(json.keys, function(k) {
-            t += '<th>' + k.key + '</th>'
+            t += '<th>' + k.key + '</th>';
         });
         t += '</thead>';
         t += '<tbody>';
@@ -156,5 +175,5 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
                 console.log(err.msg);
             }
         });
-    }
+    };
 });
