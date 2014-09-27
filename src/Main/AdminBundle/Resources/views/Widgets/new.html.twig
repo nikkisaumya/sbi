@@ -35,11 +35,11 @@
                     </section>
 
                     {# API #}
-                    <div ng-if="widget.source==1">
+                    <div ng-show="widget.source==1">
                         <section>
                             <h4>API source</h4>
                             <label class="input">
-                                <input ng-model="apiAddress" id="api" placeholder="API source" class="input-lg" type="text" maxlength="100">
+                                <input ng-model="apiAddress" id="api" placeholder="API source" class="input-lg" type="text">
                                 <span ng-click="getApi()" class="button pull-left">Get</span>
                             </label>
                         </section>
@@ -84,7 +84,7 @@
                         <section ng-if="widget.queryType==2">
                             <h4>Available tables</h4>
                             <label class="select">
-                                <select ng-model="widget.database.tables" ng-options="table.id as table.name for table in tables">
+                                <select ng-model="widget.tables" ng-options="table.id as table.name for table in tables">
                                 </select> <i></i>
                             </label>
                         </section>
@@ -132,7 +132,7 @@
                                 <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="0" name="radio-inline" checked>
                                 <i></i>Static table</label>
                             <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
-                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" ng-click="getCode()" value="1" name="radio-inline">
+                                <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="1" name="radio-inline">
                                 <i></i>Advanced table</label>
                             <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
                                 <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="2" name="radio-inline">
@@ -150,11 +150,10 @@
                     </section>
                 </fieldset>
                 <fieldset>
-                    <section ng-show="widget.code.length">
+                    <section ng-show="enabledCharts">
                         <h4>Code</h4>
                         <label class="textarea">
                             <textarea ng-model="widget.code.text" disabled rows="15" class="custom-scroll"></textarea>
-                            {#<textarea ng-model="widget.code.cleanText" ng-hide="widget" disabled></textarea>#}
                         </label>
                         <div class="note">
                             View cannot be modified.

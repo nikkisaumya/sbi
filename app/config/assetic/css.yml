@@ -16,10 +16,6 @@ assetic:
             inputs:
                 -  '%kernel.root_dir%/../web/fonts/glyphicons-halflings-regular.ttf'
             output: 'fonts/glyphicons-halflings-regular.ttf'
-        font_awesome_woff:
-            inputs:
-                -  '%kernel.root_dir%/../web/assets/vendor/font-awesome/fonts/fontawesome-webfont.woff'
-            output: 'fonts/fontawesome-webfont.woff'
         layout:
             inputs:
                 -  '@MainAdminBundle/Resources/public/css/layout.min.css'

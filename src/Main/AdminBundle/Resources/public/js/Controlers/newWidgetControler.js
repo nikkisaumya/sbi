@@ -10,13 +10,30 @@ function apiSource($http){
 
     return api;
 
-    function getApi(url, callback){
-        $http.get(url)
-            .success(callback)
-            .error(callback, function(error){
-                console.log('Error: ', error);
-            });
+    function getApi(url){
+//        get URL params
+        var baseUrl = '';
+        var params = {'callback': 'JSON_CALLBACK'};
+        var parts = url.split(/[&?]+/);
+
+        for (var i = 0; i < parts.length; i++) {
+            var nv = parts[i].split('=');
+            if (!nv[0]) continue;
+            params[nv[0]] = nv[1] || true;
+        }
+        _(params).forEach(function(val, key){
+            // get base of URL
+            if (key.substring(0, 7) == "http://") {
+                baseUrl = key;
+                delete params[key];
+            }
+        });
+
+        return $http.jsonp(baseUrl, { params: params });
     }
+
+
+
 }
 
 app.factory('DatabaseSourceFactory', databaseSource);
@@ -86,22 +103,29 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
             ];
 
     function parseStaticTable(json){
-        // nested loop, better to use recursion, now only 1 level deep
+        var first = _.first(json);
+        var arrayKey = [];
+        _.keys(first).forEach(function(k, i){
+            arrayKey[i] = {
+                id: i,
+                key: k
+            };
+        });
         var t = '<table class="table table-bordered"><thead>';
         t+='<th></th>';
-        _.forEach(json.keys, function(k) {
+        _.forEach(arrayKey, function(k) {
             t += '<th>' + k.key + '</th>';
         });
         t += '</thead>';
         t += '<tbody>';
         var i = 1;
-        _.forEach(json.code, function(v) {
+        _.forEach(json, function(v) {
             t += '<tr>';
             t += '<td>' + i + '</td>';
                 _.forEach(v, function(td) {
                     t += '<td>';
                     if(_.isObject(td)){
-                        t += _(td).toString(); //add recursion here
+                        t += parseStaticTable(td);
                     }else{
                         t += td;
                     }
@@ -137,26 +161,29 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
             return arrayKey;
         }
     };
-    $scope.apiAddress = "http://127.0.0.1:8000/app_dev.php/fakeJson";
+
     $scope.getApi = function(){
-        ApiFactory.getApi($scope.apiAddress, function(c){
-            $scope.enabledCharts = true;
-            jsonObj.init = c;
-            $scope.widget.code = {
-                'text': JSON.stringify(jsonObj.code, null, 2),
-                'cleanText': jsonObj.code,
-                'length': jsonObj.length,
-                'table': $sce.trustAsHtml(parseStaticTable(jsonObj)),
-                'keys': jsonObj.keys
-            };
-        });
+        var promise = ApiFactory.getApi($scope.apiAddress);
+        promise.then(
+            function(payload) {
+                console.log(payload.data);
+                jsonObj.init = payload.data;
+                $scope.widget.code = {
+                    'text': JSON.stringify(jsonObj.code, null, 2),
+                    'cleanText': jsonObj.code,
+                    'length': jsonObj.length,
+                    'table': $sce.trustAsHtml(parseStaticTable(payload.data)),
+                    'keys': jsonObj.keys
+                };
+                $scope.enabledCharts = true;
+                $scope.myData = angular.copy(jsonObj.json);
+            },
+            function(error) {
+                console.log(error);
+            });
 
     };
 
-    $scope.getCode = function(){
-        $scope.myData = jsonObj.json;
-
-    };
     $scope.gridOptions = {
         data: 'myData'
     };

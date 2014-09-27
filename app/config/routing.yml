@@ -45,9 +45,10 @@ databases:
 
 fake_generator:
     path:      /fakeJson
-    defaults:  { _controller: MainAdminBundle:Helper:getFakeJson }
-    methods: [GET]
+    defaults:  { _controller: MainAdminBundle:Helper:getFakeJson, _format: json }
+    requirements: { _format: (json), _method: GET }
+
 fake_generator2:
     path:      /fakeJson2
-    defaults:  { _controller: MainAdminBundle:Helper:getFakeJson2 }
-    methods: [GET]
+    defaults:  { _controller: MainAdminBundle:Helper:getFakeJson2, _format: json }
+    requirements: { _format: (json), _method: GET }
