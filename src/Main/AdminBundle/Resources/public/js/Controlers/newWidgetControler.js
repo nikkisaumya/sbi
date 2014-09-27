@@ -67,6 +67,7 @@ function databaseSource($http) {
 app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
     var url = angular.element('#baseUrl')[0].dataset.url;
     DatabaseSourceFactory.getDatabaseList(url, function(c){
+        c.unshift({id:0, address: 'This database'});
         $scope.dbs = c;
     });
     DatabaseSourceFactory.getDatabaseTables(url, function(c){

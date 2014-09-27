@@ -28,19 +28,27 @@
                     <section>
                         <h4>Report source</h4>
                         <label class="select">
-                            <select ng-model="widget.source" required class="input-lg" >
-                                <option value="1">API</option>
-                                <option value="2">Database</option>
+                            <select ng-model="widget.source" required class="input-lg">
+                                <option value="1">API url</option>
+                                <option value="2">Definied API</option>
+                                <option value="3">Database - SQL</option>
                             </select> <i></i> </label>
                     </section>
 
                     {# API #}
-                    <div ng-show="widget.source==1">
-                        <section>
-                            <h4>API source</h4>
+                    <div ng-show="widget.source==1 || widget.source==2">
+                        <section ng-show="widget.source==1">
+                            <h4>APIs names</h4>
                             <label class="input">
                                 <input ng-model="apiAddress" id="api" placeholder="API source" class="input-lg" type="text">
                                 <span ng-click="getApi()" class="button pull-left">Get</span>
+                            </label>
+                        </section>
+                        <section ng-show="widget.source==2">
+                            <h4>Database address</h4>
+                            <label class="select">
+                                <select ng-model="widget.database" class="input-lg" ng-options="db.id as db.address for db in dbs">
+                                </select> <i></i>
                             </label>
                         </section>
                         <div class="space-40"></div>
@@ -62,19 +70,20 @@
                             <nvd3 options="options" data="data"></nvd3>
                         </div>
                     </div>
+
                     {# DB #}
-                    <div ng-show="widget.source==2">
+                    <div ng-show="widget.source==3">
                         <section>
                             <h4>Database address</h4>
                             <label class="select">
-                                <select ng-model="widget.database" ng-options="db.id as db.address for db in dbs">
+                                <select ng-model="widget.database" class="input-lg" ng-options="db.id as db.address for db in dbs">
                                 </select> <i></i>
                             </label>
                         </section>
                         <section>
                             <h4>Query type</h4>
                             <label class="select">
-                                <select ng-model="widget.queryType">
+                                <select ng-model="widget.queryType" class="input-lg">
                                     <option value="1">Procedure</option>
                                     <option value="2">Table</option>
                                     <option value="3">Query</option>
@@ -84,11 +93,13 @@
                         <section ng-if="widget.queryType==2">
                             <h4>Available tables</h4>
                             <label class="select">
-                                <select ng-model="widget.tables" ng-options="table.id as table.name for table in tables">
+                                <select ng-model="widget.tables" class="input-lg" ng-options="table.id as table.name for table in tables">
                                 </select> <i></i>
                             </label>
                         </section>
                     </div>
+
+
 
                     {#<div ng-show="db && widget.source=='SQL'">#}
                         {#<i class="fa fa-spinner fa-spin fa-2x"></i>#}
@@ -142,7 +153,7 @@
                                 <i></i>Gauss</label>
                             <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
                                 <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="4" name="radio-inline">
-                                <i></i>Linear</label>
+                                <i></i>Timeline</label>
                             <label class="radio" ng-class="!enabledCharts?'state-disabled':'' ">
                                 <input type="radio" ng-disabled="!enabledCharts" ng-model="widget.chartType" value="5" name="radio-inline">
                                 <i></i>Bar</label>
