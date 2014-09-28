@@ -81,11 +81,23 @@
                             <label class="col-md-11 select">
                                 <select ng-model="widget.tables"
                                         class="input-lg"
-                                        ng-options="table.id as table.name for table in tables">
+                                        ng-options="table.name for table in tables">
                                 </select> <i></i>
                             </label>
                             <label class="col-md-1">
-                                <span class="btn btn-primary btn-lg" ng-click="getTable(tables[widget.tables])">Get</span>
+                                <span class="btn btn-primary btn-lg" ng-click="getTable(widget.tables)">Get</span>
+                            </label>
+                        </section>
+                        <section ng-if="widget.queryType==3">
+                            <h4>Available views</h4>
+                            <label class="col-md-11 select">
+                                <select ng-model="widget.views"
+                                        class="input-lg"
+                                        ng-options="view.name for view in views">
+                                </select> <i></i>
+                            </label>
+                            <label class="col-md-1">
+                                <span class="btn btn-primary btn-lg" ng-click="getView(widget.views)">Get</span>
                             </label>
                         </section>
                     </div>

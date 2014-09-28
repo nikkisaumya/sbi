@@ -78,6 +78,21 @@ class DatabaseService {
         return $return;
     }
 
+    public function getDatabaseViewsList(){
+        $stmt = $this->entityManager
+            ->getConnection()
+            ->prepare(
+                ' SELECT row_number() OVER (ORDER BY table_name)::integer as id, table_name as name '.
+                ' FROM INFORMATION_SCHEMA.views '.
+                ' WHERE table_schema != \'pg_catalog\' '.
+                ' AND table_schema != \'information_schema\' '
+            );
+
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
     public function getTableDefinition($name){
         $stmt = $this->entityManager
             ->getConnection()
