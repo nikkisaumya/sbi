@@ -44,17 +44,22 @@ databaseSource.$inject = ['$http', 'BASE_END_POINT'];
 function databaseSource($http, BASE_END_POINT) {
     var source =  {
         getDatabaseList: getDatabaseList,
-        getDatabaseTables: getDatabaseTables
+        getDatabaseTables: getDatabaseTables,
+        getDatabaseTableDefinition: getDatabaseTableDefinition
     };
 
     return source;
 
-    function getDatabaseList(){
+    function getDatabaseList() {
         return $http.get(BASE_END_POINT + '/databases/list');
     }
 
-    function getDatabaseTables(){
+    function getDatabaseTables() {
         return $http.get(BASE_END_POINT + '/databases/tables/list');
+    }
+
+    function getDatabaseTableDefinition(name) {
+        return $http.get(BASE_END_POINT+ '/databases/table/' + name);
     }
 }
 
@@ -202,7 +207,8 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
     };
 
     $scope.gridOptions = {
-        data: 'myData'
+        data: 'myData',
+        enableColumnResize: true
     };
 
     $scope.saveWidget = function() {
@@ -220,4 +226,21 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
             }
         });
     };
+
+    $scope.getTable = function(table) {
+        console.log(table);
+        DatabaseSourceFactory.getDatabaseTableDefinition(table.name)
+            .then(
+            function(c) {
+                if(c.status===200) {
+                    $scope.enabledCharts = true;
+                    $scope.myData = angular.copy(c.data);
+                    $scope.widget.chartType = 0;
+                }
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
+    }
 });

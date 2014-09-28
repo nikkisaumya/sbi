@@ -36,12 +36,14 @@
                     </section>
 
                     {# API #}
-                    <div ng-show="widget.source==1 || widget.source==2">
+                    <div>
                         <section ng-show="widget.source==1">
                             <h4>APIs names</h4>
-                            <label class="input">
+                            <label class="col-md-11 input">
                                 <input ng-model="apiAddress" id="api" placeholder="API source" class="input-lg" type="text">
-                                <span ng-click="getApi()" class="button pull-left">Get</span>
+                            </label>
+                            <label class="col-md-1">
+                                <span ng-click="getApi()" ng-disabled="!apiAddress" class="btn btn-primary btn-lg">Get</span>
                             </label>
                         </section>
                         <section ng-show="widget.source==2">
@@ -52,23 +54,6 @@
                             </label>
                         </section>
                         <div class="space-40"></div>
-                        <hr>
-                        <section ng-show="widget.code.length">
-                            <div class="space-20"></div>
-                            <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
-                            <div class="alert alert-danger" ng-show="widget.code.length>1000">Alert! Big file. Operation can take some time</div>
-                        </section>
-                        <section ng-if="widget.chartType==0">
-                            <div ng-bind-html="widget.code.table" style="overflow: auto; height: 500px"></div>
-                        </section>
-                        <div ng-if="widget.chartType==1">
-                            <div class="table-responsive">
-                                <div class="gridStyle" ng-grid="gridOptions"></div>
-                            </div>
-                        </div>
-                        <div ng-if="widget.chartType==2">
-                            <nvd3 options="options" data="data"></nvd3>
-                        </div>
                     </div>
 
                     {# DB #}
@@ -86,26 +71,49 @@
                                 <select ng-model="widget.queryType" class="input-lg">
                                     <option value="1">Procedure</option>
                                     <option value="2">Table</option>
-                                    <option value="3">Query</option>
+                                    <option value="3">View</option>
+                                    <option value="4">Query</option>
                                 </select> <i></i>
                             </label>
                         </section>
                         <section ng-if="widget.queryType==2">
                             <h4>Available tables</h4>
-                            <label class="select">
-                                <select ng-model="widget.tables" class="input-lg" ng-options="table.id as table.name for table in tables">
+                            <label class="col-md-11 select">
+                                <select ng-model="widget.tables"
+                                        class="input-lg"
+                                        ng-options="table.id as table.name for table in tables">
                                 </select> <i></i>
+                            </label>
+                            <label class="col-md-1">
+                                <span class="btn btn-primary btn-lg" ng-click="getTable(tables[widget.tables])">Get</span>
                             </label>
                         </section>
                     </div>
-
+                    <div class="space-80"></div>
+                    {# TABLES AND CHARTS #}
+                    <hr>
+                    <section ng-show="widget.code.length">
+                        <div class="space-20"></div>
+                        <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
+                        <div class="alert alert-danger" ng-show="widget.code.length>1000">Alert! Big file. Operation can take some time</div>
+                    </section>
+                    <section ng-if="widget.chartType==0">
+                        <div ng-bind-html="widget.code.table" style="overflow: auto; height: 500px"></div>
+                    </section>
+                    <div ng-if="widget.chartType==1">
+                        <div class="table-responsive">
+                            <div class="gridStyle" ng-grid="gridOptions"></div>
+                        </div>
+                    </div>
+                    <div ng-if="widget.chartType==2">
+                        <nvd3 options="options" data="data"></nvd3>
+                    </div>
 
 
                     {#<div ng-show="db && widget.source=='SQL'">#}
                         {#<i class="fa fa-spinner fa-spin fa-2x"></i>#}
                     {#</div>#}
 
-                    <div class="space-10"></div>
                     <footer>
                         <button class="btn btn-success" ng-click="saveWidget()" ng-disabled="form.$invalid">Save</button>
                         <button class="btn btn-default">Render graph</button>

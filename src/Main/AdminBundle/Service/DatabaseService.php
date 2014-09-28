@@ -77,4 +77,17 @@ class DatabaseService {
         }
         return $return;
     }
+
+    public function getTableDefinition($name){
+        $stmt = $this->entityManager
+            ->getConnection()
+            ->prepare(
+                'SELECT * FROM '.$name
+            );
+
+//        $stmt->bindValue('name', $name); // bind value doesn't working?
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
 }

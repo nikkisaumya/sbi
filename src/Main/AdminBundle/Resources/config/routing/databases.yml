@@ -48,7 +48,12 @@ remove_database: #Angular REST
 
 # END OF BASIC REST====================
 
-get_database_tables: #Symfony view
+get_database_tables: #Angular REST
     path:      /databases/tables/list
     defaults:  { _controller: MainAdminBundle:Databases:tablesList }
+    methods:  [GET]
+
+get_database_table_definition: #Angular REST
+    path:      /databases/table/{name}
+    defaults:  { _controller: MainAdminBundle:Databases:tableDefinition }
     methods:  [GET]
