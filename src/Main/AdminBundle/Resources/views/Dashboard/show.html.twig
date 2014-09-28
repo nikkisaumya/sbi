@@ -1,11 +1,18 @@
 {% extends "MainAdminBundle::layout.html.twig" %}
 {% block javascripts %}
     {{ parent() }}
+    {% javascripts
+    '@MainAdminBundle/Resources/public/js/Controlers/dashboardControler.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 {% block body %}
 
-<div class="col-sm-12 col-md-12">
-    <h1 class="page-header">Dashboard</h1>
+<div ng-app="sbi">
+    <div class="col-sm-12 col-md-12">
+        <h1 class="page-header">Dashboard</h1>
+    </div>
 </div>
 
 {% endblock %}

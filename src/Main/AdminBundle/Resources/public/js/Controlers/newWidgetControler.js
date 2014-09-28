@@ -1,11 +1,12 @@
-var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngGrid']);
+var app = angular.module('sbi', ['configuration', 'nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStrap.select', 'ngAnimate', 'ngGrid']);
 
 app.factory('ApiFactory', apiSource);
-apiSource.$inject = ['$http'];
+apiSource.$inject = ['$http', 'BASE_END_POINT'];
 
-function apiSource($http) {
+function apiSource($http, BASE_END_POINT) {
     var api =  {
-        getApi: getApi
+        getApi: getApi,
+        getApiSource: getApiSource
     };
 
     return api;
@@ -32,14 +33,15 @@ function apiSource($http) {
         return $http.jsonp(baseUrl, { params: params });
     }
 
-
-
+    function getApiSource() {
+        return $http.get(BASE_END_POINT + '/apis/list')
+    }
 }
 
 app.factory('DatabaseSourceFactory', databaseSource);
-databaseSource.$inject = ['$http'];
+databaseSource.$inject = ['$http', 'BASE_END_POINT'];
 
-function databaseSource($http) {
+function databaseSource($http, BASE_END_POINT) {
     var source =  {
         getDatabaseList: getDatabaseList,
         getDatabaseTables: getDatabaseTables
@@ -47,32 +49,46 @@ function databaseSource($http) {
 
     return source;
 
-    function getDatabaseList(url, callback){
-        $http.get(url + '/databases/list')
-            .success(callback)
-            .error(callback, function(error){
-                console.log('Error: ', error);
-            });
+    function getDatabaseList(){
+        return $http.get(BASE_END_POINT + '/databases/list');
     }
 
-    function getDatabaseTables(url, callback){
-        $http.get(url + '/databases/tables/list')
-            .success(callback)
-            .error(callback, function(error){
-                console.log('Error: ', error);
-            });
+    function getDatabaseTables(){
+        return $http.get(BASE_END_POINT + '/databases/tables/list');
     }
 }
 
-app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory) {
-    var url = angular.element('#baseUrl')[0].dataset.url;
-    DatabaseSourceFactory.getDatabaseList(url, function(c){
-        c.unshift({id:0, address: 'This database'});
-        $scope.dbs = c;
-    });
-    DatabaseSourceFactory.getDatabaseTables(url, function(c){
-        $scope.tables = c;
-    });
+app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactory, DatabaseSourceFactory, BASE_END_POINT) {
+    DatabaseSourceFactory.getDatabaseList()
+        .then(
+            function(c) {
+                c.data.unshift({id:0, address: 'This database'});
+                $scope.dbs = c.data;
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
+
+    DatabaseSourceFactory.getDatabaseTables()
+        .then(
+            function(c) {
+                $scope.tables = c.data;
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
+
+    ApiFactory.getApiSource()
+        .then(
+            function(c) {
+                $scope.apiSource = c.data;
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
 
     $scope.options = {
         chart: {
@@ -192,7 +208,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
     $scope.saveWidget = function() {
         $http({
             method: 'POST',
-            url: url + '/widgets/save',
+            url: BASE_END_POINT + '/widgets/save',
             data: $.param({database: JSON.stringify($scope.widget)}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(callback){

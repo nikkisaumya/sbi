@@ -45,9 +45,9 @@
                             </label>
                         </section>
                         <section ng-show="widget.source==2">
-                            <h4>Database address</h4>
+                            <h4>Api source address</h4>
                             <label class="select">
-                                <select ng-model="widget.database" class="input-lg" ng-options="db.id as db.address for db in dbs">
+                                <select ng-model="widget.apiSource" class="input-lg" ng-options="api.id as api.name for api in apiSource">
                                 </select> <i></i>
                             </label>
                         </section>
