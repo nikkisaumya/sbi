@@ -3,14 +3,14 @@ var app = angular.module('sbi', ['nvd3', 'mgcrea.ngStrap.button', 'mgcrea.ngStra
 app.factory('ApiFactory', apiSource);
 apiSource.$inject = ['$http'];
 
-function apiSource($http){
+function apiSource($http) {
     var api =  {
         getApi: getApi
     };
 
     return api;
 
-    function getApi(url){
+    function getApi(url) {
 //        get URL params
         var baseUrl = '';
         var params = {'callback': 'JSON_CALLBACK'};

@@ -38,11 +38,21 @@ class Api
     /**
      * @var array
      *
-     * @ORM\Column(name="params", type="json_array")
+     * @ORM\Column(name="params", type="json_array", nullable=true)
      */
     private $params;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean")
+     */
+    private $deleted;
 
+    public function __construct(){
+        $this->deleted = false;
+    }
+    
     /**
      * Get id
      *
@@ -120,5 +130,28 @@ class Api
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Api
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }

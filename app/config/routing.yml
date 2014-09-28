@@ -43,6 +43,9 @@ widgets:
 databases:
     resource: "@MainAdminBundle/Resources/config/routing/databases.yml"
 
+api:
+    resource: "@MainAdminBundle/Resources/config/routing/api.yml"
+
 fake_generator:
     path:      /fakeJson
     defaults:  { _controller: MainAdminBundle:Helper:getFakeJson, _format: json }

@@ -23,7 +23,7 @@
         <div ng-controller="ListWidgetCtrl">
             <table ng-table="tableParams" class="table table-condensed">
                 <tr ng-repeat="widget in $data">
-                    <td data-title="'Id'" sortable="'id'"><span ng-bind="widget.id"></span>
+                    <td data-title="'Id'" sortable="'id'"><span ng-bind="widget.id"></span></td>
                     <td data-title="'Title'" sortable="'title'">
                         <span ng-show="widget.template" class="badge">TEMPLATE</span> <span ng-bind="widget.title"></span>
                     </td>

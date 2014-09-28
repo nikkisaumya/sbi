@@ -5,3 +5,6 @@ services:
   admin.widget_service:
       class: Main\AdminBundle\Service\WidgetService
       arguments: ["@security.context", "@doctrine.orm.entity_manager"]
+  admin.api_service:
+      class: Main\AdminBundle\Service\ApiService
+      arguments: ["@security.context", "@doctrine.orm.entity_manager"]

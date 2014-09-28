@@ -10,3 +10,8 @@ bazinga_faker:
                 custom_formatters:
                     address: { method: localIpv4 }
                     port: { method: randomNumber, parameters: [4] }
+            Main\AdminBundle\Entity\Api:
+                number: 30
+                custom_formatters:
+                    url: { method: localIpv4 }
+                    name: { method: domainName }

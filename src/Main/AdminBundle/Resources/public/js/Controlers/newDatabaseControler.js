@@ -10,11 +10,9 @@ app.controller('NewDatabaseCtrl', function($scope, $filter, $http) {
             data: $.param({database: JSON.stringify($scope.database)}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(callback){
-            $.growl('Profile updated successfully', { type: 'success', delay: 2000 });
+            $.growl('Database source successfully', { type: 'success', delay: 2000 });
         }).error(function(err) {
-            if(err.field && err.msg) {
-                console.log(err.msg);
-            }
+             console.log(err);
         });
     };
 

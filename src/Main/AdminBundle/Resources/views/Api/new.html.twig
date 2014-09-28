@@ -1,0 +1,58 @@
+{% extends "MainAdminBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+
+    '@MainAdminBundle/Resources/public/js/Controlers/newApiControler.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div id="profile" data-profile="{{ app.request.get('id') }}"></div>
+        <div class="col-sm-12 col-md-12">
+            <h1 class="page-header">New Api source</h1>
+        </div>
+    </div>
+    <div ng-controller="NewApiCtrl" class="row ng-cloak">
+        <div class="col-sm-7 col-md-7">
+            <form class="form-horizontal" name="form" novalidate="">
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name" ng-model="api.name" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login" class="col-sm-2 control-label">Url</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="url" ng-model="api.url" placeholder="Url" required>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group" ng-repeat="item in params">
+                    <label for="key" class="col-sm-2 control-label">Param <span ng-bind="$index + 1"></span> </label>
+                    <div class="col-md-3">
+                        <input type="text" id="key" class="form-control" placeholder="key" ng-model="item.key">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" placeholder="value" ng-model="item.value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-danger pull-right" ng-click="addParam()">
+                        Add param <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                </div>
+                <div class="space-10"></div>
+                <div class="form-group pull-right">
+                    <button class="btn btn-default">Test</button>
+                    <button class="btn btn-info" ng-click="saveApiSource()" ng-disabled="form.$invalid">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

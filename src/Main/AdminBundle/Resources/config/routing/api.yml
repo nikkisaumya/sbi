@@ -1,0 +1,49 @@
+# BASIC REST====================
+
+get_apis: #Symfony view ------
+    path:      /apis
+    defaults:  { _controller: MainAdminBundle:Apis:getApis }
+    methods:  [GET]
+
+get_apis_list: #API #Angular REST ---------
+    path:      /apis/list
+    defaults:  { _controller: MainAdminBundle:Apis:getApisList, _format: 'json' }
+    methods:  [GET]
+
+new_api: #Symfony view -----
+    path:      /apis/new
+    defaults:  { _controller: MainAdminBundle:Apis:new }
+    methods:  [GET]
+
+save_api: #Angular REST
+    path:      /apis/save
+    defaults:  { _controller: MainAdminBundle:Apis:save }
+    methods:  [POST]
+
+patch_api: #Angular REST -----
+    path:      /apis/patch/{id}
+    defaults:  { _controller: MainAdminBundle:Apis:patch }
+    methods:  [POST]
+
+get_api: #API #Angular REST ------------
+    path:      /apis/{id}
+    defaults:  { _controller: MainAdminBundle:Apis:get, _format: 'json' }
+    methods:  [GET]
+    requirements:
+        id: \d+
+
+edit_api: #Symfony view --------
+    path:      /apis/{id}/edit
+    defaults:  { _controller: MainAdminBundle:Apis:edit }
+    methods:  [GET]
+    requirements:
+        id: \d+
+
+remove_api: #Angular REST ----------
+    path:      /apis/{id}/remove
+    defaults:  { _controller: MainAdminBundle:Apis:remove }
+    methods:  [DELETE]
+    requirements:
+        id: \d+
+
+# END OF BASIC REST====================

@@ -42,6 +42,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('get_apis') }}">API</a></li>
                 <li><a href="{{ path('get_databases') }}">Databases</a></li>
                 <li><a href="{{ path('get_users') }}">Users</a></li>
                 <li><a href="{{ path('get_widgets') }}">Widgets</a></li>
@@ -52,6 +53,7 @@
     </div>
 </div>
 {% endif %}
+<div class="space-40"></div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2"></div>
@@ -88,8 +90,7 @@
     {% endjavascripts %}
     <script>
         angular.module('configuration', [])
-                .constant('BASE_END_POINT', '{{ app.request.baseUrl  }}')
-                .constant('COMMON_API_END_POINT', '{{ app.request.getSchemeAndHttpHost()  }}');
+                .constant('BASE_END_POINT', '{{ app.request.getSchemeAndHttpHost() ~ app.request.baseUrl }}');
     </script>
 {% endblock %}
 
