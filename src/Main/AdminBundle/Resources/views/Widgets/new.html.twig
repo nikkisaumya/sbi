@@ -76,6 +76,29 @@
                                 </select> <i></i>
                             </label>
                         </section>
+                        <section ng-if="widget.queryType==1">
+                            <h4>Available procedures</h4>
+                            <label class="col-md-11 select">
+                                <select ng-model="widget.functions"
+                                        class="input-lg"
+                                        {#ng-init="showParams=false"#}
+                                        {#ng-selected="showParams = function.name"#}
+                                        ng-options="function.id as function.name for function in functions">
+                                </select> <i></i>
+                            </label>
+                            <label class="col-md-1">
+                                <span class="btn btn-primary btn-lg" ng-click="getProcedure(widget.functions)">Get</span>
+                            </label>
+                            <div class="space-20"></div>
+                            <div ng-repeat="function in functions[widget.functions]">
+                                <div ng-if="function.label">
+                                    <label class="label"><span ng-bind="function.label"></span></label>
+                                    <label class="input">
+                                        <input />
+                                    </label>
+                                </div>
+                            </div>
+                        </section>
                         <section ng-if="widget.queryType==2">
                             <h4>Available tables</h4>
                             <label class="col-md-11 select">

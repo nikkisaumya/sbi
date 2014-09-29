@@ -82,15 +82,49 @@ class DatabaseService {
         $stmt = $this->entityManager
             ->getConnection()
             ->prepare(
-                ' SELECT row_number() OVER (ORDER BY table_name)::integer as id, table_name as name '.
-                ' FROM INFORMATION_SCHEMA.views '.
-                ' WHERE table_schema != \'pg_catalog\' '.
-                ' AND table_schema != \'information_schema\' '
+                ' SELECT    row_number() OVER (ORDER BY table_name)::integer as id, '.
+                '           table_name as name '.
+                ' FROM      INFORMATION_SCHEMA.views '.
+                ' WHERE     table_schema != \'pg_catalog\' '.
+                ' AND       table_schema != \'information_schema\' '
             );
 
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
+    }
+
+    public function getDatabaseFunctionsList(){
+        $stmt = $this->entityManager
+            ->getConnection()
+            ->prepare(
+                ' SELECT        p.proname as name, '.
+                '               pg_catalog.pg_get_function_arguments(p.oid) as parameters '.
+                ' FROM          pg_catalog.pg_namespace n '.
+                ' LEFT JOIN     pg_catalog.pg_proc p ON (pronamespace = n.oid) '.
+                ' WHERE         nspname = \'public\' '
+            );
+
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        $params = [];
+        $res = [];
+        foreach($results as $key => $result){
+            if(strlen($result['parameters']) > 1){
+                $params[$key][] = explode(',', $result['parameters']);
+                foreach($params[$key][0] as $param){
+                    $ex = explode(' ', trim($param));
+                    $res[$key][] = [
+                        'label' => $ex[0],
+                        'type' => $ex[1]
+                    ];
+                    $res[$key]['name'] = $result['name'];
+                    $res[$key]['id'] = $key;
+                }
+            }
+        }
+
+        return $res;
     }
 
     public function getTableDefinition($name){

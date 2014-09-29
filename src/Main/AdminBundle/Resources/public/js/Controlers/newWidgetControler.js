@@ -46,7 +46,9 @@ function databaseSource($http, BASE_END_POINT) {
         getDatabaseList: getDatabaseList,
         getDatabaseTables: getDatabaseTables,
         getDatabaseViews: getDatabaseViews,
+        getDatabaseFunctions: getDatabaseFunctions,
         getDatabaseTableDefinition: getDatabaseTableDefinition
+
     };
 
     return source;
@@ -61,6 +63,10 @@ function databaseSource($http, BASE_END_POINT) {
 
     function getDatabaseViews() {
         return $http.get(BASE_END_POINT + '/databases/views/list');
+    }
+
+    function getDatabaseFunctions() {
+        return $http.get(BASE_END_POINT + '/databases/functions/list');
     }
 
     function getDatabaseTableDefinition(name) {
@@ -95,6 +101,16 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
         function(c) {
             console.log(c);
             $scope.views = c.data;
+        },
+        function(error) {
+            console.log(error);
+        }
+    );
+
+    DatabaseSourceFactory.getDatabaseFunctions()
+        .then(
+        function(c) {
+            $scope.functions = c.data;
         },
         function(error) {
             console.log(error);
@@ -258,11 +274,28 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
                 console.log(error);
             }
         );
-    }
+    };
 
     $scope.getView = function(view) {
         console.log(view);
         DatabaseSourceFactory.getDatabaseTableDefinition(view.name)
+            .then(
+            function(c) {
+                if(c.status===200) {
+                    $scope.enabledCharts = true;
+                    $scope.myData = angular.copy(c.data);
+                    $scope.widget.chartType = 0;
+                }
+            },
+            function(error) {
+                console.log(error);
+            }
+        );
+    };
+
+    $scope.getFunction = function(fn) {
+        console.log(fn);
+        DatabaseSourceFactory.getDatabaseTableDefinition(fn.name)
             .then(
             function(c) {
                 if(c.status===200) {

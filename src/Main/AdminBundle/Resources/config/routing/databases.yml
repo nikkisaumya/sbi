@@ -58,6 +58,11 @@ get_database_views: #Angular REST
     defaults:  { _controller: MainAdminBundle:Databases:viewsList }
     methods:  [GET]
 
+get_database_functions: #Angular REST
+    path:      /databases/functions/list
+    defaults:  { _controller: MainAdminBundle:Databases:functionsList }
+    methods:  [GET]
+
 get_database_table_definition: #Angular REST
     path:      /databases/table/{name}
     defaults:  { _controller: MainAdminBundle:Databases:tableDefinition }
