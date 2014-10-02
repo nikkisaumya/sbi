@@ -1,0 +1,20 @@
+<section ng-show="widget.source==3">
+    <label for="widgetDatabase">Database address</label>
+    <select ng-model="widget.database"
+            id="widgetDatabase"
+            class="form-control input-lg"
+            ng-options="db.id as db.address for db in dbs">
+    </select>
+</section>
+<div class="space-10"></div>
+<section ng-show="widget.source==3">
+    <label for="widgetQueryType">Query type</label>
+    <select ng-model="widget.queryType"
+            id="widgetQueryType"
+            class="form-control input-lg">
+        <option value="1">Procedure</option>
+        <option value="2">Table</option>
+        <option value="3">View</option>
+        <option value="4">Query</option>
+    </select>
+</section>

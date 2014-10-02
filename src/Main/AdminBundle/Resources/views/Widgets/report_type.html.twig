@@ -1,0 +1,60 @@
+<fieldset>
+    <h4>Report type</h4>
+    <div class="form-group">
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="0"
+                   name="radio-inline"
+                   checked>
+            <span>Static table</span>
+        </label>
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="1"
+                   name="radio-inline">
+            <span>Advanced table</span>
+        </label>
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="2"
+                   name="radio-inline">
+            <span>Plot</span>
+        </label>
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="3"
+                   name="radio-inline">
+            <span>Gauss</span>
+        </label>
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="4"
+                   name="radio-inline">
+            <span>Timeline</span>
+        </label>
+        <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
+            <input class="radiobox"
+                   type="radio"
+                   ng-disabled="!enabledCharts"
+                   ng-model="widget.chartType"
+                   value="5"
+                   name="radio-inline">
+            <span>Bar</span>
+        </label>
+    </div>
+</fieldset>

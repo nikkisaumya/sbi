@@ -1,0 +1,27 @@
+<section ng-show="widget.source==1">
+    <label for="api">APIs names</label>
+    <div class="input-group">
+        <input ng-model="apiAddress"
+               class="form-control input-lg"
+               id="api"
+               type="text"
+               placeholder="API source">
+
+        <div class="input-group-btn">
+            <button class="btn btn-default btn-lg"
+                    type="button"
+                    ng-disabled="!apiAddress"
+                    ng-click="getApi()">
+                Search
+            </button>
+        </div>
+    </div>
+</section>
+<section ng-show="widget.source==2">
+    <label for="apiSource">Api source address</label>
+    <select ng-model="widget.apiSource"
+            id="apiSource"
+            class="form-control input-lg"
+            ng-options="api.id as api.name for api in apiSource">
+    </select>
+</section>

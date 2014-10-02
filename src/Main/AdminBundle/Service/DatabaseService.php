@@ -116,7 +116,8 @@ class DatabaseService {
                     $ex = explode(' ', trim($param));
                     $res[$key - 1][] = [
                         'label' => $ex[0],
-                        'type' => $ex[1]
+                        'type' => $ex[1],
+                        'value' => ''
                     ];
                     $res[$key - 1]['name'] = $result['name'];
                     $res[$key - 1]['id'] = $key - 1;
@@ -135,6 +136,18 @@ class DatabaseService {
             );
 
 //        $stmt->bindValue('name', $name); // bind value doesn't working?
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
+    public function getFunctionDefinition($name){
+        $stmt = $this->entityManager
+            ->getConnection()
+            ->prepare(
+                'SELECT * FROM '.$name
+            );
+
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;

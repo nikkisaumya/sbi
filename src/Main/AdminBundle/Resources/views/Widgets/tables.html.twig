@@ -1,0 +1,16 @@
+<section ng-show="widget.source==3 && widget.queryType==2">
+    <label for="widgetTables">Available tables</label>
+    <div class="input-group input-group-md">
+        <select ng-model="widget.tables"
+                class="form-control input-lg"
+                id="widgetTables"
+                ng-options="table.name for table in tables">
+        </select>
+       <span class="input-group-btn">
+            <button class="btn btn-primary btn-lg"
+                    type="button"
+                    ng-click="getTable(widget.tables)">Get
+            </button>
+       </span>
+    </div>
+</section>

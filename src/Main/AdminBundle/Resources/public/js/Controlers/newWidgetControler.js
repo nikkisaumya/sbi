@@ -47,7 +47,8 @@ function databaseSource($http, BASE_END_POINT) {
         getDatabaseTables: getDatabaseTables,
         getDatabaseViews: getDatabaseViews,
         getDatabaseFunctions: getDatabaseFunctions,
-        getDatabaseTableDefinition: getDatabaseTableDefinition
+        getDatabaseTableDefinition: getDatabaseTableDefinition,
+        getDatabaseFunctionDefinition: getDatabaseFunctionDefinition
 
     };
 
@@ -71,6 +72,10 @@ function databaseSource($http, BASE_END_POINT) {
 
     function getDatabaseTableDefinition(name) {
         return $http.get(BASE_END_POINT+ '/databases/table/' + name);
+    }
+
+    function getDatabaseFunctionDefinition(name) {
+        return $http.get(BASE_END_POINT+ '/databases/function/' + name);
     }
 }
 
@@ -110,7 +115,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
     DatabaseSourceFactory.getDatabaseFunctions()
         .then(
         function(c) {
-            $scope.functions = c.data;
+            $scope.functions = angular.copy(c.data);
         },
         function(error) {
             console.log(error);
@@ -295,7 +300,7 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
 
     $scope.getFunction = function(fn) {
         console.log(fn);
-        DatabaseSourceFactory.getDatabaseTableDefinition(fn.name)
+        DatabaseSourceFactory.getDatabaseFunctionDefinition(fn.name)
             .then(
             function(c) {
                 if(c.status===200) {

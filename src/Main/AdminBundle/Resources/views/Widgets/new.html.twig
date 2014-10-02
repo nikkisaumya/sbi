@@ -22,333 +22,79 @@
              data-widget-colorbutton="false"
              data-widget-editbutton="false"
              role="widget">
-
-            <header role="heading">
-                <div class="jarviswidget-ctrls" role="menu">
-                <a href="javascript:void(0);"
-                   class="button-icon jarviswidget-toggle-btn"
-                   rel="tooltip" title=""
-                   data-placement="bottom"
-                   data-original-title="Collapse">
-                    <i class="fa fa-minus"></i>
-                </a>
-                <a href="javascript:void(0);"
-                   class="button-icon jarviswidget-fullscreen-btn"
-                   rel="tooltip"
-                   title=""
-                   data-placement="bottom"
-                   data-original-title="Fullscreen">
-                    <i class="fa fa-expand "></i>
-                </a>
-                    <a href="javascript:void(0);"
-                       class="button-icon jarviswidget-delete-btn"
-                       rel="tooltip" title=""
-                       data-placement="bottom"
-                       data-original-title="Delete">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
-                <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
-                <h2>Default Elements</h2>
-                <span class="jarviswidget-loader" style="display: none;">
-                    <i class="fa fa-refresh fa-spin"></i>
-                </span>
-            </header>
+            {# HEADER #}
+            {% include 'MainAdminBundle:Widgets:header_definition.html.twig' %}
             <div role="content" style="display: block;">
                 <div class="jarviswidget-editbox"></div>
                 <div class="widget-body">
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <section>
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input ng-model="widget.title"
-                                           id="title"
-                                           placeholder="Title"
-                                           class="form-control input-lg"
-                                           required
-                                           type="text"
-                                           maxlength="100">
-                                </div>
-                            </section>
-                            <section>
-                                <div class="form-group">
-                                    <label for="widgetSource">Report source</label>
-                                    <select id="widgetSource"
-                                            ng-model="widget.source"
-                                            required
-                                            class="form-control input-lg">
-                                    <option value="1">API url</option>
-                                        <option value="2">Definied API</option>
-                                        <option value="3">Database - SQL</option>
-                                    </select>
-                                </div>
-                            </section>
 
-                            {# API #}
+                    <fieldset>
+                        {# TITLE #}
+                        {% include 'MainAdminBundle:Widgets:title.html.twig' %}
+                        {# SOURCE #}
+                        {% include 'MainAdminBundle:Widgets:report_source.html.twig' %}
+                        {# API #}
+                        {% include 'MainAdminBundle:Widgets:api_source.html.twig' %}
+                        {# DB #}
+                        {% include 'MainAdminBundle:Widgets:db_source.html.twig' %}
+                        {# PROCEDURES #}
+                        {% include 'MainAdminBundle:Widgets:procedures.html.twig' %}
+                        {# TABLES #}
+                        {% include 'MainAdminBundle:Widgets:tables.html.twig' %}
+                        {# VIEWS #}
+                        {% include 'MainAdminBundle:Widgets:views.html.twig' %}
+                        {# FOOTER #}
+                        {% include 'MainAdminBundle:Widgets:footer_definition.html.twig' %}
+                    </fieldset>
 
-                            <section ng-show="widget.source==1">
-                                <label for="api">APIs names</label>
-                                <div class="input-group">
-                                    <input ng-model="apiAddress"
-                                           class="form-control input-lg"
-                                           id="api"
-                                           type="text"
-                                           placeholder="API source">
-
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default btn-lg"
-                                                type="button"
-                                                ng-disabled="!apiAddress"
-                                                ng-click="getApi()">
-                                        Search
-                                        </button>
-                                    </div>
-                                </div>
-                            </section>
-                            <section ng-show="widget.source==2">
-                                <label for="apiSource">Api source address</label>
-                                <select ng-model="widget.apiSource"
-                                        id="apiSource"
-                                        class="form-control input-lg"
-                                        ng-options="api.id as api.name for api in apiSource">
-                                </select>
-                            </section>
-                            <div class="space-40"></div>
-
-                            {# DB #}
-                            <div ng-show="widget.source==3">
-                                <section>
-                                    <label for="widgetDatabase">Database address</label>
-                                    <select ng-model="widget.database"
-                                            id="widgetDatabase"
-                                            class="form-control input-lg"
-                                            ng-options="db.id as db.address for db in dbs">
-                                    </select>
-                                </section>
-                                <section>
-                                    <label for="widgetQueryType">Query type</label>
-                                    <select ng-model="widget.queryType"
-                                            id="widgetQueryType"
-                                            class="form-control input-lg">
-                                        <option value="1">Procedure</option>
-                                        <option value="2">Table</option>
-                                        <option value="3">View</option>
-                                        <option value="4">Query</option>
-                                    </select>
-
-                                </section>
-                                <section ng-if="widget.queryType==1">
-                                    <label for="widgetFunctions">Available procedures</label>
-
-                                    <div class="input-group input-group-md">
-                                        <select ng-model="widget.functions"
-                                                class="form-control input-lg"
-                                                id="widgetFunctions"
-                                                ng-options="function.id as function.name for function in functions">
-                                        </select>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-lg"
-                                                    type="button"
-                                                    ng-click="getProcedure(widget.functions)">Get
-                                            </button>
-                                        </span>
-                                    </div>
-
-                                    <div class="space-20"></div>
-                                    <div ng-repeat="function in functions[widget.functions]">
-                                        <div ng-if="function.label">
-                                            <div class="form-group">
-                                                <label class="control-label col-md-2  space-10" for="">
-                                                    <span ng-bind="function.label"></span>
-                                                </label>
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="input-icon-right">
-                                                                <input class="form-control space-10" placeholder="{{ '{{ function.type }}' }}" type="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </section>
-
-                                <section ng-if="widget.queryType==2">
-                                    <label for="widgetTables">Available tables</label>
-                                    <div class="input-group input-group-md">
-                                        <select ng-model="widget.tables"
-                                                class="form-control input-lg"
-                                                id="widgetTables"
-                                                ng-options="table.name for table in tables">
-                                        </select>
-                                       <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-lg"
-                                                    type="button"
-                                                    ng-click="getTable(widget.tables)">Get
-                                            </button>
-                                       </span>
-                                    </div>
-                                </section>
-                                <section ng-if="widget.queryType==3">
-                                    <label for="widgetViews">Available views</label>
-                                    <div class="input-group input-group-md">
-                                        <select ng-model="widget.views"
-                                                id="widgetViews"
-                                                class="form-control input-lg"
-                                                ng-options="view.name for view in views">
-                                        </select>
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary btn-lg"
-                                                    type="button"
-                                                    ng-click="getView(widget.views)">Get
-                                            </button>
-                                         </span>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="space-80"></div>
-                            {# TABLES AND CHARTS #}
-                            <hr>
-                            <section ng-show="widget.code.length">
-                                <div class="space-20"></div>
-                                <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
-                                <div class="alert alert-danger" ng-show="widget.code.length>1000">
-                                    Alert! Big file. Operation can take some time
-                                </div>
-                            </section>
-                            <section ng-if="widget.chartType==0">
-                                <div ng-bind-html="widget.code.table" style="overflow: auto; height: 500px"></div>
-                            </section>
-                            <div ng-if="widget.chartType==1">
-                                <div class="table-responsive">
-                                    <div class="gridStyle" ng-grid="gridOptions"></div>
-                                </div>
-                            </div>
-                            <div ng-if="widget.chartType==2">
-                                <nvd3 options="options" data="data"></nvd3>
-                            </div>
-
-
-                            {#<div ng-show="db && widget.source=='SQL'">#}
-                            {#<i class="fa fa-spinner fa-spin fa-2x"></i>#}
-                            {#</div>#}
-
-                            <footer>
-                                <button class="btn btn-success"
-                                        ng-click="saveWidget()"
-                                        ng-disabled="form.$invalid">Save
-                                </button>
-                                <button class="btn btn-default">Render graph</button>
-                                <button class="btn btn-default">Save template</button>
-                            </footer>
-                        </fieldset>
-
-                    </form>
                 </div>
             </div>
+        </div>  {# WIDGET END #}
 
-        </div>
+        <div class="jarviswidget jarviswidget-sortable"
+             data-widget-colorbutton="false"
+             data-widget-editbutton="false"
+             role="widget">
 
+            {# HEADER #}
+            {% include 'MainAdminBundle:Widgets:header_charts.html.twig' %}
+            <div role="content" style="display: block;">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body">
+                    <fieldset>
+                        {# TABLES AND CHARTS #}
+                        <section ng-show="widget.code.length">
+                            <div class="space-20"></div>
+                            <h3>Amount of row: <b><span ng-bind="widget.code.length"></span></b></h3>
+                            <div class="alert alert-danger" ng-show="widget.code.length>1000">
+                                Alert! Big file. Operation can take some time
+                            </div>
+                        </section>
+                        <section ng-if="widget.chartType==0">
+                            <div ng-bind-html="widget.code.table" style="overflow: auto; height: 500px"></div>
+                        </section>
+                        <div ng-if="widget.chartType==1">
+                            <div class="table-responsive">
+                                <div class="gridStyle" ng-grid="gridOptions"></div>
+                            </div>
+                        </div>
+                        <div ng-if="widget.chartType==2">
+                            <nvd3 options="options" data="data"></nvd3>
+                        </div>
+
+                        {#<div ng-show="db && widget.source=='SQL'">#}
+                        {#<i class="fa fa-spinner fa-spin fa-2x"></i>#}
+                        {#</div>#}
+
+                    </fieldset>
+                </div>
+            </div>
+        </div>  {# WIDGET END #}
     </div>
     <div class="col-sm-5 col-md-5">
-        <fieldset>
-            <h4>Additional options</h4>
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input  type="checkbox"
-                            class="checkbox"
-                            name="checkbox-inline"
-                            ng-model="widget.realTime">
-                    <span>RealTime</span>
-                </label>
-                <label class="checkbox-inline">
-                    <input  type="checkbox"
-                            class="checkbox"
-                            name="checkbox-inline"
-                            ng-model="widget.private">
-                    <span>Private</span>
-                </label>
-            </div>
-        </fieldset>
-        <fieldset>
-            <h4>Report type</h4>
-            <div class="form-group">
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="0"
-                           name="radio-inline"
-                           checked>
-                    <span>Static table</span>
-                </label>
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="1"
-                           name="radio-inline">
-                    <span>Advanced table</span>
-                </label>
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="2"
-                           name="radio-inline">
-                    <span>Plot</span>
-                </label>
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="3"
-                           name="radio-inline">
-                    <span>Gauss</span>
-                </label>
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="4"
-                           name="radio-inline">
-                    <span>Timeline</span>
-                </label>
-                <label class="radio radio-inline" ng-class="!enabledCharts?'state-disabled':'' ">
-                    <input class="radiobox"
-                           type="radio"
-                           ng-disabled="!enabledCharts"
-                           ng-model="widget.chartType"
-                           value="5"
-                           name="radio-inline">
-                    <span>Bar</span>
-                </label>
-            </div>
-        </fieldset>
-        <fieldset>
-            <section ng-show="enabledCharts">
-                <h4>Code</h4>
-                <div class="form-group">
-                    <label class="textarea">
-                        <textarea ng-model="widget.code.text" disabled rows="15" class="form-control"></textarea>
-                    </label>
-                    <div class="note">
-                        View cannot be modified.
-                    </div>
-                </div>
-            </section>
-        </fieldset>
+        {% include 'MainAdminBundle:Widgets:additional_options.html.twig' %}
+        {% include 'MainAdminBundle:Widgets:report_type.html.twig' %}
+        {% include 'MainAdminBundle:Widgets:json_code.html.twig' %}
     </div>
 </form>
 </div>

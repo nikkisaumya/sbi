@@ -95,4 +95,9 @@ class DatabasesController extends Controller{
         $db = $this->get(self::DATABASE_SERVICE);
         return new JsonResponse($db->getTableDefinition($name));
     }
+
+    public function functionDefinitionAction($name){
+        $db = $this->get(self::DATABASE_SERVICE);
+        return new JsonResponse($db->getFunctionDefinition($name));
+    }
 }
