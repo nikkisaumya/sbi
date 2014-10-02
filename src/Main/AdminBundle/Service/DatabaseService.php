@@ -114,12 +114,12 @@ class DatabaseService {
                 $params[$key][] = explode(',', $result['parameters']);
                 foreach($params[$key][0] as $param){
                     $ex = explode(' ', trim($param));
-                    $res[$key][] = [
+                    $res[$key - 1][] = [
                         'label' => $ex[0],
                         'type' => $ex[1]
                     ];
-                    $res[$key]['name'] = $result['name'];
-                    $res[$key]['id'] = $key;
+                    $res[$key - 1]['name'] = $result['name'];
+                    $res[$key - 1]['id'] = $key - 1;
                 }
             }
         }
