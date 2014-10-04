@@ -75,7 +75,6 @@ function databaseSource($http, BASE_END_POINT) {
     }
 
     function getDatabaseFunctionDefinition(obj) {
-        console.log('factory', obj);
         return $http({
             method: 'POST',
             url: BASE_END_POINT + '/databases/function',
@@ -313,10 +312,13 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
                     $scope.enabledCharts = true;
                     $scope.myData = angular.copy(c.data);
                     $scope.widget.chartType = 0;
+                    console.log(c.data);
                 }
             },
             function(error) {
+                $.growl('Database error' + error, { type: 'danger' });
                 console.log(error);
+
             }
         );
     }

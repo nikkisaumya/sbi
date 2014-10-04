@@ -101,6 +101,11 @@ class DatabasesController extends Controller{
         $json = $request->get('obj');
         $data = json_decode($json);
         $db = $this->get(self::DATABASE_SERVICE);
-        return new JsonResponse($db->getFunctionDefinition($data));
+        try{
+            return new JsonResponse($db->getFunctionDefinition($data));
+        }catch (\DBALException $e){
+            return new JsonResponse('error');
+        }
+
     }
 }

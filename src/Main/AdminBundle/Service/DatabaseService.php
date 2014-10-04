@@ -114,15 +114,19 @@ class DatabaseService {
                 $params[$key][] = explode(',', $result['parameters']);
                 foreach($params[$key][0] as $param){
                     $ex = explode(' ', trim($param));
-                    $res[$key - 1][] = [
+                    $res[$key][] = [
                         'label' => $ex[0],
                         'type' => $ex[1],
                         'value' => ''
                     ];
-                    $res[$key - 1]['name'] = $result['name'];
-                    $res[$key - 1]['id'] = $key - 1;
-//                    $res[$key - 1]['size'] = count($ex);
+                    $res[$key]['name'] = $result['name'];
+                    $res[$key]['id'] = $key;
+                    $res[$key]['size'] = count($res[$key]) - 3 == 0 ? 1 : count($res[$key]) - 3;
                 }
+            }else{
+                $res[$key]['name'] = $result['name'];
+                $res[$key]['id'] = $key;
+                $res[$key]['size'] = 0;
             }
         }
 
@@ -143,13 +147,26 @@ class DatabaseService {
     }
 
     public function getFunctionDefinition($data){
-        $stmt = $this->entityManager
-            ->getConnection()
-            ->prepare(
-                'SELECT * FROM '.$data->name.'();'
-            );
+        $params = [];
+        foreach($data as $v){
+            if(is_object($v)){
+                $params[] = $v->value;
+            }
+        }
+        if(count($params)!=0){
+            $sql = "SELECT * FROM ".pg_escape_string($data->name)."('".implode("','", $params)."');";
+        }else{
+            $sql = "SELECT * FROM ".pg_escape_string($data->name)."();";
+        }
+        try{
+            $stmt = $this->entityManager
+                ->getConnection()
+                ->prepare($sql)
+                ->execute();
+        }catch (\DBALException $e){
+            return $e->getMessage();
+        }
 
-        $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
     }

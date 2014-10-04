@@ -4,7 +4,7 @@
     <select ng-model="widget.functions"
             class="form-control input-lg"
             id="widgetFunctions"
-            {#ng-options="function.id as (function.name + ' (' + functions.length + ')') for function in functions"#}
+            ng-options="function.id as (function.name + ' (' + function.size + ')') for function in functions"
             >
     </select>
     <div class="space-20"></div>
