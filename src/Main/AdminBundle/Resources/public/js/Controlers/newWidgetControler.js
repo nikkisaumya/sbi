@@ -71,11 +71,17 @@ function databaseSource($http, BASE_END_POINT) {
     }
 
     function getDatabaseTableDefinition(name) {
-        return $http.get(BASE_END_POINT+ '/databases/table/' + name);
+        return $http.get(BASE_END_POINT + '/databases/table/' + name);
     }
 
-    function getDatabaseFunctionDefinition(name) {
-        return $http.get(BASE_END_POINT+ '/databases/function/' + name);
+    function getDatabaseFunctionDefinition(obj) {
+        console.log('factory', obj);
+        return $http({
+            method: 'POST',
+            url: BASE_END_POINT + '/databases/function',
+            data: $.param({obj: JSON.stringify(obj)}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
     }
 }
 
@@ -299,8 +305,8 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
     };
 
     $scope.getFunction = function(fn) {
-        console.log(fn);
-        DatabaseSourceFactory.getDatabaseFunctionDefinition(fn.name)
+        console.log('get function say: ', fn);
+        DatabaseSourceFactory.getDatabaseFunctionDefinition(fn)
             .then(
             function(c) {
                 if(c.status===200) {

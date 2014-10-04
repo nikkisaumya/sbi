@@ -4,6 +4,7 @@ namespace Main\AdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -96,8 +97,10 @@ class DatabasesController extends Controller{
         return new JsonResponse($db->getTableDefinition($name));
     }
 
-    public function functionDefinitionAction($name){
+    public function functionDefinitionAction(Request $request){
+        $json = $request->get('obj');
+        $data = json_decode($json);
         $db = $this->get(self::DATABASE_SERVICE);
-        return new JsonResponse($db->getFunctionDefinition($name));
+        return new JsonResponse($db->getFunctionDefinition($data));
     }
 }

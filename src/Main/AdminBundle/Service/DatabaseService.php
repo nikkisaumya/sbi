@@ -121,6 +121,7 @@ class DatabaseService {
                     ];
                     $res[$key - 1]['name'] = $result['name'];
                     $res[$key - 1]['id'] = $key - 1;
+//                    $res[$key - 1]['size'] = count($ex);
                 }
             }
         }
@@ -141,11 +142,11 @@ class DatabaseService {
         return $result;
     }
 
-    public function getFunctionDefinition($name){
+    public function getFunctionDefinition($data){
         $stmt = $this->entityManager
             ->getConnection()
             ->prepare(
-                'SELECT * FROM '.$name
+                'SELECT * FROM '.$data->name.'();'
             );
 
         $stmt->execute();
