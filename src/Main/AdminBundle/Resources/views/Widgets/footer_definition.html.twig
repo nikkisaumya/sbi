@@ -5,7 +5,7 @@
         <div class="footer pull-right">
             <button class="btn btn-success"
                     ng-click="saveWidget()"
-                    ng-disabled="form.$invalid">Save
+                    ng-disabled="!enabledCharts && !widget.title">Save
             </button>
             <button class="btn btn-default"
                     ng-show="widget.functions || widget.functions==false"

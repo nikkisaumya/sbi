@@ -3,7 +3,6 @@
 namespace Main\AdminBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Main\AdminBundle\Entity\Databases;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -133,14 +132,16 @@ class DatabaseService {
         return $res;
     }
 
+// have to be better solution than this one
+// maybe better map all new databases to entity
+// Using a PHP Database function (like pg_escape_string() here) makes the code less portable.
     public function getTableDefinition($name){
         $stmt = $this->entityManager
             ->getConnection()
             ->prepare(
-                'SELECT * FROM '.$name
+                'SELECT * FROM '.pg_escape_string($name)
             );
 
-//        $stmt->bindValue('name', $name); // bind value doesn't working?
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
@@ -150,7 +151,7 @@ class DatabaseService {
         $params = [];
         foreach($data as $v){
             if(is_object($v)){
-                $params[] = $v->value;
+                $params[] = pg_escape_string($v->value);
             }
         }
         if(count($params)!=0){
@@ -161,12 +162,12 @@ class DatabaseService {
         try{
             $stmt = $this->entityManager
                 ->getConnection()
-                ->prepare($sql)
-                ->execute();
+                ->prepare($sql);
         }catch (\DBALException $e){
-            return $e->getMessage();
+            return 'error';
         }
 
+        $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
     }
