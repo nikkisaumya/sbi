@@ -12,6 +12,11 @@
                     ng-disabled="form.$required"
                     ng-click="getFunction(functions[widget.functions])">Render graph
             </button>
+            {#<button class="btn btn-default"#}
+                    {#ng-show="widget.apiSource || widget.apiSource==false"#}
+                    {#ng-disabled="form.$required"#}
+                    {#ng-click="getDefinedApi(apis[widget.apiSource])">Render graph#}
+            {#</button>#}
             <button class="btn btn-default">Save template</button>
         </div>
     </div>

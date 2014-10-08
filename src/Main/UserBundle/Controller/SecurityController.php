@@ -22,13 +22,11 @@ class SecurityController extends BaseController
         } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
             $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
             $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
-//            return new RedirectResponse($this->get('router')->generate('fos_user_security_login'));
         } else {
             $error = '';
         }
 
         if ($error) {
-            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
             $error = $error->getMessage();
         }
         // last username entered by the user

@@ -15,3 +15,4 @@ bazinga_faker:
                 custom_formatters:
                     url: { method: localIpv4 }
                     name: { method: domainName }
+                    

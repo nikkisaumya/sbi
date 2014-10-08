@@ -63,7 +63,7 @@ class WidgetService {
         $this->entityManager->flush();
         return true;
     }
-//    TODO move it to UserService
+
     public function getUser(){
         $user = $this->securityContext->getToken()->getUser()->getId();
         $userRepository = $this->entityManager

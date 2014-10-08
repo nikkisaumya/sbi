@@ -22,6 +22,7 @@
     <select ng-model="widget.apiSource"
             id="apiSource"
             class="form-control input-lg"
-            ng-options="api.id as api.name for api in apiSource">
+            ng-options="api.id as api.name for api in apiSource"
+            ng-change="getDefinedApi(widget.apiSource)">
     </select>
 </section>

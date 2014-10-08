@@ -13,12 +13,12 @@ get_userProfile:
     defaults:  { _controller: MainAdminBundle:UserProfile:get }
     methods:  [GET]
 
-put_userProfile:
-    path:      /userProfile/{id}/
-    defaults:  { _controller: MainAdminBundle:UserProfile:put }
-    methods:  [PUT]
-
-delete_userProfile:
-    path:      /userProfile/{id}/
-    defaults:  { _controller: MainAdminBundle:UserProfile:delete }
-    methods:  [DELETE]
+#put_userProfile:
+#    path:      /userProfile/{id}/
+#    defaults:  { _controller: MainAdminBundle:UserProfile:put }
+#    methods:  [PUT]
+#
+#delete_userProfile:
+#    path:      /userProfile/{id}/
+#    defaults:  { _controller: MainAdminBundle:UserProfile:delete }
+#    methods:  [DELETE]

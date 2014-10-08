@@ -6,7 +6,9 @@ apiSource.$inject = ['$http', 'BASE_END_POINT'];
 function apiSource($http, BASE_END_POINT) {
     var api =  {
         getApi: getApi,
-        getApiSource: getApiSource
+        getApiSource: getApiSource,
+        getDefinedApi: getDefinedApi,
+        getJson: getJson
     };
 
     return api;
@@ -34,7 +36,15 @@ function apiSource($http, BASE_END_POINT) {
     }
 
     function getApiSource() {
-        return $http.get(BASE_END_POINT + '/apis/list')
+        return $http.get(BASE_END_POINT + '/apis/list');
+    }
+
+    function getDefinedApi(id) {
+        return $http.get(BASE_END_POINT + '/apis/' + id);
+    }
+
+    function getJson(url, params) {
+        return $http.jsonp(url, { params: params });
     }
 }
 
@@ -248,6 +258,22 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
 
     };
 
+    $scope.getDefinedApi = function(id) {
+        ApiFactory.getDefinedApi(id).then(
+            function(payload) {
+                ApiFactory.getJson(payload.data.url, payload.data.params).then(
+                    function(c) {
+                        if(c.status===200) {
+                            console.log(c.data);
+                            $scope.enabledCharts = true;
+                            $scope.myData = angular.copy(c.data);
+                            $scope.widget.chartType = 0;
+                        }
+                    });
+            });
+
+    };
+
     $scope.gridOptions = {
         data: 'myData',
         enableColumnResize: true
@@ -259,13 +285,11 @@ app.controller('NewWidgetCtrl', function($scope, $filter, $http, $sce, ApiFactor
             url: BASE_END_POINT + '/widgets/save',
             data: $.param({database: JSON.stringify($scope.widget)}),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(callback){
+        }).success(function(){
             $.growl('Widget updated successfully', { type: 'success', delay: 2000 });
         }).error(function(err) {
-            if(err.field && err.msg) {
-                $.growl('Database error', { type: 'danger' });
-                console.log(err.msg);
-            }
+            $.growl('Database error', { type: 'danger' });
+            console.log(err);
         });
     };
 
