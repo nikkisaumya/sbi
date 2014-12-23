@@ -24,7 +24,8 @@ framework:
     session:
         cookie_lifetime:         3600
         cookie_httponly:         false
-        handler_id:  ~
+        handler_id: session.handler.native_file
+        save_path: "%kernel.root_dir%/sessions"
     fragments:       ~
     http_method_override: true
 
@@ -79,9 +80,3 @@ fos_user:
     user_class: Main\UserBundle\Entity\Users
 
 
-#services:
-#  access_listener:
-#    class: Main\UserBundle\Listener\AccessListener
-#    arguments: [ @security.context, @router ]
-#    tags:
-#      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -68,7 +68,9 @@
 </div>
 {% block javascripts %}
     {% javascripts
-    '@jquery_js' '@angular_js' '@pace_js'
+    '@jquery_js'
+    '@angular_js'
+    '@pace_js'
 
     'assets/vendor/angular-route/angular-route.js'
     'assets/vendor/angular-animate/angular-animate.js'
@@ -84,6 +86,7 @@
     'assets/vendor/angular-ui-ace/ui-ace.js'
     '@lodash'
     '@nggrid_js'
+    '@admin_js'
 
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

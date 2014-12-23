@@ -42,3 +42,7 @@ assetic:
         nggrid_js:
             inputs:
                - '%kernel.root_dir%/../web/assets/vendor/ng-grid/ng-grid-2.0.13.min.js'
+        admin_js:
+            inputs:
+               - '@MainAdminBundle/Resources/public/js/*'
+               - '@MainAdminBundle/Resources/public/js/*/*'
